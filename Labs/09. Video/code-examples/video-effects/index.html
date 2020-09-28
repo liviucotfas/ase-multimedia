@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>HTML5 Video Effects (pixel manipulation)</title>
+
+    <link 
+        rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="alert alert-info">
+            The video might not be processed correctly due to HTTP access control (CORS). If this is the case, in Chrome Developer tools
+            (Console tab) the following error will be displayed: "Unable to get image data from canvas because the canvas
+            has been tainted by cross-origin data". Learn more about HTTP access control (CORS) <a title="HTTP access control (CORS)"
+                href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank">here</a>.
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6"> <!-- What does col-ms-6 mean? Check http://getbootstrap.com/css/#grid -->
+                <h2>Original</h2>
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video id="video" controls autoplay loop muted crossorigin="anonymous" class="embed-responsive-item">
+                        <source src="../media/tears-of-steel-battle-clip-medium.mp4" type="video/mp4" />
+                        <source src="../media/tears-of-steel-battle-clip-medium.ogg" type="video/ogg" /> 
+                        Your browser doesn't support HTML5 video.
+                    </video>
+                </div>
+                <br>
+            </div>
+
+            <div class="col-sm-6">
+                <h2>Transformed</h2>
+                    <canvas id="canvasProcessed"></canvas>
+            </div>
+        </div>
+
+        <div class="btn-toolbar" role="toolbar" aria-label="...">
+            <div class="btn-group" role="group" aria-label="...">
+                <!-- https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes -->
+                <button type="button" class="btn btn-default effectType" data-effect="normal">Normal</button>
+            </div>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default effectType" data-effect="rotation">Rotation</button>
+                <button type="button" class="btn btn-default effectType" data-effect="emboss">Emboss</button>
+                <button type="button" class="btn btn-default effectType" data-effect="blackWhite">Black & White</button>
+                <button type="button" class="btn btn-default effectType" data-effect="threshold">Threshold</button>
+                <button type="button" class="btn btn-default effectType" data-effect="sephia">Sephia</button>
+                <button type="button" class="btn btn-default effectType" data-effect="invert">Invert Colors</button>
+                <button type="button" class="btn btn-default effectType" data-effect="pixelate">Pixelate</button>
+                <button type="button" class="btn btn-default effectType" data-effect="twoChannels">2 Channels</button>
+                <button type="button" class="btn btn-default effectType" data-effect="red">Red</button>
+                <button type="button" class="btn btn-default effectType" data-effect="green">Green</button>
+                <button type="button" class="btn btn-default effectType" data-effect="blue">Blue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/video-effects.js"></script>
+</body>
+
+</html>

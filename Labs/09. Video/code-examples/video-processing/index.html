@@ -1,0 +1,99 @@
+﻿<!--- Assignment
+1. How can we improve the efficacy of the processing (think about changing the let imageData = context.getImageData(0, 0, W, H);)?
+2. Change the code bellow to display the video in grayscale.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Video - Processing</title>
+
+    <link 
+        rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="alert alert-info">
+            The video might not be processed correctly due to HTTP access control (CORS). If this is the case, in Chrome Developer
+            tools (Console tab) the following error will be displayed: "Unable to get image data from canvas because the
+            canvas has been tainted by cross-origin data". Learn more about HTTP access control (CORS) <a title="HTTP access control (CORS)"
+                href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank">here</a>.
+        </div>
+
+        <video id="video" controls autoplay crossorigin="anonymous">
+            <source src="../media/tears-of-steel-battle-clip-medium.mp4" type="video/mp4" />
+            <source src="../media/tears-of-steel-battle-clip-medium.ogg" type="video/ogg" />
+             Your browser doesn't support HTML5 video.
+        </video>
+        <br>
+        <canvas id="canvas"></canvas>
+
+    </div>
+
+    <script type="text/javascript">
+    "use strict";
+
+    let video = document.getElementById("video");
+    let canvas = document.getElementById("canvas"); 
+    let context = canvas.getContext("2d");
+
+    //resize the video
+    video.addEventListener('canplay', function(){
+        canvas.width = video.clientWidth;
+        canvas.height = video.clientHeight;
+    });
+
+    //draw the video on the canvas
+    function draw () {
+        context.drawImage(video, 0, 0);
+        let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        let pixels = imageData.data;
+
+        for (let y = 0; y < imageData.height; y++) {
+            for (let x = 0; x < imageData.width; x++) {
+
+                //      pixels[i] - Red
+                //      pixels[i+1] - Green
+                //      pixels[i+2] - Blue
+                //      pixels[i+3] - Opacity
+                let offset = (( imageData.width * y) + x) * 4;
+
+                //make the first 30 lines darker
+                if (y < 30) {
+                    pixels[offset] /= 2;
+                    pixels[offset + 1] /= 2;
+                    pixels[offset + 2] /= 2;
+                }
+            }
+        }
+
+        context.putImageData(imageData, 0, 0);
+
+        context.font = 'bold 16px sans-serif';
+        context.fillStyle = "white";
+        context.fillText("Time: " + video.currentTime.toFixed(1) + "s", 10, 22);
+        //The toFixed() method formats a number using fixed-point notation
+        //Number.prototype.toFixed(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
+
+        requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+
+    //An alternative approach would be to use setTimeout()
+    //The setTimeout() method calls a function or evaluates an expression after a specified number of milliseconds.
+    //Tip: 1000 ms = 1 second.
+    //33ms ~= 30fps
+</script>
+</body>
+
+</html>

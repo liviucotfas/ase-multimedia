@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html> 
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Image Editor</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+
+    <script src="image-editor.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="image-editor.css">
+    
+    <!-- Add to home screen -->
+    <link rel="manifest" href="manifest.json">
+    
+    <meta name="theme-color" content="#2F3BA2">
+    <link rel="icon" sizes="192x192" href="img/icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Image Editor">
+    <link rel="apple-touch-icon" href="img/icons/icon-152x152.png">
+    <meta name="msapplication-TileImage" content="img/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#2F3BA2">
+</head>
+
+<body style="text-align:center;">
+    <img id="processedImage" style="
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        max-width:100%; width:auto; height: auto; max-height: 600px">
+
+    <div style="
+        background-color: rgba(200,200,200,0.8);
+        padding: 10px;
+        position: fixed; 
+        top:10px; left: 50%; 
+        transform: translate(-50%);">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
+        <input type="file" id="fileBrowser" name="fileBrowser" value="Choose image"
+            accept="image/*">
+    </div>
+
+    <!--  Why margin-right" -50%? https://www.w3.org/Style/Examples/007/center.en.html -->
+    <div style="
+        background-color: rgba(200,200,200,0.8);
+        padding: 10px;
+        position: fixed; 
+        bottom: 10px; left: 50%; 
+        transform: translate(-50%); 
+        margin-right: -50%;">
+
+        <!-- https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes -->
+        <button type="button" class="effectType" data-effect="normal">Normal</button>
+
+        <button type="button" class="effectType" data-effect="grayscale">Grayscale</button>
+        <button type="button" class="effectType" data-effect="threshold">Threshold</button>
+        <button type="button" class="effectType" data-effect="sephia">Sephia</button>
+        <button type="button" class="effectType" data-effect="invert">Invert Colors</button>
+        <button type="button" class="effectType" data-effect="pixelate">Pixelate</button>
+        <button type="button" class="effectType" data-effect="twoChannels">2 Channels</button>
+        <button type="button" class="effectType" data-effect="red">Red</button>
+        <button type="button" class="effectType" data-effect="green">Green</button>
+        <button type="button" class="effectType" data-effect="blue">Blue</button>
+
+        <a id="donwloadLink" href="#" download="processedImage">
+            <!-- 
+                download attribute: download file when clicking on the link (instead of navigating to the file)
+                http://www.w3schools.com/tags/att_a_download.asp
+            -->
+            Download
+        </a>
+    </div>
+
+    <div class="loader" style="display: none">
+        <div id="spinner"></div>
+    </div>
+    <script>
+        app.load();
+    </script>
+</body>
+
+</html>

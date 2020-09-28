@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HttpProxyServer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/proxy/</Value>
+    </Setting>
+    <Setting Name="ProxyServerUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://cache.ase.ro:8080/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,60 @@
+﻿<!-- Assignment
+1. Display the corresponding value above each bar
+2. Display the value using the black color (don't change the color of the bars)
+3. Center the displayed values horizontally against the corresponding bar
+Hint: use the measureText method
+4. Add a separate button for downloading the barchart 
+Hint: use an "a" element
+5. (optional) Check http://www.chartjs.org/ and try to implement some of its features in the current example
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BarChart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    
+    <script src="canvas-bar-chart-library.js"></script>
+</head>
+
+<body>
+    <form>
+        <input id="tbValues" type="text" value="12, 13, 3, 2, 1, 10, 7, 18">
+        <input id="btnDrawChart" type="button" value="Draw chart">
+    </form>
+
+    Click on the bar chart to donwload it<br>
+    <a href="#" download="barchart">
+        <canvas id="canvasBarChart" style="width: 300px; height: 200px">
+            Your browser does not support the canvas element. :(
+        </canvas>
+    </a>
+
+    <script type="text/javascript">
+        'use strict';
+
+        let canvasBarChart = document.getElementById('canvasBarChart');
+        let btnDrawChart = document.getElementById('btnDrawChart');
+
+        let barChart = new BarChart(canvasBarChart);
+
+        btnDrawChart.addEventListener('click', function () {
+            let tbValues = document.getElementById('tbValues');
+            let values = tbValues.value;
+
+            //the eval() function evaluates JavaScript code represented as a string.
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
+            barChart.draw(eval('[' + values + ']'));
+        });
+
+        //?After an event triggers on the deepest possible element, it then triggers on parents in nesting order
+        //https://javascript.info/tutorial/bubbling-and-capturing
+        canvasBarChart.addEventListener('click', function () {
+            this.parentNode.setAttribute('href', this.toDataURL('image/png'));
+        });
+    
+    </script>
+</body>
+
+</html>

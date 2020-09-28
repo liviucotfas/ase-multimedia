@@ -1,0 +1,14 @@
+﻿body 
+{
+	user-select:none;
+}
+
+div.ball
+{
+	width: 30px;
+	height: 30px;
+	background-color: Red;
+	
+	border:2px solid;
+	border-radius:8px;
+}

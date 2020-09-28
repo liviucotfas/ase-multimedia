@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Telephone Agenda</title>
+    <link 
+        rel="stylesheet" 
+        href="css/agenda-jQuery.css"
+        type="text/css">
+    <script 
+        src="https://code.jquery.com/jquery-latest.js"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>
+        Telephone Agenda</h1>
+    <table>
+        <caption>
+            Lista persoane
+        </caption>
+        <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Telefon</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form action="#" class="controls">
+        <label for="nume">Nume:</label>
+        <input name="nume" id="nume">
+    
+        <label for="prenume">Prenume:</label>
+        <input name="prenume" id="prenume">
+        
+        <label for="Telefon">Telefon:</label>
+        <input name="telefon" id="telefon">
+        
+        <input type="button" id="btnAdauga" name="btnAdauga" value="Adaugă">
+    </form>
+
+    <script>
+       $(function () {
+           $("#btnAdauga").click(function () {
+               $("<tr></tr>")
+                       .append($("<td></td>").append($("#nume").val()))
+                       .append($("<td></td>").append($("#prenume").val()))
+                       .append($("<td></td>").append($("#telefon").val()))
+                       .appendTo("tbody");
+
+               $("tfoot td").text("Număr persoane: " + $("tbody tr").length.toString());
+           });
+       });
+    </script>
+</body>
+</html>

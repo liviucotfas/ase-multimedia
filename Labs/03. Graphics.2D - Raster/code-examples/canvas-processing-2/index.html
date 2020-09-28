@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Image - Process</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+   
+    <link 
+        rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous">
+
+    <script 
+        src="histogram-library.js"></script>
+    <script 
+        src="drawing-library.js"></script>
+    <script 
+        src="canvas-processing-2.js"></script>
+</head>
+<body>
+    <div class="container">       
+        <div>
+            <label for="fileBrowser">Choose file to upload</label>
+            <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
+            <input type="file" id="fileBrowser" name="fileBrowser" value="Choose image"
+                accept="image/*">
+        </div>
+
+        <h2>Image</h2>
+        <canvas id="result" width="300" height="200"></canvas>
+        <h2>Histogram</h2>
+        <canvas id="histogram" width="512" height="200"></canvas>
+    </div>
+
+    <script>
+        let app = new App(document.getElementById('result'), document.getElementById('histogram'));
+
+        document.getElementById('fileBrowser')
+            .addEventListener('change', function(e){ app.loadFile(e.target.files[0]); });
+
+    </script>
+</body>
+</html>

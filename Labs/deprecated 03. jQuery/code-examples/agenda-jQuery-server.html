@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Telephone Agenda</title>
+   <link 
+        rel="stylesheet" 
+        href="css/agenda-jQuery.css"
+        type="text/css">
+    <script 
+        src="https://code.jquery.com/jquery-latest.js"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>
+        Telephone Agenda</h1>
+    <table>
+        <caption>
+            Lista persoane
+        </caption>
+        <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Telefon</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form action="#" class="controls">
+        <label for="nume">Nume:</label>
+        <input name="nume" id="nume">
+    
+        <label for="prenume">Prenume:</label>
+        <input name="prenume" id="prenume">
+        
+        <label for="Telefon">Telefon:</label>
+        <input name="telefon" id="telefon">
+        
+        <input type="button" id="btnAdauga" name="btnAdauga" value="Adaugă">
+    </form>
+
+    <script type="text/javascript">    
+        // Varianta folosind jQuery și server la distanță
+        $(document).ready(function () {
+
+            $.support.cors = true;
+
+            var serverUrl = "http://ase.softmentor.ro/agenda";
+            var listaPersoane = [];
+
+            function afisareListaPersoane() {
+                $("tbody").empty();
+
+                for (var i = 0; i < listaPersoane.length; i++) {
+                    var p = listaPersoane[i];
+
+                    $("<tr></tr>")
+                        .append($("<td></td>").append(p.nume))
+                        .append($("<td></td>").append(p.prenume))
+                        .append($("<td></td>").append(p.telefon))
+                        .appendTo("tbody");
+                }
+
+                //tfoot td - descendant CSS selector
+                $("tfoot td").text("Număr persoane: " + listaPersoane.length.toString());
+            }
+
+            function afisareListaServer() {
+                $.getJSON(serverUrl, function (dateServer) {
+                    listaPersoane = dateServer;
+                    afisareListaPersoane();
+                });
+            }
+
+            $("input[name='btnAdauga']").click(function () {
+
+                var persoana = {
+                    nume: $("#nume").val(),
+                    prenume: $("#prenume").val(),
+                    telefon: $("#telefon").val()
+                };
+
+                $.post(serverUrl, JSON.stringify(persoana));
+
+                afisareListaServer();
+            });
+
+            afisareListaServer();
+            setInterval(afisareListaServer, 3000); //3000ms = 3s
+        });
+    </script>
+</body>
+</html>

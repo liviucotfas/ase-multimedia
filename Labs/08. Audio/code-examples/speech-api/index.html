@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Speech API</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous">
+
+  <style type="text/css">
+    .btn-circle {
+      border-radius: 50%;
+      padding: 0.7em;
+      background-color: white;
+    }
+
+    button:focus {
+      outline: 0;
+    }
+
+    .bs-callout {
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid #eee;
+      border-left-width: 5px;
+      border-radius: 3px;
+    }
+
+    .bs-callout-warning {
+      border-left-color: #f0ad4e;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
+  <script src="speech-api.js"></script>
+
+</head>
+
+<body class="container">
+  <div class="row justify-content-md-center align-items-center" style="margin-top:10px">
+    <div class="col-md-1">
+      <button onclick="startButton(event)" class="btn-circle">
+        <img id="start_img" src="img/mic.gif">
+      </button>
+    </div>
+
+    <div class="col-md-11">
+      <div id="info" class="bs-callout bs-callout-warning">
+        <p id="info_start">Click on the microphone icon and begin speaking for as long as you like.</p>
+        <p id="info_speak_now" style="display:none">Speak now.</p>
+        <p id="info_no_speech" style="display:none">
+          No speech was detected. You may need to adjust your
+          <a href="https://support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">microphone settings
+          </a>.
+        </p>
+        <p id="info_no_microphone" style="display:none">
+          No microphone was found. Ensure that a microphone is installed and that
+          <a href="https://support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+            microphone settings</a> are configured correctly.
+        </p>
+        <p id="info_allow" style="display:none">
+          Click the "Allow" button above to enable your microphone.
+        </p>
+        <p id="info_denied" style="display:none">
+          Permission to use microphone was denied.
+        </p>
+        <p id="info_blocked" style="display:none">
+          Permission to use microphone is blocked. To change, go to chrome://settings/contentExceptions#media-stream
+        </p>
+        <p id="info_upgrade" style="display:none">
+          Web Speech API is not supported by this browser. Upgrade to
+          <a href="https://www.google.com/chrome">Chrome</a> version 25 or later.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="results" style="margin-top:10px">
+    <div class="alert">
+      <span style="font-weight: bold">Recognized text:</span>
+      <span id="interim_span"></span>
+    </div>
+
+    <textarea class="form-control" rows="15" id="final_span"></textarea>
+  </div>
+
+</body>
+
+</html>

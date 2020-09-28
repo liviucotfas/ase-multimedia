@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <title>HTML5 Web Audio API</title>
+
+  <!--More info: https://www.w3.org/TR/html5/document-metadata.html#the-link-element -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>HMTL5 Web Audio API</h1>
+    The sample analyzes the audio input from the microphone of the laptop / smartphone .
+    <canvas id="canvas" style="width:100%"></canvas>
+
+    <form>
+      <div class="form-group">
+        <label for="visual">Visualizer setting</label>
+        <select id="visual" name="visual" class="form-control">
+          <option disabled selected>Choose</option>
+          <option value="sinewave">Sinewave</option>
+          <option value="frequencybars">Frequency bars</option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <script src="sound-analyser-library.js"></script>
+  <script>
+    //Variables
+    const canvas = document.getElementById('canvas');
+    const visualSelect = document.getElementById("visual");
+
+    const soundAnalyser = new SoundAnalyser(canvas);
+
+    //Methods
+    function resizeCanvas() {
+      //reset canvas width and height to match the display values
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    }
+
+    //Subscribe to events
+    window.addEventListener("resize", resizeCanvas);
+
+    visualSelect.addEventListener("change", function () {
+      soundAnalyser.display(this.value);
+    });
+
+    //Start
+    resizeCanvas();
+
+    if (navigator.mediaDevices.getUserMedia) {
+      //The MediaDevices.getUserMedia() method prompts the user for permission to use one video and/or one audio input device such as a camera or screensharing and/or a microphone. 
+      //Part of WebRTC API
+      //More details: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+      navigator.mediaDevices.getUserMedia(
+        {
+          audio: true // constraints - only audio needed for this app
+        })
+        .then((stream) => {
+          soundAnalyser.setStreamSource(stream);
+        })
+        .catch(function (err) {
+          alert(err.messsage);
+        });
+    }
+  </script>
+</body>
+
+</html>

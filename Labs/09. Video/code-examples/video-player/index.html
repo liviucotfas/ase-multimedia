@@ -1,0 +1,80 @@
+﻿<!--- Assignment
+1. Allow the user to play/pause the video, by clicking anywhere inside the video file.
+HINT: Handle the click event.
+2. Add a new button for mute /unmute
+HINT: check the properties of the media element at https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement
+3. Update the text on btnStop when the user plays/pauses the video using the browser video controls
+HINT: check the events fired on the media element at https://www.w3.org/TR/html5/embedded-content-0.html#mediaevents
+4. Update the text on the mute/unmute button when the user mutes /unmutes the video using the browser video controls
+HINT: check the events fired on the media element at https://www.w3.org/TR/html5/embedded-content-0.html#mediaevents
+5. Follow the steps at 
+https://developer.mozilla.org/en-US/Apps/Fundamentals/Audio_and_video_delivery/Adding_captions_and_subtitles_to_HTML5_video 
+for building a more complex video player that also displays subtitles in different languages
+Full source code available at: https://github.com/iandevlin/iandevlin.github.io/tree/master/mdn/video-player-with-captions
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Video - Simple Player</title>
+</head>
+
+<body>
+
+    <video id="video">
+        <source src="../media/tears-of-steel-battle-clip-medium.mp4" type="video/mp4" />
+        <source src="../media/tears-of-steel-battle-clip-medium.ogg" type="video/ogg" />
+        Your browser doesn't support HTML5 video.
+    </video>
+
+    <div class="controls">
+        <a id="btnStop" href="#">Pause</a>
+        <a id="btnControls" href="#">Hide Controls</a>
+    </div>
+
+    <script>
+        "use strict";
+
+        let video = document.getElementById("video");
+        let btnStop = document.getElementById("btnStop");
+        let btnControls = document.getElementById('btnControls');
+
+        //Play/Pause
+        btnStop.addEventListener('click', function (e) {
+
+            //prevent the browser from navigating to # (adding # to the url)
+            //https://api.jquery.com/event.preventdefault/
+            //http://stackoverflow.com/questions/30473581/when-to-use-preventdefault-vs-return-false
+            e.preventDefault();
+
+            if (video.paused) {
+                video.play();
+                btnStop.textContent = "Pause";
+            }
+            else {
+                video.pause();
+                btnStop.textContent = "Play";
+            }
+        });
+
+        //Show/Hide Controls
+        btnControls.addEventListener('click', function (e) {
+
+            e.preventDefault();
+
+            if (video.hasAttribute("controls")) {
+                video.removeAttribute("controls")
+                btnControls.textContent = "Show Controls";
+            } else {
+                video.setAttribute("controls", "")
+                //we put "" because the controls atribute has no value <video controls></video>
+                //https://developer.mozilla.org/en/docs/Web/API/Element/setAttribute
+
+                btnControls.textContent = "Hide Controls";
+            }
+        });
+    </script>
+</body>
+
+</html>

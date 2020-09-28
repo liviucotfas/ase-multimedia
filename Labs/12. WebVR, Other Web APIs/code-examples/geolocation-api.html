@@ -1,0 +1,48 @@
+
+<!-- saved from url=(0039)http://facemsoft.ro/multimedia/ex1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Utilizare Geolocation</title>
+	<style type="text/css"></style></head>
+	<body onload="getLocation()">
+		<form>
+			<label for="utilizator">Utilizator:</label>
+			<input type="text" name="nume" id="nume" placeholder="Nume">
+			<br>
+			<label for="ora">Ora:</label>
+			<input type="datetime-local" name="ora" id="ora">
+			<br>
+			<label for="task">Task:</label>
+			<br>
+			<textarea name="task" id="task" placeholder="Descrierea taskului" rows="4" cols="30"></textarea>
+			<br>
+			<label for="locatie">Locatie:</label>
+			<input type="text" name="locatie" id="locatie" placeholder="N/A">
+			<br>
+			<div id="map"></div>
+			<br><br>
+			<input type="submit" value="Salveaza">
+		</form>
+		
+	<script>
+		var x=document.getElementById("locatie");
+		function getLocation()
+		{
+		  if (navigator.geolocation)
+			{
+			navigator.geolocation.getCurrentPosition(showPosition);
+			}
+		  else{x.value="Geolocation is not supported by this browser.";}
+		}
+		function showPosition(position)
+		{
+		  x.value="Lat: " + position.coords.latitude + ", Long: " + position.coords.longitude; 
+		  
+		  var latlon=position.coords.latitude+","+position.coords.longitude;
+
+		  var img_url="http://maps.googleapis.com/maps/api/staticmap?center="
+		  +latlon+"&zoom=16&size=400x300&sensor=false";
+		  document.getElementById("map").innerHTML="<img src='"+img_url+"'>";
+		}
+	</script>
+	
+</body></html>

@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>D3js - Grafice</title>
+    <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <style type="text/css">
+        body {
+          font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+
+        .x.axis path {
+  
+        }
+
+        .line {
+          fill: none;
+          stroke: steelblue;
+          stroke-width: 1.5px;
+        }
+
+        .node {
+          border: solid 1px white;
+          font: 10px sans-serif;
+          line-height: 12px;
+          overflow: hidden;
+          position: absolute;
+          text-indent: 2px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    $(function () {
+        var data = [
+            {
+                "symbol": "GOOG",
+                "name": "Google Inc.",
+                "data": null
+            },
+            {
+                "symbol": "IBM",
+                "name": "International Business Machines Corporation",
+                "data": null
+            },
+            {
+                "symbol": "MSFT",
+                "name": "Microsoft Corporation",
+                "data": null
+            },
+            {
+                "symbol": "YHOO",
+                "name": "Yahoo! Inc.",
+                "data": null
+            }];
+
+        // stergere cache local - pentru testare
+        //localStorage.clear();
+
+        function incarcareDate(continuare) {
+
+            var nrDeIncarcat = 0;
+
+            $.each(data, function (i, item) {
+
+                var url = "http://localhost/proxy?"
+                        + "http://table.finance.yahoo.com/table.csv?s="
+                        + item.symbol
+                        + "&a=00&b=1&c=2007&d=11&e=31&f=2011&g=d&ignore=.csv";
+
+                console.log(item.symbol + ": start obtinere date");
+                var symbolData = localStorage[item.symbol];
+
+                if (symbolData) {
+                    console.log(item.symbol + ": incarcare date locale");
+                    item.data = JSON.parse(symbolData);
+
+                    item.data.forEach(function (dataItem) {
+                        // datele stocate in JSON trebuie 
+                        // parsate ulterior (formatul JSON nu 
+                        // suporta obiecte Date)
+                        dataItem.date = Date.parse(dataItem.date);
+                    });
+                }
+                else {
+                    console.log(item.symbol + ": start stransfer date");
+                    nrDeIncarcat++;
+                    d3.csv(url, function (csvItems) {
+
+                        item.data = [];
+                        csvItems.forEach(function (csvItem) {
+                            item.data.push({
+                                date: d3.time.format("%Y-%m-%d").parse(csvItem.Date),
+                                close: +csvItem["Adj Close"],
+                                volume: +csvItem.Volume
+                            });
+                        });
+
+                        localStorage[item.symbol] = JSON.stringify(item.data);
+
+                        nrDeIncarcat--;
+                        console.log(item.symbol + ": sfarsit stransfer date");
+
+                        if (nrDeIncarcat == 0) {
+                            continuare();
+                        }
+                    });
+                }
+            });
+
+            if (nrDeIncarcat == 0) {
+                continuare();
+            }
+        }
+
+        function afisareGrafic() {
+            data = data[0].data;
+
+            var margin = { top: 20, right: 20, bottom: 30, left: 50 },
+                    width = 960 - margin.left - margin.right,
+                    height = 500 - margin.top - margin.bottom;
+
+            var x = d3.time.scale()
+                    .range([0, width])
+                    .domain(d3.extent(data, function (d) { return d.date; }));
+
+            var y = d3.scale.linear()
+                    .range([height, 0])
+                    .domain(d3.extent(data, function (d) { return d.close; }));
+
+            var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left");
+
+            var line = d3.svg.line()
+                    .x(function (d) { return x(d.date); })
+                    .y(function (d) { return y(d.close); });
+
+            var svg = d3.select("body").append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis)
+                .append("text")
+                .attr("x", width)
+                .attr("dy", "1.6em")
+                .style("text-anchor", "end")
+                .text("Timp");
+
+            svg.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 6)
+                    .attr("dy", ".71em")
+                    .style("text-anchor", "end")
+                    .text("Preț ($)");
+
+            var graph = svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("d", line);
+            
+            svg.append("text")
+                .attr("x", width - 50)
+                .attr("dy", y(data[data.length - 1].close))
+                .text("Google Inc.");
+
+            treemap();
+        }
+
+
+        // Construire set de date pentru treemmap
+        // Input - un obiect de forma:
+        //{
+        //    "symbol": "GOOG",
+        //    "name": "Google Inc.",
+        //    "data": [ { close: 10, volume: 17, date:..}, ...]
+        //}
+        // Output - un obiect de forma:
+        //{
+        //    name: "radacina",
+        //    children: 
+        //    [
+        //        { name: 2007, size: 124 },
+        //        { name: 2008, size: 201 },
+        //        ...
+        //    ]
+        //};
+        function computeTreemapValues(item) {
+            var result = {
+                "name": "radacina",
+                "children": []
+            };
+
+            var years = {};
+
+            data.forEach(function (d) {
+                var year = (new Date(d.date)).getFullYear().toString();
+                if (!years.hasOwnProperty(year)) {
+                    years[year] = 0;
+                }
+                years[year] += d.volume * d.close;
+            });
+
+            for (var year in years) {
+                result.children.push({
+                    name: year.toString() + " - Volum: " + Math.round(years[year] / 1000000000) + " mld USD",
+                    size: years[year]
+                });
+            }
+
+            return result;
+        }
+
+        function treemap() {
+
+            data = computeTreemapValues(data);
+
+            var margin = { top: 40, right: 10, bottom: 10, left: 10 },
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+            var color = d3.scale.category20c();
+
+            var treemap = d3.layout.treemap()
+                .size([width, height])
+                .sticky(true)
+                .value(function (d) { return d.size; });
+
+            var div = d3.select("body").append("div")
+                .style("position", "relative")
+                .style("width", (width + margin.left + margin.right) + "px")
+                .style("height", (height + margin.top + margin.bottom) + "px")
+                .style("left", margin.left + "px")
+                .style("top", margin.top + "px");
+                
+            var node = div.datum(data)
+                .selectAll(".node")
+                .data(treemap.nodes)
+                .enter()
+                .append("div")
+                .attr("class", "node")
+                .call(function () {
+                    this.style("left", function (d) { return d.x + "px"; })
+                        .style("top", function (d) { return d.y + "px"; })
+                        .style("width", function (d) { return Math.max(0, d.dx - 1) + "px"; })
+                        .style("height", function (d) { return Math.max(0, d.dy - 1) + "px"; });
+                })
+                .style("background", function (d, i) { return color(i); })
+                .text(function (d) { return d.children ? null : d.name; });
+        }
+
+        incarcareDate(afisareGrafic);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+﻿body { background-color: Black; }
+header {position: relative; width: 400px; height: 250px; overflow: hidden; background: #000; margin: 5px;}
+p {padding: 0 15px;}
+
+#bg {position: absolute; top: -50px; left: 0px; z-index: 1; }
+#element {position: absolute; top: -400px; left: 2000px; z-index: 2; }
+#logolong {position: absolute; top: 0px; left: -900px; z-index: 3; }​

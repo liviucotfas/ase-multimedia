@@ -1,0 +1,128 @@
+﻿<!--- Assignment
+1. Check the histogram for the same image in Adobe PhotoShop
+2. Allow the user to drop the image only in specific area of the page (ex: on a div)
+3. Provide a visual cue when the user is dragging a file over the div added above (hint: use the events exposed by the API https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
+4. Draw the histogram on a separate canvas
+3. Change the color of the histogram to black: rgba(0,0,0,0.8)
+4. Also display the histogram for the red channel using as color rgba(255,0,0,0.8)
+5. Also display the histogram for the green channel using as color rgba(0,255,0,0.8)
+6. Also display the histogram for the blue channel using as color rgba(0,0,255,0.8)
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>HTML5Multimedia - DragDrop</title>
+    <script src="canvas-bar-chart-library.js"></script>
+</head>
+<body style="text-align:center;">
+    Drag and drop an image to start. Click on the image afterwards to download it. <br>
+
+    <canvas id="canvasHistogram" width="512" style="width:512px;border-style: dotted;"></canvas>
+    <br>
+    <a id='downloadLink' href="#" download="processedImage.png">
+        <!-- 
+            download attribute: download file when clicking on the link (instead of navigating to the file)
+            http://www.w3schools.com/tags/att_a_download.asp
+        -->
+        <canvas id="canvasImage" style="border-style: dotted;">
+            Your browser does not support the canvas element. :(
+        </canvas>
+    </a>
+
+    <script>
+        'use strict';
+
+        //Selectors
+        let canvasImage = document.getElementById('canvasImage');
+        let canvasHistogram = document.getElementById('canvasHistogram');
+        let barChart = new BarChart(canvasHistogram);
+
+        //Methods
+        function drawImage(img) {
+            let cW = img.naturalWidth, cH = img.naturalHeight;
+
+            canvasImage.width = cW;
+            canvasImage.height = cH;
+           
+            let context = canvasImage.getContext('2d');
+            context.drawImage(img, 0, 0);
+        }
+
+        function drawImageHistogram(){
+            let v = [];
+            for (let i = 0; i < 256; i++) {
+                //The push() method adds new items to the end of an array, and returns the new length.
+                // http://www.w3schools.com/jsref/jsref_push.asp
+                v.push(0);
+            }
+
+            let context = canvasImage.getContext('2d');
+            let cW = canvasImage.width;
+            let cH = canvasImage.height;
+            let imageData = context.getImageData(0, 0, cW, cH);
+            let data = imageData.data;
+
+            for (let y = 0; y < cH; y++) { //each line
+                for (let x = 0; x < cW; x++) { //each column
+                    
+                    let offset = ((cW * y) + x) * 4
+
+                    let red = data[offset];
+                    let green = data[offset + 1];
+                    let blue = data[offset + 2];
+
+                    let val = Math.round((red + green + blue)/3);
+                    v[val]++;
+                }
+            }
+
+            barChart.draw(v);
+        }
+
+        //Events
+        document.addEventListener('dragover', function(e){e.preventDefault();})
+        document.addEventListener('drop', function (e) {
+            e.preventDefault();
+
+            //Access the `dataTransfer` property from the `drop` event which
+            //holds the files dropped into the browser window.
+            var files = e.dataTransfer.files;
+            
+            //we need to check the length of the files property in order to make sure that the user has dragged and dropped a file and not something else (ex: a text). Note: if the user has dropped a text, we can access it in a similar manner, using the DataTransfer object
+            if (files.length > 0) {
+                //The FileReader object lets web applications asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read
+                //https://developer.mozilla.org/en/docs/Web/API/FileReader
+                var reader = new FileReader();
+
+                //FileReader.onload: a handler for the load event. This event is triggered each time the reading operation is successfully completed.
+                //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+                reader.addEventListener('load', function (e) {
+                    let image = document.createElement('img');
+                    image.addEventListener('load', function(){
+                        drawImage(this);
+                        drawImageHistogram();
+                    });
+                    image.setAttribute('src', e.target.result);
+                });
+
+                //FileReader.readAsDataURL: starts reading the contents of the specified Blob, once finished, the result attribute contains a data: URL representing the file's data.
+                reader.readAsDataURL(files[0]);
+            }
+        });
+
+        //?After an event triggers on the deepest possible element, it then triggers on parents in nesting order
+        //https://javascript.info/tutorial/bubbling-and-capturing
+        document.getElementById('downloadLink').addEventListener('click', function(){
+            
+            //1. Ok for small images. Does not work with large images
+            //downloadLink.setAttribute("href", this.toDataURL("image/png"));
+
+            //2. create a Blob object representing the image contained in the canvas; this file may be cached on the disk or stored in memory at the discretion of the user agent.
+            //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
+            canvasImage.toBlob(function(blob){downloadLink.setAttribute('href', URL.createObjectURL(blob))}, 'image/png');
+        });
+    </script>
+</body>
+</html>
