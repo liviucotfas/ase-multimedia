@@ -21,8 +21,6 @@
 ## Assignment
 1. Create the HTML page shown in the following figure.
 
-    ![Google Chrome Developer Tools](media/3cdf67cd596f05e7e45dadf13729ca43.png)
-
     ```HTML
     <!DOCTYPE html>
     <html>
