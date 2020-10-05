@@ -200,7 +200,7 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
 2. Add the following validation: all the fields should be mandatory
 3. Add the following validation: the First Name and the Last Name should have at least two characters
 4. Add the following validation: the Phone Number should only contain digits
-5. Implement the edit and delete functionalities
+5. Implement the edit (more difficult) and delete (easier) functionalities
 
 ## Bibliography
 - https://javascript.info/
