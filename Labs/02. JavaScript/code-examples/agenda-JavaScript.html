@@ -50,26 +50,26 @@
 
             function addPerson() {
                 
-                var tRow = document.createElement("tr");
+                let tRow = document.createElement("tr");
 
-                var cNume = document.createElement("td");
+                let cNume = document.createElement("td");
                 cNume.innerHTML = document.getElementById("lastName").value;
                 tRow.appendChild(cNume);
 
-                var cPrenume = document.createElement("td");
+                let cPrenume = document.createElement("td");
                 cPrenume.innerHTML = document.getElementById("firstName").value;
                 tRow.appendChild(cPrenume);
 
-                var cTelefon = document.createElement("td");
+                let cTelefon = document.createElement("td");
                 cTelefon.innerHTML = document.getElementById("phone").value;
                 tRow.appendChild(cTelefon);
                 
-                var tBody = document.getElementById("tableBody");
+                let tBody = document.getElementById("tableBody");
                 tBody.appendChild(tRow);
 
-                var tfoot =  document.getElementsByTagName("tfoot")[0]; // getElementsByTagName returns a collection from which we want to access the first (and only) element
-                var trInsideTfoot = tfoot.children[0]; // the <tfoot> in this example contains as the first (and only) child a <tr> element
-                var tdInsideTrInsideTfoot = trInsideTfoot.children[0]; // the <tr> inside the <tfoot> in this example contains as the first (and only) child a <td> element
+                let tfoot =  document.getElementsByTagName("tfoot")[0]; // getElementsByTagName returns a collection from which we want to access the first (and only) element
+                let trInsideTfoot = tfoot.children[0]; // the <tfoot> in this example contains as the first (and only) child a <tr> element
+                let tdInsideTrInsideTfoot = trInsideTfoot.children[0]; // the <tr> inside the <tfoot> in this example contains as the first (and only) child a <td> element
                 //equivalent to document.getElementsByTagName("tfoot")[0].children[0].children[0]
                 tdInsideTrInsideTfoot.innerHTML = "Number of persons: " + tBody.children.length.toString();
             }        
