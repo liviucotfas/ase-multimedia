@@ -95,6 +95,9 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
         margin: 0;
         padding: 12px;
     }
+    /*
+    pt, em - check https://www.w3schools.com/cssref/css_units.asp
+    */
 
     h1
     {
@@ -184,6 +187,9 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
     ```
 
 3. In the HTML file add a JavaScript section, starting with the `"use strict";` directive.
+
+    > Further details regarding `"use strict";`: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode, https://javascript.info/strict-mode
+
     ```JavaScript
     <script type="text/javascript">
     "use strict";
