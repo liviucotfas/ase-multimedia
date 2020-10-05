@@ -1,6 +1,17 @@
-# JavaScript Language
+# JavaScript Language <!-- omit in toc -->
 
- JavaScript is a cross-platform, object-oriented scripting language. It is a small and lightweight language.
+- [Objectives](#objectives)
+- [Introduction](#introduction)
+- [Documentation](#documentation)
+- [Assignment](#assignment)
+- [Tasks (Try them Yourself)](#tasks-try-them-yourself)
+- [Bibliography](#bibliography)
+
+## Objectives
+- understand how to include JavaScipt code in HTML pages
+
+## Introduction
+JavaScript is a cross-platform, object-oriented scripting language. It is a small and lightweight language.
 
 > Most programming languages contain good and bad parts, but JavaScript has more than its share of the bad, having been developed and released in a hurry before it could be refined. (JavaScript: The Good Parts by Douglas Crockford)
 
@@ -183,10 +194,14 @@
 6. Move the ```addPerson()``` method to a separte JavaScript file and reference that file in the ```<head>``` section of the page
 
 
-## Assignment (Try it Yourself)
+## Tasks (Try them Yourself)
 
 1. Clear the content of the text inputs after the user presses the "Add Person" button
 2. Add the following validation: all the fields should be mandatory
 3. Add the following validation: the First Name and the Last Name should have at least two characters
 4. Add the following validation: the Phone Number should only contain digits
 5. Implement the edit and delete functionalities
+
+## Bibliography
+- https://javascript.info/
+- https://developer.mozilla.org/en-US/docs/JavaScript/
