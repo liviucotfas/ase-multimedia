@@ -26,6 +26,7 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
 - [MDN JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
 
 - [W3Schools - JavaScript and HTML DOM Reference](http://www.w3schools.com/jsref/default.asp)
+- [The Modern JavaScript Tutorial](https://javascript.info/)
 
 > Missing strongly typed language? Have a look at the Microsoft [TypeScript](https://www.typescriptlang.org/) language that in which the Angular framework is written.
 
