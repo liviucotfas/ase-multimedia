@@ -104,7 +104,6 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
         background-color: Navy;
         color: White;
         
-        margin: 0;
         padding: 16px;
         margin: -12px -12px 20px -12px;
     }
