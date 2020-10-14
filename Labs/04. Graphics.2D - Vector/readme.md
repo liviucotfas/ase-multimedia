@@ -50,7 +50,7 @@ As an example, you can find bellow the code required for displaying a **bar char
 
 **HTML**
 ```HTML
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
 
   <div id="chart_div"></div>
 ```
@@ -103,7 +103,7 @@ chart.draw(data, options);
 2. Similar to the Google Charts library, we would want to use our bar chart library as follows. Add the code to the `<head>` section of your page.
 
     ```JavaScript
-    <script type="text/javascript">
+    <script>
         let data = [
                 ['Label 1', 1],
                 ['Label 2', 2],

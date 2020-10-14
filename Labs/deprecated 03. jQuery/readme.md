@@ -204,7 +204,7 @@ Overloads:
     ```
 7. In the ```<head>``` section of the page add a JavaScript section, starting with the `"use strict";` directive.
     ```HTML
-    <script type="text/javascript">
+    <script>
     "use strict";
 
     </script>

@@ -190,7 +190,7 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
     > Further details regarding `"use strict";`: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode, https://javascript.info/strict-mode
 
     ```JavaScript
-    <script type="text/javascript">
+    <script>
     "use strict";
 
     </script>
