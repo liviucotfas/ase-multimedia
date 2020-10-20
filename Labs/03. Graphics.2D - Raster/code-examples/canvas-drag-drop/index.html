@@ -19,17 +19,19 @@
 <body style="text-align:center;">
     Drag and drop an image to start. Click on the image afterwards to download it. <br>
 
-    <canvas id="canvasHistogram" width="512" style="width:512px;border-style: dotted;"></canvas>
-    <br>
-    <a id='downloadLink' href="#" download="processedImage.png">
+    <a id='downloadLink' href="#" download="histogram.png">
         <!-- 
             download attribute: download file when clicking on the link (instead of navigating to the file)
             http://www.w3schools.com/tags/att_a_download.asp
         -->
-        <canvas id="canvasImage" style="border-style: dotted;">
-            Your browser does not support the canvas element. :(
-        </canvas>
+        <canvas id="canvasHistogram" width="512" style="width:512px;border-style: dotted;"></canvas>
     </a>
+
+    <br>
+   
+    <canvas id="canvasImage" style="border-style: dotted;">
+        Your browser does not support the canvas element. :(
+    </canvas>
 
     <script>
         'use strict';
@@ -121,7 +123,7 @@
 
             //2. create a Blob object representing the image contained in the canvas; this file may be cached on the disk or stored in memory at the discretion of the user agent.
             //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
-            canvasImage.toBlob(function(blob){downloadLink.setAttribute('href', URL.createObjectURL(blob))}, 'image/png');
+            canvasHistogram.toBlob(function(blob){downloadLink.setAttribute('href', URL.createObjectURL(blob))}, 'image/png');
         });
     </script>
 </body>
