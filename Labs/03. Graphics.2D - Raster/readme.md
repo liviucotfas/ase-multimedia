@@ -42,9 +42,13 @@
 3. Complete the assignments included in the ```html``` file. 
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
+The goal of the example is to create a histogram for an image loaded using drag and drop. 
+
+> Histograms in Adobe PhotoShop: https://helpx.adobe.com/photoshop/using/viewing-histograms-pixel-values.html
+
 1. Try the "canvas-drag-drop" sample by clicking [here](https://ase-multimedia.azurewebsites.net/canvas-drag-drop). 
 
-> HTML Drag and Drop API:
+    > HTML Drag and Drop API:
 https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
 2. Check the source code in the `code-examples.zip` archive or in the `code-examples` folder. 
