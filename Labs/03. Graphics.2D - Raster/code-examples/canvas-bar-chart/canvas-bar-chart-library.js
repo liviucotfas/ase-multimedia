@@ -1,5 +1,3 @@
-'use strict';
-
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 class BarChart{
