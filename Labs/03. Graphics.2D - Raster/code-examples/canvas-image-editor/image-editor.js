@@ -55,12 +55,13 @@ app.drawImage = function() {
     let t0 = performance.now();
     console.log("t0: "+t0);
 
+	let pContext = app.processedImage.getContext("2d");
     switch (app.currentEffect) {
         case "normal":
-            app.normal();
+            app.normal(pContext);
             break;
         case "grayscale":
-            app.grayscale();
+            app.grayscale(pContext);
             break;
     }
 
@@ -75,14 +76,13 @@ app.drawImage = function() {
     app.loader.style.display = 'none';
 }
 
-app.normal = function(){
-    let pContext = app.processedImage.getContext("2d");
+app.normal = function(pContext){
+    
     pContext.drawImage(app.originialImage, 0, 0);
 }
 
-app.grayscale = function(context){
+app.grayscale = function(pContext){
     let oContext = app.originialImage.getContext("2d");
-    let pContext = app.processedImage.getContext("2d");
 
     let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
     let pixels = imageData.data;
@@ -119,8 +119,6 @@ app.load = function () {
 
                 const context = app.originialImage.getContext("2d");
                 context.drawImage(img,0,0);
-
-                img = null;
 
                 app.changeEffect("normal");
             });
