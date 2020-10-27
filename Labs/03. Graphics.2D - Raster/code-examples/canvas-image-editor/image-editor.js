@@ -116,6 +116,7 @@ app.load = function () {
 
     app.originialImage.addEventListener('error', function (msg, source, lineNo) {
         alert("Mesaj eroare: {0}".format(msg));
+        //or alert("Mesaj eroare: ${msg}");
     });
 
     let buttons = document.getElementsByClassName("effectType");
