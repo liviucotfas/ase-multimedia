@@ -55,74 +55,54 @@ app.drawImage = function() {
     let t0 = performance.now();
     console.log("t0: "+t0);
 
-    let processingCanvas = document.createElement('canvas');
-    processingCanvas.width = app.originialImage.naturalWidth;
-    processingCanvas.height = app.originialImage.naturalHeight;
-    let context = processingCanvas.getContext("2d");
-    context.drawImage(app.originialImage, 0, 0, processingCanvas.width, processingCanvas.height);
+    switch (app.currentEffect) {
+        case "normal":
+            app.normal();
+            break;
+        case "grayscale":
+            app.grayscale();
+            break;
+    }
 
     let t1 = performance.now();
     console.log(t1-t0 + ": drawing the image on the canvas");
 
-    switch (app.currentEffect) {
-        case "normal":
-            app.normal(context);
-            break;
-        case "grayscale":
-            app.grayscale(context);
-            break;
-    }
-
-    let t2 = performance.now();
-    console.log(t2-t1+": applying the effect on the canvas");
-            
-    processingCanvas.toBlob(function(blob){
+    app.processedImage.toBlob(function(blob){
         let blobUrl = URL.createObjectURL(blob);
-        app.processedImage.src = blobUrl;
         app.donwloadLink.href = blobUrl;
-
-        app.loader.style.display = 'none';
-
-        let t3 = performance.now();
-        console.log(t3-t2 + ": generating a blob from the processed canvas");
-        
-        console.log("finished");
     },"image/png");
+
+    app.loader.style.display = 'none';
 }
 
-app.normal = function(context){
-    
+app.normal = function(){
+    let pContext = app.processedImage.getContext("2d");
+    pContext.drawImage(app.originialImage, 0, 0);
 }
 
 app.grayscale = function(context){
-    let imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+    let oContext = app.originialImage.getContext("2d");
+    let pContext = app.processedImage.getContext("2d");
+
+    let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
     let pixels = imageData.data;
+
     for (let i = 0; i < pixels.length; i += 4)
         pixels[i] = pixels[i + 1] = pixels[i + 2] = Math.round((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
-    context.putImageData(imageData, 0, 0); 
+        
+    pContext.putImageData(imageData, 0, 0); 
 }
 
 //Events
 app.load = function () {
-    app.originialImage = document.createElement("img");
+    app.originialImage = document.createElement("canvas");
     app.donwloadLink = document.getElementById("donwloadLink");
     app.processedImage = document.getElementById("processedImage");
     app.loader = document.querySelector('.loader');
-            
-    app.originialImage.addEventListener("load",function(){
-        app.currentEffect = null;
-        app.changeEffect("normal");
-    });
-
-    app.originialImage.addEventListener('error', function (msg, source, lineNo) {
-        alert("Mesaj eroare: {0}".format(msg));
-        //or alert("Mesaj eroare: ${msg}");
-    });
 
     let buttons = document.getElementsByClassName("effectType");
     for(let i=0; i<buttons.length; i++){
         //more about the data attribute: https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes
-
         buttons[i].addEventListener("click", function(){ app.changeEffect(this.dataset.effect)}); 
     }
 
@@ -131,7 +111,20 @@ app.load = function () {
         let reader = new FileReader();
         //2. attach events
         reader.addEventListener('load', function(event){
-            app.originialImage.src = event.target.result;
+
+            let img = document.createElement("img");
+            img.addEventListener("load", function(){
+                app.originialImage.width = app.processedImage.width = img.naturalWidth;
+                app.originialImage.height = app.processedImage.height = img.naturalHeight;
+
+                const context = app.originialImage.getContext("2d");
+                context.drawImage(img,0,0);
+
+                img = null;
+
+                app.changeEffect("normal");
+            });
+            img.src = event.target.result;
         });
         //3. start loading the file
         reader.readAsDataURL(e.target.files[0]);    
