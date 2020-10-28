@@ -7,6 +7,8 @@ class BarChart{
     draw(values){
         let context = this.canvas.getContext('2d');
     
+        context.save();
+
         let h = this.canvas.height;
         let w = this.canvas.width / values.length;
     
@@ -37,6 +39,8 @@ class BarChart{
             context.fill();
             context.stroke();*/
         }
+
+        context.restore();
     }
 }
 
