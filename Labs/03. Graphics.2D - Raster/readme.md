@@ -62,7 +62,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
 ###  4.4. <a name='Assignment4'></a>Assignment 4
 1. Try the "canvas-image-editor" sample by clicking [here](https://ase-multimedia.azurewebsites.net/canvas-image-editor). 
-    > Note: only the "Normal" and the "Black and White" effects are implemented.
+    > Note: only the "Normal" and the "Grayscale" effects are implemented.
 2. Also try the sample on your mobile phone. Add a shortcut to the application on the homescreen of your phone as shown in the following image. Launch the application using the shortcut.
 
     ![](media/android-add-to-home-screen.jpg)
