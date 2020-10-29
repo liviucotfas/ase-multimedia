@@ -1,5 +1,5 @@
 /* Assignment
-1. Implement threshold
+1. Implement threshold. Also check how the effect should look like: https://www.google.com/search?q=threshold+photoshop
 Hint: v = (0.2126*r + 0.7152*g + 0.0722*b >= threshold) ? 255 : 0; r’= g’ = b’ = v
 2. Implement sephia
 Hint: 
