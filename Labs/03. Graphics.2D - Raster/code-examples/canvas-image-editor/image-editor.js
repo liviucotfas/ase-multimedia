@@ -27,8 +27,8 @@ Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-
 'use strict';
 
 let app = {
-    originialImage: null,
-    processedImage: null,
+    visibleCanvas: null,
+    offscreenCanvas: null,
     donwloadLink: null,
     loader: null,
     currentEffect: null
@@ -55,7 +55,7 @@ app.drawImage = function() {
     let t0 = performance.now();
     console.log("t0: "+t0);
 
-	let pContext = app.processedImage.getContext("2d");
+	let pContext = app.offscreenCanvas.getContext("2d");
     switch (app.currentEffect) {
         case "normal":
             app.normal(pContext);
@@ -68,7 +68,7 @@ app.drawImage = function() {
     let t1 = performance.now();
     console.log(t1-t0 + ": drawing the image on the canvas");
 
-    app.processedImage.toBlob(function(blob){
+    app.offscreenCanvas.toBlob(function(blob){
         let blobUrl = URL.createObjectURL(blob);
         app.donwloadLink.href = blobUrl;
     },"image/png");
@@ -78,11 +78,11 @@ app.drawImage = function() {
 
 app.normal = function(pContext){
     
-    pContext.drawImage(app.originialImage, 0, 0);
+    pContext.drawImage(app.visibleCanvas, 0, 0);
 }
 
 app.grayscale = function(pContext){
-    let oContext = app.originialImage.getContext("2d");
+    let oContext = app.visibleCanvas.getContext("2d");
 
     let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
     let pixels = imageData.data;
@@ -95,9 +95,9 @@ app.grayscale = function(pContext){
 
 //Events
 app.load = function () {
-    app.originialImage = document.createElement("canvas");
+    app.visibleCanvas = document.createElement("canvas");
     app.donwloadLink = document.getElementById("donwloadLink");
-    app.processedImage = document.getElementById("processedImage");
+    app.offscreenCanvas = document.getElementById("processedImage");
     app.loader = document.querySelector('.loader');
 
     let buttons = document.getElementsByClassName("effectType");
@@ -114,10 +114,10 @@ app.load = function () {
 
             let img = document.createElement("img");
             img.addEventListener("load", function(){
-                app.originialImage.width = app.processedImage.width = img.naturalWidth;
-                app.originialImage.height = app.processedImage.height = img.naturalHeight;
+                app.visibleCanvas.width = app.offscreenCanvas.width = img.naturalWidth;
+                app.visibleCanvas.height = app.offscreenCanvas.height = img.naturalHeight;
 
-                const context = app.originialImage.getContext("2d");
+                const context = app.visibleCanvas.getContext("2d");
                 context.drawImage(img,0,0);
 
                 app.changeEffect("normal");
