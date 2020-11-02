@@ -19,8 +19,10 @@ Hint: check https://gist.github.com/anonymous/1888841
 8. Implement pixelate
 Hint: check https://gist.github.com/anonymous/1888841
 9. Only display the download link when an effect is applied
-10. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
-11. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
+10. Implement a color picker.
+Hint: check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
+11. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
+12. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
 */
 
