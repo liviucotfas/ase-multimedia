@@ -10,3 +10,6 @@
 
 >A: you can use https://gitprint.com/.
 
+## Prerequisites
+
+Visual Studio Code (https://code.visualstudio.com/)
