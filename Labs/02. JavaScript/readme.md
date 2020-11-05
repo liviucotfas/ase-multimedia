@@ -213,3 +213,4 @@ JavaScript is a cross-platform, object-oriented scripting language. It is a smal
 ## Bibliography
 - https://javascript.info/
 - https://developer.mozilla.org/en-US/docs/JavaScript/
+- https://eloquentjavascript.net/index.html
