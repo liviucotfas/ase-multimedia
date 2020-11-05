@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <canvas id="canvas" style="border: 1px solid;">
+
+        </canvas>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+            
+            context.translate(10, 10);
+
+            for(let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+
+                //context.translate(50, 0);                
+                //context.fillRect(0, 0, 25, 25);
+
+                context.save();
+
+                context.fillStyle = 'rgb('+(51*i)+','+(255-51*i)+',255)';
+
+                context.translate(i*50, j*50);                
+                
+                context.fillRect(0, 0, 25, 25); //!!!
+
+                context.restore();
+
+                }
+            }
+
+        </script>
+    </body>
+</html>

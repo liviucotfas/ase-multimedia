@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Transformations - SetTransform()</title>
+    </head>
+    <body>
+        <canvas id="canvas" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+
+        <button onclick="copy()">Copy</button>
+
+        <script>
+            "use strict";
+
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+            context.fillStyle = "red";
+            context.fillRect(10, 10, 50, 50);
+
+            function copy() {
+                const imgData = context.getImageData(10, 10, 50, 50);
+                context.putImageData(imgData, 10, 70);
+            }
+
+        </script>
+    </body>
+</html>

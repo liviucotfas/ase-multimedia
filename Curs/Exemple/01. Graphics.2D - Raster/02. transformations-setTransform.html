@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Transformations - SetTransform()</title>
+    </head>
+    <body>
+        <canvas id="canvas" style="border:1px solid #d3d3d3;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+
+        <script>
+            "use strict";
+
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+            context.font = "30px Arial";
+
+            //context.translate(50, 50);
+            //Q: equivalent?
+            context.transform(1, 0, 0, 1, 50, 50);
+
+            context.fillText("Multimedia", 0, 0);
+            
+            //context.scale(1, -1);
+            //Q: equivalent?
+            context.transform(1, 0, 0, -1, 0, 0);
+
+            context.fillStyle = "darkgrey";
+            context.fillText("Multimedia", 0, 0);
+        </script>
+    </body>
+</html>

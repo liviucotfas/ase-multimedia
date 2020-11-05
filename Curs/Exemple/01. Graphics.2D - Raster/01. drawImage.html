@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+void ctx.drawImage(image, dx, dy, dWidth, dHeight);
+void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+-->
+<html>
+    <head>
+
+    </head>
+    <body>
+        <img
+            id="source" 
+            src="https://mdn.mozillademos.org/files/5397/rhino.jpg">
+        
+        <canvas
+            id="canvas"
+            style="border: 1px solid;">
+        </canvas>
+
+        <script>
+            const img = document.getElementById("source");
+            const canvas = document.getElementById("canvas");
+            const context =canvas.getContext("2d");
+
+            img.addEventListener("load", () => {
+                //this - gestionat diferit function() / () =>
+            
+                //context.drawImage(img, 50, 50);
+                
+                /*const dWidth = 100;
+                const dHeight = dWidth*(img.naturalHeight / img.naturalWidth)
+                context.drawImage(img, 50, 50, dWidth, dHeight);*/
+
+                //void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+                canvas.width = 184;
+                canvas.height = 250;
+                context.drawImage(img, 
+                    39, 65, 92, 125, 
+                    0, 0, 184, 250);
+  
+            });
+            
+            /*let img = document.createElement("img");
+            img.addEventListener("load", function(){
+                //desenare pe canvas
+            })
+            img.src = "...";*/
+
+
+        </script>
+    </body>
+</html>

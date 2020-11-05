@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <canvas id="canvas">
+
+        </canvas>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+
+            //if ...
+            drawRedRectangle();
+                       
+            context.fillRect(10, 10, 10, 10); //negru
+
+            function drawRedRectangle(){
+                //context.save();
+                context.save();
+
+                //setari specifice de desenare
+                context.fillStyle = "red";
+                
+                context.fillRect(20, 20, 10, 10); //rosu
+
+                //modificam la loc
+                //context.fillStyle = "black";
+
+                context.restore();
+                //context.restore();
+            }
+
+        </script>
+    </body>
+</html>

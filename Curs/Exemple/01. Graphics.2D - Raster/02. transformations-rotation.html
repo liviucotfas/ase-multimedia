@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <canvas id="canvas" style="border: 1px solid;">
+
+        </canvas>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+            
+            rotation();
+           
+            function rotation(){
+                context.save();
+
+                //context.translate(30, 30);
+
+                context.fillRect(0, 0, 100, 100);
+
+                const centerX = 100 / 2;
+                const centerY = 100 / 2;
+
+                context.translate(centerX, centerY);
+
+                const angle = 30;
+                context.rotate(Math.PI / 180 * angle);
+
+                context.translate(-centerX, -centerY);
+
+                context.fillStyle = "red";
+                context.fillRect(0, 0, 100, 100);
+
+                context.restore();
+            }
+
+        </script>
+    </body>
+</html>

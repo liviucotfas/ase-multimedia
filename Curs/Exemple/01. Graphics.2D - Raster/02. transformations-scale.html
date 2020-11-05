@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <canvas id="canvas" style="border: 1px solid;">
+
+        </canvas>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+            
+            //Desenare dreptunghi cu scalare
+            /*context.save();
+            context.fillRect(0, 0, 10, 10);
+
+            context.translate(10, 0);
+            context.scale(10, 1); //1 - nu modifica afisarea
+            //context.translate(10, 0);
+
+            context.fillRect(0, 10, 10, 10);
+            context.restore();*/
+
+            //Desenare text in oglinda
+            const text = "Multimedia sfghisdfgifdjvbj mkhcv jhgjdfb";
+
+            context.fillStyle = "black";
+            context.fillText(text, 0, 10);
+
+            let measureText = context.measureText(text);
+            console.log(measureText);
+
+            context.translate(measureText.width,0);
+            context.scale(-1, 1);
+            context.fillText(text, 0, 30);
+
+        </script>
+    </body>
+</html>
