@@ -11,7 +11,7 @@ Hint: r' = 255 – r; g' = 255 – g; b' = 255 – b;
 4. Implement red
 Hint: r'=r; g'=0; b'=0;
 5. Implement green
-Hint: r'=0; g'=255; b'=0;
+Hint: r'=0; g'=g; b'=0;
 6. Implement blue
 Hint: r'=0; g'=0; b'=b;
 7. Implement 2Channels
