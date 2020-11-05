@@ -16,6 +16,8 @@ Hint: r'=0; g'=g; b'=0;
 Hint: r'=0; g'=0; b'=b;
 7. Implement 2Channels
 Hint: check https://gist.github.com/anonymous/1888841
+8. Make the image darker
+9. Make the image lighter
 8. Implement pixelate
 Hint: check https://gist.github.com/anonymous/1888841
 9. Only display the download link when an effect is applied
