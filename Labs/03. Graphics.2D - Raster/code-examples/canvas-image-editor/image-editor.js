@@ -26,7 +26,8 @@ Hint: check https://gist.github.com/anonymous/1888841
 12. Implement a color picker.
 Hint: 
 - check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
-- make sure that the color picker continues to work when you reduce the size of the browser window
+- handle the `mousemove` event as use `offsetX` and `offsetY`
+- make sure that the color picker continues to work when you reduce the size of the browser window (clientWidth)
 13. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
 14. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
