@@ -17,12 +17,16 @@ Hint: r'=0; g'=0; b'=b;
 7. Implement 2Channels
 Hint: check https://gist.github.com/anonymous/1888841
 8. Make the image darker
+Hint: r' = r - v; g' = g - v; b' = b - v;
 9. Make the image lighter
+Hint: r' = r + v; g' = g + v; b' = b + v;
 10. Implement pixelate
 Hint: check https://gist.github.com/anonymous/1888841
 11. Only display the download link when an effect is applied
 12. Implement a color picker.
-Hint: check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
+Hint: 
+- check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
+- 
 13. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
 14. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
