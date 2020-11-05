@@ -11,16 +11,25 @@ Hint: r' = 255 – r; g' = 255 – g; b' = 255 – b;
 4. Implement red
 Hint: r'=r; g'=0; b'=0;
 5. Implement green
-Hint: r'=0; g'=255; b'=0;
+Hint: r'=0; g'=g; b'=0;
 6. Implement blue
 Hint: r'=0; g'=0; b'=b;
 7. Implement 2Channels
 Hint: check https://gist.github.com/anonymous/1888841
-8. Only display the download link when an effect is applied
-8. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
-9. (optional) Implement pixelate
+8. Make the image darker
+Hint: r' = r - v; g' = g - v; b' = b - v;
+9. Make the image lighter
+Hint: r' = r + v; g' = g + v; b' = b + v;
+10. Implement pixelate
 Hint: check https://gist.github.com/anonymous/1888841
-10. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
+11. Only display the download link when an effect is applied
+12. Implement a color picker.
+Hint: 
+- check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
+- handle the `mousemove` event as use `offsetX` and `offsetY`
+- make sure that the color picker continues to work when you reduce the size of the browser window (clientWidth)
+13. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
+14. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
 */
 
