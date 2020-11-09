@@ -29,7 +29,7 @@ Hint:
 - handle the `mousemove` event as use `offsetX` and `offsetY`
 - make sure that the color picker continues to work when you reduce the size of the browser window (clientWidth)
 13. Display the button for the currently selected effect with a different color.
-Hint: use the .className property
+Hint: use the .classList property and add()/remove() methods or the .className property 
 14. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
 15. (optional) Adjust the brightness effect using a slider
 16. (optional) Adjust the threshold effect using a slider
