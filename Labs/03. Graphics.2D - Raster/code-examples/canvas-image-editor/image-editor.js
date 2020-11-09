@@ -18,7 +18,7 @@ Hint: r'=0; g'=0; b'=b;
 Hint: check https://gist.github.com/anonymous/1888841
 8. Make the image darker
 Hint: r' = r - v; g' = g - v; b' = b - v;
-9. Make the image lighter
+9. Make the image brighter
 Hint: r' = r + v; g' = g + v; b' = b + v;
 10. Implement pixelate
 Hint: check https://gist.github.com/anonymous/1888841
@@ -28,8 +28,12 @@ Hint:
 - check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
 - handle the `mousemove` event as use `offsetX` and `offsetY`
 - make sure that the color picker continues to work when you reduce the size of the browser window (clientWidth)
-13. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
-14. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
+13. Display the button for the currently selected effect with a different color.
+Hint: use the .classList property and add()/remove() methods or the .className property 
+14. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
+15. (optional) Adjust the brightness effect using a slider
+16. (optional) Adjust the threshold effect using a slider
+17. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
 */
 
