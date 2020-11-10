@@ -25,43 +25,47 @@ class BarChart{
         //this.svg.style.borderColor = 'black';
         //this.svg.style.borderWidth = '1px';
         //this.svg.style.borderStyle = 'solid';
-        this.svg.setAttribute('width', this.width);
+        this.svg.setAttribute('width', this.width); //note: this.svg.width is readonly
         this.svg.setAttribute('height', this.height);
     }
     drawBackground(){
-        let rect = document.createElementNS(this.svgns, 'rect');
+        const rect = document.createElementNS(this.svgns, 'rect');
         rect.setAttribute('x', 0);
         rect.setAttribute('y', 0);
         rect.setAttribute('height', this.height);
         rect.setAttribute('width', this.width);
-        rect.setAttribute('fill', 'WhiteSmoke');
+        rect.style.fill = 'WhiteSmoke';
+        //rect.setAttribute("fill", 'WhiteSmoke'); //! not recommended
         this.svg.appendChild(rect);
     }
     drawBars(){
-        let barWidth = this.width / this.data.length;
+        const barWidth = this.width / this.data.length;
 
-        let f = this.height / Math.max(...this.data.map(x=>x[1]));
+        const f = this.height / Math.max(...this.data.map(x=>x[1]));
 
         for(let i=0; i<this.data.length; i++){
 
-            let label = this.data[i][0];
-            let value = this.data[i][1];
+            const label = this.data[i][0];
+            const value = this.data[i][1];
 
-            let barHeight = value * f * 0.9;
-            let barY = this.height - barHeight;
-            let barX = i * barWidth + barWidth/4;
+            const barHeight = value * f * 0.9;
+            const barY = this.height - barHeight;
+            const barX = i * barWidth + barWidth/4;
 
-            let bar = document.createElementNS(this.svgns, 'rect');
+            const bar = document.createElementNS(this.svgns, 'rect');
             bar.setAttribute('class','bar');
             //or
-            //bar.classList.add('bar');
+            //bar.classList.add('bar'); //!recommended
             bar.setAttribute('x', barX);
             bar.setAttribute('y', barY);
             bar.setAttribute('height', barHeight);
             bar.setAttribute('width', barWidth/2);
-            bar.setAttribute('fill', '#db4437');
-            bar.setAttribute('stroke-width', 2);
-            bar.setAttribute('stroke', 'black');
+
+            //note: if the styles are set using CSS .bar:hover {...} will only work if marked as !important
+            //the styling should be moved to the .bar {...} instead
+            bar.setAttribute("fill", '#db4437');
+            bar.setAttribute("stroke-width", 2);
+            bar.setAttribute("stroke", "black");
             this.svg.appendChild(bar);
 
             let text = document.createElementNS(this.svgns, 'text');
