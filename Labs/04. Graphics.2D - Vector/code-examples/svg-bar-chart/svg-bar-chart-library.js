@@ -1,5 +1,3 @@
-"use strict";
-
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 class BarChart{
@@ -68,7 +66,7 @@ class BarChart{
             bar.setAttribute("stroke", "black");
             this.svg.appendChild(bar);
 
-            let text = document.createElementNS(this.svgns, 'text');
+            const text = document.createElementNS(this.svgns, 'text');
             text.appendChild(document.createTextNode(label));
             text.setAttribute('x', barX);
             text.setAttribute('y', barY - 10);

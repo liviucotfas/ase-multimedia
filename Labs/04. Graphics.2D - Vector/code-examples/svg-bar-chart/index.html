@@ -4,7 +4,7 @@
         <title>SVG Bar Chart</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
 
-        <style type="text/css">
+        <style>
             .bar:hover {
                 fill: yellow;
             }
@@ -14,16 +14,16 @@
     </head>
 
     <body>
-        <div id="barChart" style="height:300px;"></div>
+        <div id="barChart" style="width: 600px; height:400px;"></div>
 
         <script>
-            let data = [
+            const data = [
                 ['Label 1', 1],
                 ['Label 2', 2],
                 ['Label 3', 3],
             ];
 
-            let barChart = new BarChart(document.getElementById("barChart"));
+            const barChart = new BarChart(document.getElementById("barChart"));
             barChart.draw(data);
         </script>
     </body>
