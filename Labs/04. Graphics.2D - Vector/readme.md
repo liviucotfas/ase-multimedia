@@ -104,13 +104,13 @@ chart.draw(data, options);
 
     ```JavaScript
     <script>
-        let data = [
+        const data = [
                 ['Label 1', 1],
                 ['Label 2', 2],
                 ['Label 3', 3],
             ];
 
-        let barChart = new BarChart(document.getElementById("barChart"));
+        const barChart = new BarChart(document.getElementById("barChart"));
         barChart.draw(data);
     </script>
     ```
@@ -165,20 +165,20 @@ chart.draw(data, options);
 
     ```JavaScript
     drawBars(){
-        let barWidth = this.width / this.data.length;
+        const barWidth = this.width / this.data.length;
 
-        let f = this.height / Math.max(...this.data.map(x=>x[1]));
+        const f = this.height / Math.max(...this.data.map(x=>x[1]));
 
         for(let i=0; i<this.data.length; i++){
 
-            let label = this.data[i][0];
-            let value = this.data[i][1];
+            const label = this.data[i][0];
+            const value = this.data[i][1];
 
-            let barHeight = value * f * 0.9;
-            let barY = this.height - barHeight;
-            let barX = i * barWidth + barWidth/4;
+            const barHeight = value * f * 0.9;
+            const barY = this.height - barHeight;
+            const barX = i * barWidth + barWidth/4;
 
-            let bar = document.createElementNS(this.svgns, 'rect');
+            const bar = document.createElementNS(this.svgns, 'rect');
             bar.setAttribute('class','bar');
             //or
             //bar.classList.add('bar');
@@ -205,7 +205,7 @@ chart.draw(data, options);
 8. Update the `drawBars()` method in the `BarChart` class in order to also display the labels for the bars.
 
     ```JavaScript
-    let text = document.createElementNS(this.svgns, 'text');
+    const text = document.createElementNS(this.svgns, 'text');
     text.appendChild(document.createTextNode(label));
     text.setAttribute('x', barX);
     text.setAttribute('y', barY);
@@ -221,9 +221,11 @@ The Google Charts library supports many more features than our library, as you c
 
 ![Google Charts](media/google-charts.png)
 
-1. Display the value corresponding to a bar when clicking on it. ?  **Hint:** Attach a handler to the `click` event of the bars. 
+1. Display the value corresponding to a bar when clicking on it.
+Hint: Attach a handler to the `click` event of the bars. 
 2. Display the horizontal and vertical axes (as shown above).
 3. Display tooltips when the user hovers over the bars in you chart (as shown above).
+Hint: Check the type of element that is used in the Google Charts library
 4. (optional) Check the [D3.js](https://d3js.org/) library. Reimplement the example above using this library.
 
 ##  6. <a name='Bibliography'></a>Bibliography
