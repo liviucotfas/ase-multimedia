@@ -46,7 +46,7 @@ Let's imagine that we are asked to implement a simple JavaScript **bar chart** l
 >Try the complete `svg-bar-chart` sample by clicking [here](https://ase-multimedia.azurewebsites.net/svg-bar-chart/).
 
 
-As an example, you can find bellow the code required for displaying a **bar chart** using the [Google Charts](https://developers.google.com/chart/interactive/docs/gallery/barchart) library:
+As an example, you can find below the code required for displaying a **bar chart** using the [Google Charts](https://developers.google.com/chart/interactive/docs/gallery/barchart) library:
 
 **HTML**
 ```HTML

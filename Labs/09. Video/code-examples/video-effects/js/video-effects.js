@@ -1,5 +1,5 @@
 ﻿/* Assignment
-1. Change the code bellow to make the dimensions of the two canvases equal to the dimensions of the video element
+1. Change the code below to make the dimensions of the two canvases equal to the dimensions of the video element
 Hint:
 When video.clientWidth / video.clientHeight < video.videoWidth / video.videoHeight we should have canvas.height = video.clientWidth * video.videoHeight / video.videoWidth;
 if(video.clientWidth / video.clientHeight < video.videoWidth / video.videoHeight)
