@@ -51,6 +51,7 @@
 -   Record and save as MP3:
     <http://audior.ec/blog/recording-mp3-using-only-html5-and-javascript-recordmp3-js/>
     , <https://www.html5rocks.com/en/tutorials/getusermedia/intro/>
+- Various demos: https://www.chromestatus.com/samples
 
 ##  4. <a name='AssignmentsSolved'></a>Assignments (Solved)
 
