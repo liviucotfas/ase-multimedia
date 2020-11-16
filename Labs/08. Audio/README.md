@@ -36,9 +36,10 @@
 
 ##  3. <a name='Demos'></a>Demos
 
--   Sound visualization using HTM5 Canvas:
-    <http://nipe-systems.de/webapps/html5-web-audio/>
+-   Processing sound
+    <https://www.html5rocks.com/en/tutorials/webaudio/intro/>
 
+-   Sound visualization using HTM5 Canvas:
     ![](Media/c8745b6ff83e5e27f9cbb44776ebcfca.png)
 
     ![](Media/d0c9e9f766cb75ec31aae9a1cc2973a0.png)
