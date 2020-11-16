@@ -3,6 +3,7 @@
 const app = {
     audio: null,
     tracks: [], //track list
+    currentUrl: null,
     //UI
     audioTime: null,
     btnPlayPause: null
@@ -12,22 +13,23 @@ const app = {
  * @param {string} url - The url of the song 
  */
 app.play = function (url) {
-    let elements = document.querySelectorAll('#playlist li.active');
+    const elements = document.querySelectorAll('#playlist li.active');
     for (let i = 0; i < elements.length; i++) {
         elements[i].classList.remove('active');
     }
 
-    let selectedElement = document.querySelector('#playlist li[data-url="' + url + '"]');
+    const selectedElement = document.querySelector('#playlist li[data-url="' + url + '"]');
     selectedElement.classList.add('active');
 
-    app.audio.src = url;
+    app.currentUrl = url;
+    app.audio.src = app.currentUrl;
     app.audio.load();
     app.audio.play();
 }
 
 /** Changes the current song */
 app.next = function () {
-    let index = app.tracks.indexOf(app.audio.src) + 1;
+    let index = app.tracks.indexOf(app.currentUrl) + 1;
     if (index >= app.tracks.length) {
         index = 0;
     }
@@ -41,10 +43,10 @@ app.load = function () {
     app.btnPlayPause = document.getElementById('btnPlayPause');
 
     // Iterate over the playlist in order to associate events
-    let elements = document.querySelectorAll('#playlist li');
+    const elements = document.querySelectorAll('#playlist li');
     for (let i = 0; i < elements.length; i++) {
 
-        let url = elements[i].dataset.url;
+        const url = elements[i].dataset.url;
         app.tracks.push(url);
 
         elements[i].addEventListener('click', function () {
