@@ -33,6 +33,8 @@
 -   Web RTC API:
     <https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia>
 - Speech API: <https://w3c.github.io/speech-api/webspeechapi.html>, <https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition>
+- Audio and Video Delivery: https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery
+- Audio and Video Manipulation: https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_manipulation
 
 ##  3. <a name='Demos'></a>Demos
 
