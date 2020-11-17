@@ -38,13 +38,10 @@
 
 -   Processing sound
     <https://www.html5rocks.com/en/tutorials/webaudio/intro/>
-
 -   Sound visualization and music composition:
     <https://googlechromelabs.github.io/web-audio-samples>
-
 -   Creating visualizations:
     <https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API>
-
 -   Record and save as MP3:
     <http://audior.ec/blog/recording-mp3-using-only-html5-and-javascript-recordmp3-js/>
     , <https://www.html5rocks.com/en/tutorials/getusermedia/intro/>
