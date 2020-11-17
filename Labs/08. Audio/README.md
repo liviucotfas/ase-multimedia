@@ -39,11 +39,8 @@
 -   Processing sound
     <https://www.html5rocks.com/en/tutorials/webaudio/intro/>
 
--   Sound visualization using HTM5 Canvas:
-
-    ![](Media/c8745b6ff83e5e27f9cbb44776ebcfca.png)
-
-    ![](Media/d0c9e9f766cb75ec31aae9a1cc2973a0.png)
+-   Sound visualization and music composition:
+    <https://googlechromelabs.github.io/web-audio-samples>
 
 -   Creating visualizations:
     <https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API>
