@@ -63,6 +63,8 @@ app.load = function () {
             app.audioTime.textContent = app.secondsToString(currentTime) + ' / ' + app.secondsToString(duration);
         }
         else {
+            //innerText can also be used
+            //differences https://www.w3schools.com/jsref/prop_html_innerhtml.asp
             app.audioTime.textContent = '...';
         };
     });
