@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <audio 
+            id="audio"
+            controls
+            
+            src="Beethoven-MoonlightSonata.mp3">
+            Your browser does not support the <code>audio</code> element. 
+        </audio>
+
+        <button id="test">Test</button>
+
+        <script>
+            const audio = document.getElementById("audio");
+            audio.addEventListener("ended", ()=>{
+                alert("ended!");
+            });
+
+            audio.addEventListener("play", ()=>{
+                alert("playing");
+            });
+
+            document.querySelector("#test")
+                .addEventListener("click", function(){
+
+                   audio.src = "Bolero.mp3";
+
+                    //alert(audio.currentTime);
+                    //alert(audio.duration);
+                    alert(audio.src);
+                    alert(audio.currentSrc);
+                    //alert(audio.paused);
+                    //alert(audio.readyState);
+                    //audio.volume = 0.7;
+                    //alert(audio.volume);
+                });
+        </script>
+
+    </body>
+</html>
