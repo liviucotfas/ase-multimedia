@@ -29,7 +29,7 @@ app.play = function (url) {
 
 /** Changes the current song */
 app.next = function () {
-    let index = app.tracks.indexOf(app.currentUrl) + 1;
+    const index = app.tracks.indexOf(app.currentUrl) + 1;
     if (index >= app.tracks.length) {
         index = 0;
     }
@@ -56,8 +56,8 @@ app.load = function () {
 
     // Handle the timeupdate event
     app.audio.addEventListener('timeupdate', function () {
-        let currentTime = app.audio.currentTime;
-        let duration = app.audio.duration;
+        const currentTime = app.audio.currentTime;
+        const duration = app.audio.duration;
 
         if (app.audio.duration) {
             app.audioTime.textContent = app.secondsToString(currentTime) + ' / ' + app.secondsToString(duration);
@@ -103,8 +103,6 @@ app.load = function () {
 
     // Handle the click event on btnNext
     document.getElementById('btnNext').addEventListener('click', app.next);
-
-
 };
 
 /**
@@ -113,16 +111,13 @@ app.load = function () {
 * @return {string} The time in minutes and/or seconds.
 **/
 app.secondsToString = function (seconds) {
-    let min = 0;
-    let sec = Math.floor(seconds);
-    let time = 0;
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
 
-    min = Math.floor(sec / 60);
     min = min >= 10 ? min : '0' + min;
-
-    sec = Math.floor(sec % 60);
     sec = sec >= 10 ? sec : '0' + sec;
-    time = min + ':' + sec;
+    
+    const time = min + ':' + sec;
 
     return time;
 };

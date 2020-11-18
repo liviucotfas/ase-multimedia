@@ -13,10 +13,11 @@ https://521dimensions.com/open-source/amplitudejs/docs/
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h"
-        crossorigin="anonymous">
+    <link 
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
-        #divAudioTime {
+        #audioTime {
             min-width: 200px;
             text-align: right;
             color: #eeeedd;
@@ -34,9 +35,7 @@ https://521dimensions.com/open-source/amplitudejs/docs/
 
         <button id="btnPlayPause" class="btn btn-primary"><i class="fas fa-play"></i></button>
         <div id="controls" class="btn-group">
-            <div id="divAudioTime" class="btn">
-                <span id="audioTime">...</span>
-            </div>
+            <div id="audioTime" class="btn"></div>
             <button id="btnForward" class="btn"><i class="fas fa-forward"></i></button>
             <button id="btnNext" class="btn"><i class="fas fa-step-forward"></i></button>
         </div>
