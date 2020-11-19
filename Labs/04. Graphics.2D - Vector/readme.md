@@ -223,10 +223,12 @@ The Google Charts library supports many more features than our library, as you c
 
 1. Display the value corresponding to a bar when clicking on it.
 Hint: Attach a handler to the `click` event of the bars. 
-2. Display the horizontal and vertical axes (as shown above).
-3. Display tooltips when the user hovers over the bars in you chart (as shown above).
+2. Comment the CSS code used for changing the color of the bars (".bar:hover"). Implement the same functionality using JavaScript.
+Hint: You need to handle the mouse events.
+3. Display the horizontal and vertical axes (as shown above).
+4. Display tooltips when the user hovers over the bars in you chart (as shown above).
 Hint: Check the type of element that is used in the Google Charts library
-4. (optional) Check the [D3.js](https://d3js.org/) library. Reimplement the example above using this library.
+5. (optional) Check the [D3.js](https://d3js.org/) library. Reimplement the example above using this library.
 
 ##  6. <a name='Bibliography'></a>Bibliography
 -   SVG: <https://developer.mozilla.org/en/docs/Web/SVG>
