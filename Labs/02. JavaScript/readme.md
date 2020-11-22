@@ -9,6 +9,8 @@
 
 ## Objectives
 - understand how to include JavaScipt code in HTML pages
+- understand how to subscribe to events
+- undersnatd how to modify the DOM
 
 ## Introduction
 JavaScript is a cross-platform, object-oriented scripting language. It is a small and lightweight language.
