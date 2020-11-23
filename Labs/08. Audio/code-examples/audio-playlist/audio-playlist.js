@@ -5,7 +5,8 @@ const app = {
     tracks: [], //track list
     currentUrl: null,
     //UI
-    audioTime: null,
+    currentTime: null,
+    duration: null,
     btnPlayPause: null
 };
 
@@ -39,7 +40,8 @@ app.next = function () {
 
 app.load = function () {
     app.audio = document.getElementById('audio');
-    app.audioTime = document.querySelector('#audioTime');
+    app.currentTime = document.querySelector('#currentTime');
+    app.duration = document.querySelector('#duration');
     app.btnPlayPause = document.getElementById('btnPlayPause');
 
     // Iterate over the playlist in order to associate events
@@ -55,17 +57,20 @@ app.load = function () {
     }
 
     // Handle the timeupdate event
+    app.audio.addEventListener('durationchange', function(){
+        app.duration.textContent = app.secondsToString(app.audio.duration);
+    });
+
     app.audio.addEventListener('timeupdate', function () {
         const currentTime = app.audio.currentTime;
-        const duration = app.audio.duration;
 
         if (app.audio.duration) {
-            app.audioTime.textContent = app.secondsToString(currentTime) + ' / ' + app.secondsToString(duration);
+            app.currentTime.textContent = app.secondsToString(currentTime);
         }
         else {
             //innerText can also be used
             //differences https://www.w3schools.com/jsref/prop_html_innerhtml.asp
-            app.audioTime.textContent = '...';
+            app.currentTime.textContent = '...';
         };
     });
 
