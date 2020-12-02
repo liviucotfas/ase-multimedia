@@ -57,7 +57,7 @@
 ###  4.1. <a name='Assignment1'></a>Assignment 1
 1. Try the "audio-playlist" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-playlist).
 2. Check the source code.
-> Similar examples: https://521dimensions.com/open-source/amplitudejs, https://codepen.io/markhillard/pen/Hjcwu, https://codepen.io/craigstroman/pen/aOyRYx
+	> Similar examples: https://521dimensions.com/open-source/amplitudejs, https://codepen.io/markhillard/pen/Hjcwu, https://codepen.io/craigstroman/pen/aOyRYx
 3. Allow the user to change the volume level using a slider.
 4. Allow the user to change the current position inside the track with the help of a slider.
 
