@@ -66,28 +66,27 @@
 
 	```JavaScript
 	songs: [
-		{
-			"name": "Risin' High (feat Raashan Ahmad)",
-			"artist": "Ancient Astronauts",
-			"album": "We Are to Answer",
-			"url": "../songs/Ancient Astronauts - Risin' High (feat Raashan Ahmad).mp3",
-			"cover_art_url": "../album-art/we-are-to-answer.jpg"
-		},
-		{
-			"name": "The Gun",
-			"artist": "Lorn",
-			"album": "Ask The Dust",
-			"url": "../songs/08 The Gun.mp3",
-			"cover_art_url": "../album-art/ask-the-dust.jpg",
-		},
-		{
-			"name": "Anvil",
-			"artist": "Lorn",
-			"album": "Anvil",
-			"url": "../songs/LORN - ANVIL.mp3",
-			"cover_art_url": "../album-art/anvil.jpg",
-		}
-	]
+	{
+		"name": "Risin' High (feat Raashan Ahmad)",
+		"artist": "Ancient Astronauts",
+		"album": "We Are to Answer",
+		"url": "../songs/Ancient Astronauts - Risin' High (feat Raashan Ahmad).mp3",
+		"cover_art_url": "../album-art/we-are-to-answer.jpg"
+	},
+	{
+		"name": "The Gun",
+		"artist": "Lorn",
+		"album": "Ask The Dust",
+		"url": "../songs/08 The Gun.mp3",
+		"cover_art_url": "../album-art/ask-the-dust.jpg",
+	},
+	{
+		"name": "Anvil",
+		"artist": "Lorn",
+		"album": "Anvil",
+		"url": "../songs/LORN - ANVIL.mp3",
+		"cover_art_url": "../album-art/anvil.jpg",
+	}]
 	```
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
