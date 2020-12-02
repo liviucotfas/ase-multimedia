@@ -5,9 +5,7 @@
 * 2. [Service Worker API](#ServiceWorkerAPI)
 * 3. [GeoLocation API](#GeoLocationAPI)
 * 4. [Storage API](#StorageAPI)
-* 5. [Camera API](#CameraAPI)
-* 6. [WebVR](#WebVR)
-	* 6.1. [Documentation](#Documentation-1)
+* 5. [WebVR](#WebVR)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -28,9 +26,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Servic
 ##  4. <a name='StorageAPI'></a>Storage API
 <https://developer.mozilla.org/en-US/docs/Web/API/Storage_API>
 
-##  5. <a name='CameraAPI'></a>Camera API
-
-##  6. <a name='WebVR'></a>WebVR
+##  5. <a name='WebVR'></a>WebVR
 https://docs.microsoft.com/en-us/microsoft-edge/webvr
 
 
