@@ -88,7 +88,7 @@
 		"cover_art_url": "../album-art/anvil.jpg",
 	}]
 	```
-6. Using the [Web Storage API(`https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API`) allow the user to resume the playback when returning to the application. 
+6. Using the [Web Storage API](`https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API`) allow the user to resume the playback when returning to the application. 
 Hint: persist the url (or the index) of the currently played audio file and the current playing time inside the file. 
 7. (optional) Try to build your own audio player for Spotify. Details regarding the Spotify API are available at: https://developer.spotify.com/documentation/web-api/ .
 
