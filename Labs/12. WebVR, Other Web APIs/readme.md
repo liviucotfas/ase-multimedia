@@ -28,5 +28,3 @@ https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Servic
 
 ##  5. <a name='WebVR'></a>WebVR
 https://docs.microsoft.com/en-us/microsoft-edge/webvr
-
-
