@@ -61,35 +61,34 @@
 3. Allow the user to change the volume level using a slider.
 4. Allow the user to change the current position inside the track with the help of a slider.
 5. Instead of declaring the playlist in the `HTML` file, declare it as an array in your `JavaScript` file. The playlist in the interface should be constructed from this array.
+   
+	> The same approach is used for example by [AmplitudeJS](https://521dimensions.com/open-source/amplitudejs/docs/configuration/playlists.html)
+
 	```JavaScript
 	songs: [
 	    {
-	      "name": "Risin' High (feat Raashan Ahmad)",
-	      "artist": "Ancient Astronauts",
-	      "album": "We Are to Answer",
-	      "url": "../songs/Ancient Astronauts - Risin' High (feat Raashan Ahmad).mp3",
-	      "cover_art_url": "../album-art/we-are-to-answer.jpg"
+			"name": "Risin' High (feat Raashan Ahmad)",
+			"artist": "Ancient Astronauts",
+			"album": "We Are to Answer",
+			"url": "../songs/Ancient Astronauts - Risin' High (feat Raashan Ahmad).mp3",
+			"cover_art_url": "../album-art/we-are-to-answer.jpg"
 	    },
 	    {
-	      "name": "The Gun",
-	      "artist": "Lorn",
-	      "album": "Ask The Dust",
-	      "url": "../songs/08 The Gun.mp3",
-	      "cover_art_url": "../album-art/ask-the-dust.jpg",
+			"name": "The Gun",
+			"artist": "Lorn",
+			"album": "Ask The Dust",
+			"url": "../songs/08 The Gun.mp3",
+			"cover_art_url": "../album-art/ask-the-dust.jpg",
 	    },
 	    {
-	      "name": "Anvil",
-	      "artist": "Lorn",
-	      "album": "Anvil",
-	      "url": "../songs/LORN - ANVIL.mp3",
-	      "cover_art_url": "../album-art/anvil.jpg",
+			"name": "Anvil",
+			"artist": "Lorn",
+			"album": "Anvil",
+			"url": "../songs/LORN - ANVIL.mp3",
+			"cover_art_url": "../album-art/anvil.jpg",
 	    }
-	
-	
-	
+	]
 	```
-
-
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
 1. Try the "audio-web-audio-api" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-web-audio-api).
