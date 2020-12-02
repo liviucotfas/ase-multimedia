@@ -60,7 +60,7 @@
 	> Similar examples: https://521dimensions.com/open-source/amplitudejs, https://codepen.io/markhillard/pen/Hjcwu, https://codepen.io/craigstroman/pen/aOyRYx
 3. Allow the user to change the volume level using a slider.
 4. Allow the user to change the current position inside the track with the help of a slider.
-5. Instead of declaring the playlist in the `HTML` file, declare it as an array in your `JavaScript` file. The playlist in the interface should be constructed from this array. The approach is also useful if we plan to receive the playlist from an API (written for example in .NET Core or Node.js).
+5. Instead of declaring the playlist in the `.html` file, declare it as an array in your `.js` file. The playlist in the interface should be constructed from this array. The approach is also useful if we plan to receive the playlist from an API (written for example in .NET Core or Node.js).
    
 	> The same approach is used for example by [AmplitudeJS](https://521dimensions.com/open-source/amplitudejs/docs/configuration/playlists.html)
 
