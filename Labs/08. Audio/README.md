@@ -88,7 +88,7 @@
 		"cover_art_url": "../album-art/anvil.jpg",
 	}]
 	```
-6. (optional) Try to build your own audio player for Spotify (https://developer.spotify.com/documentation/web-api/)
+6. (optional) Try to build your own audio player for Spotify. Details regarding the Spotify API are available at: https://developer.spotify.com/documentation/web-api/ .
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
 1. Try the "audio-web-audio-api" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-web-audio-api).
