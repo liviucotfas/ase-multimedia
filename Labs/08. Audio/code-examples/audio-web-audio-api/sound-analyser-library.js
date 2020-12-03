@@ -1,5 +1,3 @@
-"use strict";
-
 //Details regarding building Visualizations using Web Audio API
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
 
@@ -17,7 +15,7 @@ class SoundAnalyser {
 
     //Creates an AnalyserNode, which can be used to expose audio time and frequency data and for example to create data visualisations.
     //More details: https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createAnalyser
-    this.analyser = this.audioCtx.createAnalyser();
+    this.analyserNode = this.audioCtx.createAnalyser();
   }
   /**
    * 
@@ -31,10 +29,10 @@ class SoundAnalyser {
     if (visualSetting == "frequencybars") {
       //Is an unsigned long value representing the size of the FFT (Fast Fourier Transform) to be used to determine the frequency domain.
       //More info: https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/fftSize
-      this.analyser.fftSize = 256;
+      this.analyserNode.fftSize = 256;
       this.drawFrequencyBars();
     } else if (visualSetting == "sinewave") {
-      this.analyser.fftSize = 1024;
+      this.analyserNode.fftSize = 1024;
       this.drawSineWave();
     }
   }
@@ -44,41 +42,45 @@ class SoundAnalyser {
    * @param {MediaStream} stream 
    */
   setStreamSource(stream) {
-    const source = this.audioCtx.createMediaStreamSource(stream);
+    const sourceNode = this.audioCtx.createMediaStreamSource(stream);
     // Connect the output of the source to the input of the analyser
-    source.connect(this.analyser);
+    sourceNode.connect(this.analyserNode);
   }
   /**
    * 
    * @param {HTMLMediaElement} mediaElement 
    */
   setMediaElementSource(mediaElement){
-    const source = this.audioCtx.createMediaElementSource(mediaElement);
+    const sourceNode = this.audioCtx.createMediaElementSource(mediaElement);
     // Connect the output of the source to the input of the analyser
-    source.connect(this.analyser)
+    sourceNode.connect(this.analyserNode)
     // Connect the output of the analyser to the destination
-    this.analyser.connect(this.audioCtx.destination);
+    this.analyserNode.connect(this.audioCtx.destination);
   }
   drawFrequencyBars() {
     this.context.fillStyle = 'rgb(0, 0, 0)';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     //Is an unsigned long value half that of the FFT size. 
-    let bufferLength = this.analyser.frequencyBinCount;
+    const bufferLength = this.analyserNode.frequencyBinCount;
 
     //Copies the current frequency data into a Uint8Array array passed into it.
-    let dataArray = new Uint8Array(bufferLength);
-    this.analyser.getByteFrequencyData(dataArray); //Value btween 0 and 255
+    const dataArray = new Uint8Array(bufferLength);
+    this.analyserNode.getByteFrequencyData(dataArray); //Value btween 0 and 255
     //http://stackoverflow.com/questions/14789283/what-does-the-fft-data-in-the-web-audio-api-correspond-to/14789992#14789992
 
-    let barWidth = this.canvas.width / bufferLength;
-    let barHeight;
+    const barWidth = this.canvas.width / bufferLength;
+    //255 is the maximum possible value in a Uint8Array
+    let f = this.canvas.height / 255;
 
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i] + 10;
+      const barHeight = f * dataArray[i];
 
-      this.context.fillStyle = 'rgb(' + Math.min(barHeight * 2, 255) + ',50,50)';
-      this.context.fillRect(barWidth * i, this.canvas.height - barHeight, barWidth, barHeight);
+      const barX = barWidth * i;
+      const barY = this.canvas.height - barHeight;
+
+      this.context.fillStyle = 'rgb(' + dataArray[i] + ',50,50)';
+      this.context.fillRect(barX, barY, barWidth, barHeight);
     }
 
     //The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.
@@ -87,9 +89,9 @@ class SoundAnalyser {
     this.drawVisual = requestAnimationFrame(() => this.drawFrequencyBars());
   }
   drawSineWave() {
-    let bufferLength = this.analyser.fftSize;
+    let bufferLength = this.analyserNode.fftSize;
     let dataArray = new Float32Array(bufferLength);
-    this.analyser.getFloatTimeDomainData(dataArray);
+    this.analyserNode.getFloatTimeDomainData(dataArray);
 
     this.context.fillStyle = 'rgb(200, 200, 200)';
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
