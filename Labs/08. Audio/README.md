@@ -55,7 +55,7 @@
 > A large collection of stock audio that you can use in your applications is available at: https://www.pond5.com
 
 ###  4.1. <a name='Assignment1'></a>Assignment 1
-Our goal is to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify).
+Our goal is to use the `HTMLAudioElement` in order to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify).
 1. Try the "audio-playlist" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-playlist).
 2. Check the source code.
 	> Similar examples: https://521dimensions.com/open-source/amplitudejs, https://codepen.io/markhillard/pen/Hjcwu, https://codepen.io/craigstroman/pen/aOyRYx
