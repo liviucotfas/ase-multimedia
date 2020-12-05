@@ -39,7 +39,7 @@ Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-
 
 'use strict';
 
-let app = {
+const app = {
     visibleCanvas: null,
     offscreenCanvas: null,
     donwloadLink: null,
