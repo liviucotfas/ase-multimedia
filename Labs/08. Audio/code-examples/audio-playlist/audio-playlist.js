@@ -76,6 +76,7 @@ app.load = function () {
 
     // Handle the play event
     app.audio.addEventListener('play', function () {
+        //alternative: app.btnPlayPause.children[0].classList.replace('fa-play', 'fa-pause');
         app.btnPlayPause.children[0].classList.remove('fa-play');
         app.btnPlayPause.children[0].classList.add('fa-pause');
     });
