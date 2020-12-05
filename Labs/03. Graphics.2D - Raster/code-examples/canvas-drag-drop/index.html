@@ -37,45 +37,45 @@
         'use strict';
 
         //Selectors
-        let canvasImage = document.getElementById('canvasImage');
-        let canvasHistogram = document.getElementById('canvasHistogram');
-        let barChart = new BarChart(canvasHistogram);
+        const canvasImage = document.getElementById('canvasImage');
+        const canvasHistogram = document.getElementById('canvasHistogram');
+        const barChart = new BarChart(canvasHistogram);
 
         //Methods
         function drawImage(img) {
-            let cW = img.naturalWidth, cH = img.naturalHeight;
+            const cW = img.naturalWidth, cH = img.naturalHeight;
 
             canvasImage.width = cW;
             canvasImage.height = cH;
            
-            let context = canvasImage.getContext('2d');
+            const context = canvasImage.getContext('2d');
             context.drawImage(img, 0, 0);
         }
 
         function drawImageHistogram(){
-            let v = [];
+            const v = [];
             for (let i = 0; i < 256; i++) {
                 //The push() method adds new items to the end of an array, and returns the new length.
                 // http://www.w3schools.com/jsref/jsref_push.asp
                 v.push(0);
             }
 
-            let context = canvasImage.getContext('2d');
-            let cW = canvasImage.width;
-            let cH = canvasImage.height;
-            let imageData = context.getImageData(0, 0, cW, cH);
-            let data = imageData.data;
+            const context = canvasImage.getContext('2d');
+            const cW = canvasImage.width;
+            const cH = canvasImage.height;
+            const imageData = context.getImageData(0, 0, cW, cH);
+            const data = imageData.data;
 
             for (let y = 0; y < cH; y++) { //each line
                 for (let x = 0; x < cW; x++) { //each column
                     
-                    let offset = ((cW * y) + x) * 4
+                    const offset = ((cW * y) + x) * 4
 
-                    let red = data[offset];
-                    let green = data[offset + 1];
-                    let blue = data[offset + 2];
+                    const red = data[offset];
+                    const green = data[offset + 1];
+                    const blue = data[offset + 2];
 
-                    let val = Math.round((red + green + blue)/3);
+                    const val = Math.round((red + green + blue)/3);
                     v[val]++;
                 }
             }
@@ -90,18 +90,18 @@
 
             //Access the `dataTransfer` property from the `drop` event which
             //holds the files dropped into the browser window.
-            var files = e.dataTransfer.files;
+            const files = e.dataTransfer.files;
             
             //we need to check the length of the files property in order to make sure that the user has dragged and dropped a file and not something else (ex: a text). Note: if the user has dropped a text, we can access it in a similar manner, using the DataTransfer object
             if (files.length > 0) {
                 //The FileReader object lets web applications asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read
                 //https://developer.mozilla.org/en/docs/Web/API/FileReader
-                var reader = new FileReader();
+                const reader = new FileReader();
 
                 //FileReader.onload: a handler for the load event. This event is triggered each time the reading operation is successfully completed.
                 //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
                 reader.addEventListener('load', function (e) {
-                    let image = document.createElement('img');
+                    const image = document.createElement('img');
                     image.addEventListener('load', function(){
                         drawImage(this);
                         drawImageHistogram();
