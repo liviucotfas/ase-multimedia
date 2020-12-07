@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Web Audio API</title>
+    </head>
+    <body>
+
+        <script>
+            "using strict";
+
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+            const context = new AudioContext();
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then((stream) => {
+                const microphone = context.createMediaStreamSource(stream);
+                const filter = context.createBiquadFilter();
+                // microphone -> filter -> destination
+                microphone.connect(filter);
+                filter.connect(context.destination);
+            });
+        </script>
+    </body>
+</html>
+
