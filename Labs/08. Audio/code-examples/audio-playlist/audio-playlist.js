@@ -30,7 +30,7 @@ app.play = function (url) {
 
 /** Changes the current song */
 app.next = function () {
-    const index = app.tracks.indexOf(app.currentUrl) + 1;
+    let index = app.tracks.indexOf(app.currentUrl) + 1;
     if (index >= app.tracks.length) {
         index = 0;
     }
