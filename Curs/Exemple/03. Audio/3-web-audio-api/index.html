@@ -8,8 +8,6 @@
         <script>
             "using strict";
 
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
             const context = new AudioContext();
 
             navigator.mediaDevices.getUserMedia({ audio: true })
