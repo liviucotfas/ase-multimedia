@@ -55,7 +55,7 @@
 > A large collection of stock audio that you can use in your applications is available at: https://www.pond5.com
 
 ###  4.1. <a name='Assignment1'></a>Assignment 1
-Our goal is to use the `HTMLAudioElement` in order to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify). A screenshot with the interface used by spotify for playing tracks is include below:
+Our goal is to use the `HTMLAudioElement` in order to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify). A screenshot with the interface used by Spotify for playing tracks is include below:
 
 ![](media/spotify.png)
 
