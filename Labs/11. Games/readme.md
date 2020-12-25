@@ -45,8 +45,8 @@
 	- use `let d = new Date();` to get the current time;
 	- you can subtract two `Date` objects to compute the difference between them in milliseconds.
 4. The example has a few "physics" issues. For example, we only test if the coordinates of the ball are inside a brick, but in fact we should test if any point on the contour of the ball is touching the brick. The same issue appears when the ball hits the paddle from the side.
-5. Try a more advance version of our game, developed using the Phaser.io library: https://phaser.io/examples/v2/games/breakout
-5. (opt) Read more about the Phaser.io library at https://phaser.io
+5. Play a sound when the user destroys a brickm wins or loses the game. Allow the user to deactivate the sound. You should persist the settings between gameplays using Web Storage API. 
+6. Try a more advance version of our game, developed using the Phaser.io library: https://phaser.io/examples/v2/games/breakout . Read more about the Phaser.io library at https://phaser.io
 
 ##  7. <a name='Bibliography'></a>Bibliography
 - https://developer.mozilla.org/en-US/docs/Games
