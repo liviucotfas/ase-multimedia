@@ -56,6 +56,9 @@
 
 ###  4.1. <a name='Assignment1'></a>Assignment 1
 Our goal is to use the `HTMLAudioElement` in order to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify).
+
+![](media/spotify.png)
+
 1. Try the "audio-playlist" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-playlist).
 2. Check the source code.
 	> Similar examples: https://521dimensions.com/open-source/amplitudejs, https://codepen.io/markhillard/pen/Hjcwu, https://codepen.io/craigstroman/pen/aOyRYx
