@@ -55,7 +55,7 @@
 > A large collection of stock audio that you can use in your applications is available at: https://www.pond5.com
 
 ###  4.1. <a name='Assignment1'></a>Assignment 1
-Our goal is to use the `HTMLAudioElement` in order to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify).
+Our goal is to use the `HTMLAudioElement` in order to build an audio player application that also includes a playlist. The playlist can either be defined locally or retrieved from a web api (such as the one provided by Spotify). A screenshot with the interface used by spotify for playing tracks is include below:
 
 ![](media/spotify.png)
 
@@ -65,7 +65,7 @@ Our goal is to use the `HTMLAudioElement` in order to build an audio player appl
 3. Allow the user to change the volume level using a slider.
 4. Allow the user to change the current position inside the track with the help of a slider.
 5. Add a button for playing the previous track. Add a button for playing the next track.
-6. Add the option to shuffle play.
+6. Add the option to shuffle play the tracks.
 5. Instead of declaring the playlist in the `.html` file, declare it as an array in your `.js` file. The playlist in the interface should be constructed from this array. The approach is also useful if we plan to receive the playlist from an API (written for example in .NET Core or Node.js).
    
 	> The same approach is used for example by [AmplitudeJS](https://521dimensions.com/open-source/amplitudejs/docs/configuration/playlists.html)
