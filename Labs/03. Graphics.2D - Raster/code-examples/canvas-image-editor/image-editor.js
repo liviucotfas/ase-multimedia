@@ -110,7 +110,7 @@ app.grayscale = function(pContext){
 app.load = function () {
     app.visibleCanvas = document.createElement("canvas");
     app.donwloadLink = document.getElementById("donwloadLink");
-    app.offscreenCanvas = document.getElementById("processedImage");
+    app.offscreenCanvas = document.getElementById("visibleCanvas");
     app.loader = document.querySelector('.loader');
 
     let buttons = document.getElementsByClassName("effectType");
