@@ -38,7 +38,9 @@
 
 ##  4. <a name='Assignments'></a>Assignments
 
-> A large collection of stock video footage that you can use in your applications is available at: https://www.pond5.com
+> A large collection of stock video footage that you can use in your applications is available at: https://www.pond5.com . You can download free samples by:
+> 1. right clicking on any video and choosingf save video as.
+> 2. accessing only the free videos at: https://www.pond5.com/search?kw=&media=footage#1/18447
 
 ###  4.1. <a name='Assignment1'></a>Assignment 1
 1. Try the "video-player" sample by clicking [here](https://ase-multimedia.azurewebsites.net/video-player).
