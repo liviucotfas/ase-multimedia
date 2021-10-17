@@ -5,41 +5,43 @@ class BarChart{
         this.canvas = canvas;
     }
     draw(values){
-        let context = this.canvas.getContext('2d');
+        const context = this.canvas.getContext('2d');
     
+        // Save the current context of the applciation. We will restore it later.
         context.save();
-
-        let h = this.canvas.height;
-        let w = this.canvas.width / values.length;
     
+        // Draw the chart background
         context.fillStyle = '#DEDEDE';
         context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
+        // Set the color for the bars
         context.fillStyle = 'red';
         context.strokeStyle = 'black';
         context.lineWidth = 2;
         
         //...spread operator
-        let maxValue = Math.max(...values);
-        let f = this.canvas.height / maxValue;
+        const maxValue = Math.max(...values);
+        const f = this.canvas.height / maxValue;
+
+        const barWidth = this.canvas.width / values.length;
     
         for (let i = 0; i < values.length; i++) {
+               
+            const barHeight = values[i] * f * 0.9;
+            const barX = i * barWidth + barWidth / 4;
+            const barY = this.canvas.height - barHeight;
     
-            let rectWidth = w * 0.8;
-            let rectHeight = values[i] * f * 0.9;
-            let rectX = (i + 0.1) * w;
-            let rectY = h - rectHeight;
-    
-            context.fillRect(rectX, rectY, rectWidth, rectHeight);
-            context.strokeRect(rectX, rectY, rectWidth, rectHeight);
+            context.fillRect(barX, barY, barWidth / 2, barHeight);
+            context.strokeRect(barX, barY, barWidth / 2, barHeight);
     
             /* Equivalent to:
             context.beginPath();
-            context.rect(rectX, rectY, rectWidth, rectHeight);
+            context.rect(barX, barY, barWidth/2, barHeight);
             context.fill();
             context.stroke();*/
         }
 
+        // Restore the initial context
         context.restore();
     }
 }
