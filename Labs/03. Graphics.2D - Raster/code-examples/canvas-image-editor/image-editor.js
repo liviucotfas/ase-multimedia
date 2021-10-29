@@ -68,7 +68,7 @@ app.drawImage = function() {
     let t0 = performance.now();
     console.log("t0: "+t0);
 
-	let pContext = app.offscreenCanvas.getContext("2d");
+	let pContext = app.visibleCanvas.getContext("2d");
     switch (app.currentEffect) {
         case "normal":
             app.normal(pContext);
@@ -81,7 +81,7 @@ app.drawImage = function() {
     let t1 = performance.now();
     console.log(t1-t0 + ": drawing the image on the canvas");
 
-    app.offscreenCanvas.toBlob(function(blob){
+    app.visibleCanvas.toBlob(function(blob){
         let blobUrl = URL.createObjectURL(blob);
         app.donwloadLink.href = blobUrl;
     },"image/png");
@@ -91,11 +91,11 @@ app.drawImage = function() {
 
 app.normal = function(pContext){
     
-    pContext.drawImage(app.visibleCanvas, 0, 0);
+    pContext.drawImage(app.offscreenCanvas, 0, 0);
 }
 
 app.grayscale = function(pContext){
-    let oContext = app.visibleCanvas.getContext("2d");
+    let oContext = app.offscreenCanvas.getContext("2d");
 
     let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
     let pixels = imageData.data;
@@ -108,9 +108,9 @@ app.grayscale = function(pContext){
 
 //Events
 app.load = function () {
-    app.visibleCanvas = document.createElement("canvas");
+    app.offscreenCanvas = document.createElement("canvas");
     app.donwloadLink = document.getElementById("donwloadLink");
-    app.offscreenCanvas = document.getElementById("visibleCanvas");
+    app.visibleCanvas = document.getElementById("visibleCanvas");
     app.loader = document.querySelector('.loader');
 
     let buttons = document.getElementsByClassName("effectType");
@@ -127,10 +127,10 @@ app.load = function () {
 
             let img = document.createElement("img");
             img.addEventListener("load", function(){
-                app.visibleCanvas.width = app.offscreenCanvas.width = img.naturalWidth;
-                app.visibleCanvas.height = app.offscreenCanvas.height = img.naturalHeight;
+                app.offscreenCanvas.width = app.visibleCanvas.width = img.naturalWidth;
+                app.offscreenCanvas.height = app.visibleCanvas.height = img.naturalHeight;
 
-                const context = app.visibleCanvas.getContext("2d");
+                const context = app.offscreenCanvas.getContext("2d");
                 context.drawImage(img,0,0);
 
                 app.changeEffect("normal");
