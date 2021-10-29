@@ -39,105 +39,79 @@ Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-
 
 'use strict';
 
-const app = {
-    visibleCanvas: null,
-    offscreenCanvas: null,
-    donwloadLink: null,
-    loader: null,
-    currentEffect: null
-}
+class ImageEditor {
+    constructor(){
+        this.visibleCanvas = document.getElementById("visibleCanvas");
+        this.offscreenCanvas = document.createElement("canvas");
 
-//Drawing methods
-/** Changes the effect
- * @param {string} effect - The new effect
- */
-app.changeEffect = function(effect){
-    if(effect !== app.currentEffect)
-    {
-        app.currentEffect = effect;
-        app.drawImage();
+        this.donwloadLink = document.getElementById("donwloadLink");      
+        this.loader = document.querySelector('.loader');
     }
-}
+    /**
+     * 
+     * @param {HtmlImageElement} img 
+     */
+    changeImage(img){
+        this.offscreenCanvas.width = this.visibleCanvas.width = img.naturalWidth;
+        this.offscreenCanvas.height = this.visibleCanvas.height = img.naturalHeight;
 
-app.drawImage = function() {
+        const context = this.offscreenCanvas.getContext("2d");
+        context.drawImage(img,0,0);
+
+        this.changeEffect("normal");
+    }
+    /** Changes the effect
+     * @param {string} effect - The new effect
+     */
+    changeEffect(effect){
+        if(effect !== this.currentEffect)
+        {
+            this.currentEffect = effect;
+            this.drawImage();
+        }
+    }
+    drawImage() {
     
-    //show spinner
-    app.loader.style.display = 'block';
-
-    //https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
-    let t0 = performance.now();
-    console.log("t0: "+t0);
-
-	let pContext = app.visibleCanvas.getContext("2d");
-    switch (app.currentEffect) {
-        case "normal":
-            app.normal(pContext);
-            break;
-        case "grayscale":
-            app.grayscale(pContext);
-            break;
-    }
-
-    let t1 = performance.now();
-    console.log(t1-t0 + ": drawing the image on the canvas");
-
-    app.visibleCanvas.toBlob(function(blob){
-        let blobUrl = URL.createObjectURL(blob);
-        app.donwloadLink.href = blobUrl;
-    },"image/png");
-
-    app.loader.style.display = 'none';
-}
-
-app.normal = function(pContext){
+        //show spinner
+        this.loader.style.display = 'block';
     
-    pContext.drawImage(app.offscreenCanvas, 0, 0);
-}
-
-app.grayscale = function(pContext){
-    let oContext = app.offscreenCanvas.getContext("2d");
-
-    let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
-    let pixels = imageData.data;
-
-    for (let i = 0; i < pixels.length; i += 4)
-        pixels[i] = pixels[i + 1] = pixels[i + 2] = Math.round((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
-        
-    pContext.putImageData(imageData, 0, 0); 
-}
-
-//Events
-app.load = function () {
-    app.offscreenCanvas = document.createElement("canvas");
-    app.donwloadLink = document.getElementById("donwloadLink");
-    app.visibleCanvas = document.getElementById("visibleCanvas");
-    app.loader = document.querySelector('.loader');
-
-    let buttons = document.getElementsByClassName("effectType");
-    for(let i=0; i<buttons.length; i++){
-        //more about the data attribute: https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes
-        buttons[i].addEventListener("click", function(){ app.changeEffect(this.dataset.effect)}); 
+        //https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
+        let t0 = performance.now();
+        console.log("t0: "+t0);
+    
+        let pContext = this.visibleCanvas.getContext("2d");
+        switch (this.currentEffect) {
+            case "normal":
+                this.normal(pContext);
+                break;
+            case "grayscale":
+                this.grayscale(pContext);
+                break;
+        }
+    
+        let t1 = performance.now();
+        console.log(t1-t0 + ": drawing the image on the canvas");
+    
+        this.visibleCanvas.toBlob((blob)=>{
+            let blobUrl = URL.createObjectURL(blob);
+            this.donwloadLink.href = blobUrl;
+        },"image/png");
+    
+        this.loader.style.display = 'none';
     }
-
-    document.getElementById("fileBrowser").addEventListener("change", function(e){  
-        //1. create the reader
-        let reader = new FileReader();
-        //2. attach events
-        reader.addEventListener('load', function(event){
-
-            let img = document.createElement("img");
-            img.addEventListener("load", function(){
-                app.offscreenCanvas.width = app.visibleCanvas.width = img.naturalWidth;
-                app.offscreenCanvas.height = app.visibleCanvas.height = img.naturalHeight;
-
-                const context = app.offscreenCanvas.getContext("2d");
-                context.drawImage(img,0,0);
-
-                app.changeEffect("normal");
-            });
-            img.src = event.target.result;
-        });
-        //3. start loading the file
-        reader.readAsDataURL(e.target.files[0]);    
-    });
+    normal(pContext){
+        pContext.drawImage(this.offscreenCanvas, 0, 0);
+    }
+    
+    grayscale(pContext){
+        let oContext = this.offscreenCanvas.getContext("2d");
+    
+        let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
+        let pixels = imageData.data;
+    
+        for (let i = 0; i < pixels.length; i += 4)
+            pixels[i] = pixels[i + 1] = pixels[i + 2] = Math.round((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
+            
+        pContext.putImageData(imageData, 0, 0); 
+    }
 }
