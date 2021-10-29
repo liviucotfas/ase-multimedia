@@ -43,10 +43,9 @@
 
         //Methods
         function drawImage(img) {
-            const cW = img.naturalWidth, cH = img.naturalHeight;
-
-            canvasImage.width = cW;
-            canvasImage.height = cH;
+            // resize the canvas
+            canvasImage.width = img.naturalWidth;
+            canvasImage.height = img.naturalHeight;
            
             const context = canvasImage.getContext('2d');
             context.drawImage(img, 0, 0);
@@ -103,7 +102,7 @@
                 reader.addEventListener('load', function (e) {
                     const image = document.createElement('img');
                     image.addEventListener('load', function(){
-                        drawImage(this);
+                        drawImage(image); //"this" can also be used as a parameter
                         drawImageHistogram();
                     });
                     image.setAttribute('src', e.target.result);
