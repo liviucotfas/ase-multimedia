@@ -1,9 +1,17 @@
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 class BarChart{
+    /**
+     * 
+     * @param {HTMLCanvasElement} canvas - The canvas used for drawing the histogram
+     */
     constructor(canvas) {
         this.canvas = canvas;
     }
+    /**
+     * 
+     * @param {Array<number>} values - The values that will be displayed in the chart
+     */
     draw(values){
         const context = this.canvas.getContext('2d');
     
