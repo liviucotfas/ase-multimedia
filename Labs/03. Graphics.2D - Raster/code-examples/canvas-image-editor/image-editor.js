@@ -42,7 +42,9 @@ Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-
 class ImageEditor {
     constructor(){
         this.visibleCanvas = document.getElementById("visibleCanvas");
+        this.visibleCanvasContext = this.visibleCanvas.getContext("2d");
         this.offscreenCanvas = document.createElement("canvas");
+        this.offscreenCanvasContext = this.offscreenCanvas.getContext("2d");
 
         this.donwloadLink = document.getElementById("donwloadLink");      
         this.loader = document.querySelector('.loader');
@@ -55,8 +57,7 @@ class ImageEditor {
         this.offscreenCanvas.width = this.visibleCanvas.width = img.naturalWidth;
         this.offscreenCanvas.height = this.visibleCanvas.height = img.naturalHeight;
 
-        const context = this.offscreenCanvas.getContext("2d");
-        context.drawImage(img,0,0);
+        this.offscreenCanvasContext.drawImage(img,0,0);
 
         this.changeEffect("normal");
     }
@@ -76,42 +77,38 @@ class ImageEditor {
         this.loader.style.display = 'block';
     
         //https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
-        let t0 = performance.now();
+        const t0 = performance.now();
         console.log("t0: "+t0);
     
-        let pContext = this.visibleCanvas.getContext("2d");
         switch (this.currentEffect) {
             case "normal":
-                this.normal(pContext);
+                this.normal();
                 break;
             case "grayscale":
-                this.grayscale(pContext);
+                this.grayscale();
                 break;
         }
     
-        let t1 = performance.now();
+        const t1 = performance.now();
         console.log(t1-t0 + ": drawing the image on the canvas");
     
         this.visibleCanvas.toBlob((blob)=>{
-            let blobUrl = URL.createObjectURL(blob);
+            const blobUrl = URL.createObjectURL(blob);
             this.donwloadLink.href = blobUrl;
         },"image/png");
     
         this.loader.style.display = 'none';
     }
-    normal(pContext){
-        pContext.drawImage(this.offscreenCanvas, 0, 0);
+    normal(){
+        this.visibleCanvasContext.drawImage(this.offscreenCanvas, 0, 0);
     }
-    
-    grayscale(pContext){
-        let oContext = this.offscreenCanvas.getContext("2d");
-    
-        let imageData = oContext.getImageData(0, 0, oContext.canvas.width, oContext.canvas.height);
-        let pixels = imageData.data;
+    grayscale(){   
+        const imageData = this.offscreenCanvasContext.getImageData(0, 0, this.offscreenCanvas.width, this.offscreenCanvas.height);
+        const pixels = imageData.data;
     
         for (let i = 0; i < pixels.length; i += 4)
             pixels[i] = pixels[i + 1] = pixels[i + 2] = Math.round((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
             
-        pContext.putImageData(imageData, 0, 0); 
+        this.visibleCanvasContext.putImageData(imageData, 0, 0); 
     }
 }
