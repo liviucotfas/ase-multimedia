@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <input id="btn" type="button" value="Stop">
+
+        <script>
+            "use strict";
+
+            /*const id = setTimeout(() => {
+                console.log("apel functie");
+            }, 2000);
+
+            clearTimeout(id);*/
+
+            const id = setInterval(()=>{
+                console.log("apel functie");
+            }, 2000)
+
+            document.getElementById("btn").addEventListener("click", ()=>{
+                clearInterval(id);
+            })
+        </script>
+    </body>
+</html>
