@@ -47,7 +47,7 @@ class ImageEditor {
     #donwloadLink;
     #loader;
 
-    #currentEffect;
+    #effect;
 
     constructor(){
         this.#visibleCanvas = document.getElementById("visibleCanvas");
@@ -74,9 +74,9 @@ class ImageEditor {
      * @param {string} effect - The new effect
      */
     changeEffect(effect){
-        if(effect !== this.#currentEffect)
+        if(effect !== this.#effect)
         {
-            this.#currentEffect = effect;
+            this.#effect = effect;
             this.#drawImage();
         }
     }
@@ -89,7 +89,7 @@ class ImageEditor {
         const t0 = performance.now();
         console.log("t0: "+t0);
     
-        switch (this.#currentEffect) {
+        switch (this.#effect) {
             case "normal":
                 this.#normal();
                 break;
