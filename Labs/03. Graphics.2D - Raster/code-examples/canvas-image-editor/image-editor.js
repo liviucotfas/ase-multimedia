@@ -44,7 +44,6 @@ class ImageEditor {
     #offscreenCanvas;
     #offscreenCanvasContext;
 
-    #donwloadLink;
     #loader;
 
     #effect;
@@ -61,6 +60,7 @@ class ImageEditor {
 
         this.#loader = document.querySelector('.loader');
     }
+
     /**
      * 
      * @param {HtmlImageElement} img 
@@ -73,6 +73,7 @@ class ImageEditor {
 
         this.changeEffect("normal");
     }
+
     /** Changes the effect
      * @param {string} effect - The new effect
      */
@@ -123,9 +124,11 @@ class ImageEditor {
         console.log(t1-t0 + ": drawing the image on the canvas");    
         this.#loader.style.display = 'none';
     }
+
     #normal(){
         this.#visibleCanvasContext.drawImage(this.#offscreenCanvas, 0, 0);
     }
+    
     #grayscale(){   
         const imageData = this.#offscreenCanvasContext.getImageData(
             0, 0, this.#offscreenCanvas.width, this.#offscreenCanvas.height);
