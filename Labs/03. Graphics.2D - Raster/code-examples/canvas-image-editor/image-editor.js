@@ -86,9 +86,9 @@ class ImageEditor {
     }
 
     /**
-     * Downloads the image
+     * Saves the image
      */
-    downloadImage(){
+    saveImage(){
         const a = document.createElement("a");
 
         // You can also use the `toBlob` and `URL.createObjectURL(blob)` methods

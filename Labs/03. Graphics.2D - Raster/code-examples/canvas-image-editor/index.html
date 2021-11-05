@@ -2,19 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
     <title>Image Editor</title>
+    <meta name="description" content="HTML5 image editor.">
+
+    <meta charset="utf-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="stylesheet" type="text/css" href="image-editor.css">
-
-    <!-- Add to home screen -->
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2F3BA2">
     <link rel="apple-touch-icon" href="img/icons/icon-152x152.png">
 
-    <meta name="description" content="HTML5 image editor.">
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -41,11 +40,18 @@
         <button type="button" class="effectType" data-effect="green">Green</button>
         <button type="button" class="effectType" data-effect="blue">Blue</button>
 
-        <button id="btnDownload" type="button">Download</button>
+        <button id="btnSave" type="button">Save</button>
     </div>
 
-    <div class="loader" style="display: none">
+    <div class="loader hidden">
         <div id="spinner"></div>
+    </div>
+
+    <!-- Install button, hidden by default -->
+    <div id="installContainer" class="hidden">
+        <button id="butInstall" type="button">
+          Install
+        </button>
     </div>
 
     <script src="image-editor.js"></script>
