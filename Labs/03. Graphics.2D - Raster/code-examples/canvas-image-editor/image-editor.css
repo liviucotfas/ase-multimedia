@@ -1,3 +1,41 @@
+/* Why margin-right" -50%? https://www.w3.org/Style/Examples/007/center.en.html */
+#visibleCanvas {
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    max-width:100%; 
+    width:auto; 
+    max-height: 600px;
+    height: auto; 
+}
+
+.outline {
+    background-color: rgba(200,200,200,0.8);
+    padding: 10px;
+    position: fixed; 
+    left: 50%; 
+    transform: translate(-50%);
+}
+
+.top {
+    top:10px; 
+}
+
+.bottom {
+    bottom: 10px;
+}
+
+#buttonsDiv {
+    background-color: rgba(200,200,200,0.8);
+    padding: 10px;
+    position: fixed; 
+    bottom: 10px; left: 50%; 
+    transform: translate(-50%); 
+    margin-right: -50%;
+}
+
+/* Loader */
 .loader {
     left: 50%;
     top: 50%;
