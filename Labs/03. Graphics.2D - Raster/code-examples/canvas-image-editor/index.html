@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html> 
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -35,7 +35,7 @@
         top:10px; left: 50%; 
         transform: translate(-50%);">
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
-        <input type="file" id="fileBrowser" name="fileBrowser" accept="image/*">
+        <input type="file" id="fileBrowser" accept="image/*" placeholder="Choose an image">
     </div>
 
     <!--  Why margin-right" -50%? https://www.w3.org/Style/Examples/007/center.en.html -->
@@ -60,13 +60,7 @@
         <button type="button" class="effectType" data-effect="green">Green</button>
         <button type="button" class="effectType" data-effect="blue">Blue</button>
 
-        <a id="donwloadLink" href="#" download="processedImage">
-            <!-- 
-                download attribute: download file when clicking on the link (instead of navigating to the file)
-                http://www.w3schools.com/tags/att_a_download.asp
-            -->
-            Download
-        </a>
+        <button id="btnDownload" type="button">Download</button>
     </div>
 
     <div class="loader" style="display: none">

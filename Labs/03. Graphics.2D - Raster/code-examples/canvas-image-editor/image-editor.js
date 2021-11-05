@@ -49,13 +49,16 @@ class ImageEditor {
 
     #effect;
 
-    constructor(){
-        this.#visibleCanvas = document.getElementById("visibleCanvas");
+    /**
+     * Constructs a new ImageEditor
+     * @param {HTMLCanvasElement} visibleCanvas 
+     */
+    constructor(visibleCanvas){
+        this.#visibleCanvas = visibleCanvas;
         this.#visibleCanvasContext = this.#visibleCanvas.getContext("2d");
         this.#offscreenCanvas = document.createElement("canvas");
         this.#offscreenCanvasContext = this.#offscreenCanvas.getContext("2d");
 
-        this.#donwloadLink = document.getElementById("donwloadLink");      
         this.#loader = document.querySelector('.loader');
     }
     /**
@@ -80,6 +83,24 @@ class ImageEditor {
             this.#drawImage();
         }
     }
+
+    /**
+     * Downloads the image
+     */
+    downloadImage(){
+        const a = document.createElement("a");
+
+        // You can also use the `toBlob` and `URL.createObjectURL(blob)` methods
+        a.href = this.#visibleCanvas.toDataURL("image/png", 1);
+        
+        // Download attribute: download file when clicking on the link (instead of navigating to the file)
+        http://www.w3schools.com/tags/att_a_download.asp
+        a.download = "image.png";
+        
+        // Simulate a click on the link
+        a.click();
+    }
+
     #drawImage(){
     
         //show spinner
@@ -99,13 +120,7 @@ class ImageEditor {
         }
     
         const t1 = performance.now();
-        console.log(t1-t0 + ": drawing the image on the canvas");
-    
-        this.#visibleCanvas.toBlob((blob)=>{
-            const blobUrl = URL.createObjectURL(blob);
-            this.#donwloadLink.href = blobUrl;
-        },"image/png");
-    
+        console.log(t1-t0 + ": drawing the image on the canvas");    
         this.#loader.style.display = 'none';
     }
     #normal(){

@@ -1,4 +1,5 @@
-const imageEditor = new ImageEditor();
+const visibleCanvas = document.getElementById("visibleCanvas");
+const imageEditor = new ImageEditor(visibleCanvas);
 
 const buttons = document.getElementsByClassName("effectType");
 for(let i=0; i<buttons.length; i++){
@@ -22,3 +23,7 @@ document.getElementById("fileBrowser").addEventListener("change", function(ev){
     //3. start loading the file
     reader.readAsDataURL(ev.target.files[0]);    
 });
+
+document.getElementById("btnDownload").addEventListener("click", function(){
+    imageEditor.downloadImage();
+})
