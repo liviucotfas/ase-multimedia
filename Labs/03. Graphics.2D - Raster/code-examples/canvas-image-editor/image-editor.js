@@ -23,17 +23,24 @@ Hint: r' = r + v; g' = g + v; b' = b + v;
 10. Implement pixelate
 Hint: check https://gist.github.com/anonymous/1888841
 11. Only display the download link when an effect is applied
-12. Implement a color picker.
+Hint:
+- declare a class that with display: none
+Hint: use the .classList property and add()/remove()/toogle() methods or the .className property 
+12. Disable the buttons for the effects when no image is loaded.
+Hint:
+- use the disabled property of the buttons
+13. Implement a color picker.
 Hint: 
 - check https://github.com/mdn/dom-examples/blob/master/canvas/pixel-manipulation/color-picker.js
 - handle the `mousemove` event as use `offsetX` and `offsetY`
+- implement a method called `getPixelData(x,y)' on the ImageEditor
 - make sure that the color picker continues to work when you reduce the size of the browser window (clientWidth)
-13. Display the button for the currently selected effect with a different color.
-Hint: use the .classList property and add()/remove() methods or the .className property 
-14. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
-15. (optional) Adjust the brightness effect using a slider
-16. (optional) Adjust the threshold effect using a slider
-17. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
+14. Display the button for the currently selected effect with a different color.
+Hint: use the .classList property and add()/remove()/toogle() methods or the .className property 
+15. (optional) Use Bootstrap for the UI (https://getbootstrap.com/)
+16. (optional) Adjust the brightness effect using a slider
+17. (optional) Adjust the threshold effect using a slider
+18. (optional)Check web workers as a way to perfrom heavy processing without blocking the UI thread
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
 */
 
@@ -55,14 +62,15 @@ class ImageEditor {
     constructor(visibleCanvas){
         this.#visibleCanvas = visibleCanvas;
         this.#visibleCanvasContext = this.#visibleCanvas.getContext("2d");
-        this.#offscreenCanvas = document.createElement("canvas");
+        // An `OffScreenCanvas` could have been used instead of a regular `HtmlCanvasElement` https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas
+        this.#offscreenCanvas = document.createElement("canvas"); 
         this.#offscreenCanvasContext = this.#offscreenCanvas.getContext("2d");
 
         this.#loader = document.querySelector('.loader');
     }
 
     /**
-     * 
+     * Changes the image
      * @param {HtmlImageElement} img 
      */
     changeImage(img){
