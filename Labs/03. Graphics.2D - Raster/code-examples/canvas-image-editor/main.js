@@ -1,7 +1,7 @@
 const visibleCanvas = document.getElementById("visibleCanvas");
 const imageEditor = new ImageEditor(visibleCanvas);
 
-const buttons = document.getElementsByClassName("effectType");
+const buttons = document.querySelectorAll("[data-effect]");
 for (let i = 0; i < buttons.length; i++) {
     //more about the data attribute: https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes
     buttons[i].addEventListener("click", function () { imageEditor.changeEffect(this.dataset.effect) });
