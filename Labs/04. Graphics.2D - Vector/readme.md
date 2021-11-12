@@ -119,9 +119,15 @@ chart.draw(data, options);
     
     ```JavaScript
     class BarChart{
+        #svgns;
+        #domElement;
+        #svg;
+        #width;
+        #height;
+
         constructor(domElement) {
-            this.domElement = domElement;
-            this.svgns = "http://www.w3.org/2000/svg"; 
+            this.#domElement = domElement;
+            this.#svgns  = "http://www.w3.org/2000/svg";
         }
     }
     ```
@@ -133,41 +139,50 @@ chart.draw(data, options);
 
         draw(data){
             this.data = data;
-            this.width = this.domElement.clientWidth;
-            this.height = this.domElement.clientHeight;
+            this.#width = this.#domElement.clientWidth;
+            this.#height = this.#domElement.clientHeight;
         }
     }
     ```
 5. Add the `createSVG()` method to the `BarChart` class that will be used to create the `svg` element. Call it from the `draw()` method.
 
     ```JavaScript
-    createSVG(){
-        this.svg = document.createElementNS(this.svgns, "svg");
-        this.svg.setAttribute('style', 'border: 1px solid black');
-        this.svg.setAttribute('width', this.width);
-        this.svg.setAttribute('height', this.height);
+    #createSVG(){
+        this.#svg = document.createElementNS(this.#svgns, "svg");
+             
+        this.#svg.style.borderColor = 'black';
+        this.#svg.style.borderWidth = '1px';
+        this.#svg.style.borderStyle = 'solid';
+        //or
+        //this.#svg.setAttribute('style', 'border: 1px solid black'); 
+        
+        this.#svg.setAttribute('width', this.#width); //note: this.#svg.width is readonly
+        this.#svg.setAttribute('height', this.#height);
     }
     ```
 6. Add the `drawBackground()` method to the `BarChart` class that will draw a background rectangle for our chart. Call it from the `draw()` method.
 
     ```JavaScript
-    drawBackground(){
-        let rect = document.createElementNS(this.svgns, 'rect');
+    #drawBackground(){
+        const rect = document.createElementNS(this.#svgns, 'rect');
         rect.setAttribute('x', 0);
         rect.setAttribute('y', 0);
-        rect.setAttribute('height', this.height);
-        rect.setAttribute('width', this.width);
-        rect.setAttribute('fill', 'WhiteSmoke');
-        this.svg.appendChild(rect);
+        rect.setAttribute('height', this.#height);
+        rect.setAttribute('width', this.#width);
+  
+        rect.style.fill = 'WhiteSmoke';
+        //rect.setAttribute("fill", 'WhiteSmoke'); //! not recommended
+    
+        this.#svg.appendChild(rect);
     }
     ```
 7. Add the `drawBars()` method to the `BarChart` class that will draw the actual bars. Call it from the `draw()` method.
 
     ```JavaScript
-    drawBars(){
-        const barWidth = this.width / this.data.length;
+    #drawBars(){
+        const barWidth = this.#width / this.data.length;
 
-        const f = this.height / Math.max(...this.data.map(x=>x[1]));
+        const f = this.#height / Math.max(...this.data.map(x=>x[1]));
 
         for(let i=0; i<this.data.length; i++){
 
@@ -175,26 +190,29 @@ chart.draw(data, options);
             const value = this.data[i][1];
 
             const barHeight = value * f * 0.9;
-            const barY = this.height - barHeight;
+            const barY = this.#height - barHeight;
             const barX = i * barWidth + barWidth/4;
 
-            const bar = document.createElementNS(this.svgns, 'rect');
+            const bar = document.createElementNS(this.#svgns, 'rect');
             bar.setAttribute('class','bar');
             //or
-            //bar.classList.add('bar');
+            //bar.classList.add('bar'); //!recommended
             bar.setAttribute('x', barX);
             bar.setAttribute('y', barY);
             bar.setAttribute('height', barHeight);
             bar.setAttribute('width', barWidth/2);
-            bar.setAttribute('fill', '#db4437');
-            bar.setAttribute('stroke-width', 2);
-            bar.setAttribute('stroke', 'black');
-            this.svg.appendChild(bar);
+
+            //note: if the styles are set using CSS .bar:hover {...} will only work if marked as !important
+            //the styling should be moved to the .bar {...} instead
+            bar.style.fill = '#db4437';
+            bar.style.strokeWidth = 2;
+            bar.style.stroke = "black";
+            this.#svg.appendChild(bar);
         }
     }
     ```
 
-9. Let's change the color of the bars when the user hovers with the mouse over them.
+8. Let's change the color of the bars when the user hovers with the mouse over them.
 
     ```CSS
     .bar:hover {
@@ -202,14 +220,14 @@ chart.draw(data, options);
     }
     ```
 
-8. Update the `drawBars()` method in the `BarChart` class in order to also display the labels for the bars.
+9. Update the `drawBars()` method in the `BarChart` class in order to also display the labels for the bars.
 
     ```JavaScript
-    const text = document.createElementNS(this.svgns, 'text');
+    const text = document.createElementNS(this.#svgns, 'text');
     text.appendChild(document.createTextNode(label));
     text.setAttribute('x', barX);
     text.setAttribute('y', barY);
-    this.svg.appendChild(text);
+    this.#svg.appendChild(text);
     ```
 >**Remarks:** While the `*.html` file is specific to our example, the bar chart library in the `.*js` file is general and can be used in any project. Our users will need to: 
     - include the `.*js` file;
