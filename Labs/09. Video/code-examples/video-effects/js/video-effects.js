@@ -12,7 +12,7 @@ if(video.clientWidth / video.clientHeight < video.videoWidth / video.videoHeight
 Hint: r'=g'=b'=(r+g+b)/3;
 3. Implement threshold
 Hint: v = (0.2126*r + 0.7152*g + 0.0722*b >= threshold) ? 255 : 0; r’= g’ = b’ = v
-4. Implement sephia
+4. Implement sepia
 Hint: 
 r' = (r * .393) + (g *.769) + (b * .189)
 g' = (r * .349) + (g *.686) + (b * .168)
