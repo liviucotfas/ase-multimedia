@@ -96,7 +96,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
             <button type="button" class="effectType" data-effect="blackWhite">Black & White</button>
             <button type="button" class="effectType" data-effect="threshold">Threshold</button>
-            <button type="button" class="effectType" data-effect="sephia">Sephia</button>
+            <button type="button" class="effectType" data-effect="sepia">Sepia</button>
             <button type="button" class="effectType" data-effect="invert">Invert Colors</button>
             <button type="button" class="effectType" data-effect="pixelate">Pixelate</button>
             <button type="button" class="effectType" data-effect="twoChannels">2 Channels</button>
