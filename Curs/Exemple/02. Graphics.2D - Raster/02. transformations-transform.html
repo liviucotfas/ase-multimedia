@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Transformations - SetTransform()</title>
+        <title>Transformations - transform()</title>
     </head>
     <body>
         <canvas id="canvas" style="border:1px solid #d3d3d3;">
@@ -17,13 +17,25 @@
 
             //context.translate(50, 50);
             //Q: equivalent?
-            context.transform(1, 0, 0, 1, 50, 50);
+            const m11 = 1; //Horizontal scaling
+            const m12 = 0; //Horizontal skewing
+            const m21 = 0; //Vertical skewing
+            const m22 = 1; //Vertical scaling
+            const dx = 50; //Horizontal moving
+            const dy = 50; //Vertical moving
+            context.transform(m11, m12, m21, m22, dx, dy);
 
             context.fillText("Multimedia", 0, 0);
             
             //context.scale(1, -1);
             //Q: equivalent?
-            context.transform(1, 0, 0, -1, 0, 0);
+            const m11 = 1; //Horizontal scaling
+            const m12 = 0; //Horizontal skewing
+            const m21 = 0; //Vertical skewing
+            const m22 = -1; //Vertical scaling
+            const dx = 0; //Horizontal moving
+            const dy = 0; //Vertical moving
+            context.transform(m11, m12, m21, m22, dx, dy);
 
             context.fillStyle = "darkgrey";
             context.fillText("Multimedia", 0, 0);
