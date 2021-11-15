@@ -5,10 +5,12 @@
     </head>
     <body>
         <canvas id="canvas" style="border: 1px solid;">
-
+            Your browser does not support the HTML5 canvas tag.
         </canvas>
 
         <script>
+            "use strict";
+
             const canvas = document.getElementById("canvas");
             const context = canvas.getContext("2d");
             
@@ -29,7 +31,6 @@
                 context.fillRect(0, 0, 25, 25); //!!!
 
                 context.restore();
-
                 }
             }
 
