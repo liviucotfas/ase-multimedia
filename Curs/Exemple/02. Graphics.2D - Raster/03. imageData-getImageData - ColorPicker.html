@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas - getImageData()</title>
+    </head>
+    <body>
+
+        <canvas id="canvas">
+            Your browser does not support the canvas element.
+        </canvas>
+       
+        <script>
+            "use strict";
+
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+
+            const img = document.createElement("img");
+            img.addEventListener("load", function(ev){
+                canvas.width = ev.target.width;
+                canvas.height = ev.target.height;
+
+                context.drawImage(ev.target, 0, 0);
+                canvas.addEventListener("mousemove", function(ev){
+                    colorPicker(ev.clientX, ev.clientY);
+                });
+            });
+            img.src = "photo.jpg";
+
+            function colorPicker(x, y){
+                const imageData = context.getImageData(x, y, 1, 1);
+                const data = imageData.data;
+                const r = data[0];
+                const g = data[1];
+                const b = data[2];
+
+                console.log(`r: ${r} g: ${g} b: ${b}`);
+            }
+        </script>
+    </body>
+</html>
