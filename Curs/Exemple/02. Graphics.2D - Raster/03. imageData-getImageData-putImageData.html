@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Transformations - SetTransform()</title>
+        <title>Canvas - putImageData()</title>
     </head>
     <body>
         <canvas id="canvas" style="border:1px solid #d3d3d3;">
@@ -15,12 +15,13 @@
 
             const canvas = document.getElementById("canvas");
             const context = canvas.getContext("2d");
-            context.fillStyle = "red";
+
+            context.fillStyle = "orange";
             context.fillRect(10, 10, 50, 50);
 
             function copy() {
-                const imgData = context.getImageData(10, 10, 50, 50);
-                context.putImageData(imgData, 10, 70);
+                const imageData = context.getImageData(10, 10, 50, 50);
+                context.putImageData(imageData, 10, 70); // Note: the `width` and `height` of the area are taken from the `imageData` 
             }
 
         </script>
