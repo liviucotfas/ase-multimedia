@@ -25,19 +25,22 @@ void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
             img.addEventListener("load", () => {
                 //this - gestionat diferit function() / () =>
             
+				//1. void ctx.drawImage(image, dx, dy);
                 //context.drawImage(img, 50, 50);
                 
+				//2. void ctx.drawImage(image, dx, dy, dWidth, dHeight);
+				//context.drawImage(img, 50, 50, 100, 100);
+				
                 /*const dWidth = 100;
                 const dHeight = dWidth*(img.naturalHeight / img.naturalWidth)
                 context.drawImage(img, 50, 50, dWidth, dHeight);*/
 
-                //void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+                //3. void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
                 canvas.width = 184;
                 canvas.height = 250;
                 context.drawImage(img, 
                     39, 65, 92, 125, 
                     0, 0, 184, 250);
-  
             });
             
             /*let img = document.createElement("img");
@@ -45,8 +48,6 @@ void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
                 //desenare pe canvas
             })
             img.src = "...";*/
-
-
         </script>
     </body>
 </html>
