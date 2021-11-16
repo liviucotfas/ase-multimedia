@@ -8,7 +8,7 @@ Create a directory structure outside your project.
 
 __Note:__ __never__ share your own certificates, keys, etc. or commit them to version control!
 
-__Note:__ on Windows, the below commands might hang or run into other issues when using Git Bash. Prefix your commands with the `winpty` command in order to prevent these issues.
+__Note:__ on Windows, the below commands might hang or run into other issues when using Git Bash. Prefix your `openssl` commands with the `winpty` command in order to prevent these issues.
 
 ```
 mkdir cert
