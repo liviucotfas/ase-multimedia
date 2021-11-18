@@ -10,11 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet" 
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
-    crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
   <style type="text/css">
     .btn-circle {
@@ -38,27 +35,26 @@
     .bs-callout-warning {
       border-left-color: #f0ad4e;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 
-  <script 
-    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" 
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" 
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
     crossorigin="anonymous"></script>
-  <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" 
-    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" 
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
     crossorigin="anonymous"></script>
 
   <script src="speech-api.js"></script>
-
 </head>
 
 <body class="container">
   <div class="row justify-content-md-center align-items-center" style="margin-top:10px">
     <div class="col-md-1">
-      <button onclick="startButton(event)" class="btn-circle">
+      <button onclick="app.startButton(event)" class="btn-circle">
         <img id="start_img" src="img/mic.gif">
       </button>
     </div>
@@ -66,27 +62,27 @@
     <div class="col-md-11">
       <div id="info" class="bs-callout bs-callout-warning">
         <p id="info_start">Click on the microphone icon and begin speaking for as long as you like.</p>
-        <p id="info_speak_now" style="display:none">Speak now.</p>
-        <p id="info_no_speech" style="display:none">
+        <p id="info_speak_now" class="hidden">Speak now.</p>
+        <p id="info_no_speech" class="hidden">
           No speech was detected. You may need to adjust your
           <a href="https://support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">microphone settings
           </a>.
         </p>
-        <p id="info_no_microphone" style="display:none">
+        <p id="info_no_microphone" class="hidden">
           No microphone was found. Ensure that a microphone is installed and that
           <a href="https://support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
             microphone settings</a> are configured correctly.
         </p>
-        <p id="info_allow" style="display:none">
+        <p id="info_allow" class="hidden">
           Click the "Allow" button above to enable your microphone.
         </p>
-        <p id="info_denied" style="display:none">
+        <p id="info_denied" class="hidden">
           Permission to use microphone was denied.
         </p>
-        <p id="info_blocked" style="display:none">
+        <p id="info_blocked" class="hidden">
           Permission to use microphone is blocked. To change, go to chrome://settings/contentExceptions#media-stream
         </p>
-        <p id="info_upgrade" style="display:none">
+        <p id="info_upgrade" class="hidden">
           Web Speech API is not supported by this browser. Upgrade to
           <a href="https://www.google.com/chrome">Chrome</a> version 25 or later.
         </p>

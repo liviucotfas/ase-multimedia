@@ -1,54 +1,61 @@
-"use strict";
+// Documentation for the speech recognition API:
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API
+//
+// This application requires HTTPS, including on localhost:
+// https://stackoverflow.com/questions/47226889/speechrecognition-network-error-when-working-with-electron-chromium-browser
+// 
+// How to set up https on localhost:
+// https://github.com/liviucotfas/ase-multimedia/blob/master/Labs/08.%20Audio/https-on-localhost.md
+//
+const app = {
+    interimSpan: null,
+    recognition: null, //webkitSpeechRecognition object
+    recognizing: false,
+    ignoreOnend: null, // set to true when an error has been encountered
+    startTimestamp: null // used for detecting errors
+};
 
-changeState('info_start');
-
-var recognition; //webkitSpeechRecognition object
-
-var recognizing = false;
-var ignore_onend; // set to true when an error has been encountered
-var start_timestamp; // used for detecting errors
-
-$(document).ready(function () {
-
+app.init = function (interimSpan) {
     if (!('webkitSpeechRecognition' in window)) {
-        upgrade();
+        console.error('app.init: Your browser does not support the Speech Recognition API.');
     } else {
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
+        app.interimSpan = interimSpan;
+        app.recognition = new webkitSpeechRecognition();
+        app.recognition.continuous = true;
+        app.recognition.interimResults = true;
 
-        recognition.onstart = function () {
-            recognizing = true;
-            changeState('info_speak_now');
+        app.recognition.onstart = function () {
+            app.recognizing = true;
+            app.changeState('info_speak_now');
         };
 
-        recognition.onerror = function (event) {
+        app.recognition.onerror = function (event) {
             if (event.error == 'no-speech') {
-                changeState('info_no_speech');
-                ignore_onend = true;
+                app.changeState('info_no_speech');
+                app.ignoreOnend = true;
             }
             if (event.error == 'audio-capture') {
-                changeState('info_no_microphone');
-                ignore_onend = true;
+                app.changeState('info_no_microphone');
+                app.ignoreOnend = true;
             }
             if (event.error == 'not-allowed') {
-                if (event.timeStamp - start_timestamp < 100) {
-                    changeState('info_blocked');
+                if (event.timeStamp - app.startTimestamp < 100) {
+                    app.changeState('info_blocked');
                 } else {
-                    changeState('info_denied');
+                    app.changeState('info_denied');
                 }
-                ignore_onend = true;
+                app.ignoreOnend = true;
             }
         };
 
-        recognition.onend = function () {
-            recognizing = false;
-            if (ignore_onend) {
+        app.recognition.onend = function () {
+            app.recognizing = false;
+            if (app.ignoreOnend) {
                 return;
             }
 
-            changeState('info_start');
-            
+            app.changeState('info_start');
+
             if (window.getSelection) {
                 window.getSelection().removeAllRanges();
                 var range = document.createRange();
@@ -57,60 +64,71 @@ $(document).ready(function () {
             }
         };
 
-        recognition.onresult = function (event) {
-            var interim_transcript = '';
+        app.recognition.onresult = function (event) {
+            let interimTranscript = '';
             if (typeof (event.results) == 'undefined') {
-                recognition.onend = null;
-                recognition.stop();
+                app.recognition.onend = null;
+                app.recognition.stop();
                 return;
             }
 
-            var final_transcript = '';
+            let finalTranscript = '';
 
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
-                    final_transcript += event.results[i][0].transcript;
+                    finalTranscript += event.results[i][0].transcript;
                 } else {
-                    interim_transcript += event.results[i][0].transcript;
+                    interimTranscript += event.results[i][0].transcript;
                 }
             }
-            final_transcript = capitalize(final_transcript);
+            finalTranscript = app.capitalize(finalTranscript);
 
-            $("#final_span").val($("#final_span").val() + final_transcript);
+            const finalSpan = document.getElementById('final_span');
+            finalSpan.innerText = finalSpan.innerText + finalTranscript;
 
-            interim_span.innerHTML = interim_transcript;
+            app.interimSpan.innerHTML = interimTranscript;
         };
     }
-});
+}
 
-function startButton(event) {
-    if (recognizing) {
-        recognition.stop();
+app.startButton = function (event) {
+    if (app.recognizing) {
+        app.recognition.stop();
         return;
     }
 
-    interim_span.innerHTML = '';
+    app.interimSpan.innerHTML = '';
 
-    recognition.lang = 'ro-ro';
-    recognition.start();
-    ignore_onend = false;
+    app.recognition.lang = 'ro-ro';
+    app.recognition.start();
+    app.ignoreOnend = false;
 
-    start_timestamp = event.timeStamp;
+    app.startTimestamp = event.timeStamp;
 }
 
-function changeState(s) {
-    $("#info").children().hide();
-    $("#" + s).show();
+app.changeState = function (s) {
+    const infoSection = document.getElementById('info');
+    for (let i = 0; i < infoSection.children.length; i++) {
+        infoSection.children[i].classList.add('hidden');
+    }
+    const sTextElement = document.getElementById(s);
+    sTextElement.classList.remove('hidden');
 
-    if(s === "info_speak_now"){
-        $("#start_img").attr("src",'img/mic-animate.gif');
-    } else{
-        $("#start_img").attr("src",'/img/mic.gif');
+    const image = document.getElementById('start_img');
+    if (s === "info_speak_now") {
+        image.src = 'img/mic-animate.gif';
+    } else {
+        image.src = '/img/mic.gif';
     }
 }
 
 // Helper Methods
-function capitalize(s) {
-    return s.replace( /\S/, function (m) { return m.toUpperCase(); });
+app.capitalize = function (s) {
+    return s.replace(/\S/, function (m) { return m.toUpperCase(); });
 }
 
+window.addEventListener('load', () => {
+    const span = document.getElementById('interim_span');
+    app.init(span);
+    app.changeState('info_start');
+});
