@@ -118,7 +118,7 @@ app.changeState = function (s) {
     if (s === "info_speak_now") {
         image.src = 'img/mic-animate.gif';
     } else {
-        image.src = '/img/mic.gif';
+        image.src = 'img/mic.gif';
     }
 }
 
