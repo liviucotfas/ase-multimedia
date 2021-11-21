@@ -30,13 +30,13 @@
                 href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank">here</a>.
         </div>
 
-        <video id="video" controls autoplay crossorigin="anonymous">
-            <source src="../media/tears-of-steel-battle-clip-medium.mp4" type="video/mp4" />
-            <source src="../media/tears-of-steel-battle-clip-medium.ogg" type="video/ogg" />
-             Your browser doesn't support HTML5 video.
+        <video id="video" controls muted crossorigin="anonymous" >
+             Your browser doesn't support the video element.
         </video>
         <br>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas">
+            Your browser doesn't support the canvas element.
+        </canvas>
 
     </div>
 
@@ -48,10 +48,28 @@
     const context = canvas.getContext("2d");
 
     //resize the video
-    video.addEventListener('canplay', function(){
-        canvas.width = video.clientWidth;
-        canvas.height = video.clientHeight;
+    video.addEventListener('loadedmetadata', function(){
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
     });
+
+    //set the video source
+    video.src = "../media/tears-of-steel-battle-clip-medium.mp4";
+
+    //attach to the events
+    let handler;
+    video.addEventListener('play', function(){
+        handler = requestAnimationFrame(draw);
+
+        //An alternative approach would be to use setTimeout()
+        //The setTimeout() method calls a function or evaluates an expression after a specified number of milliseconds.
+        //Tip: 1000 ms = 1 second.
+        //33ms ~= 30fps
+    });
+
+    video.addEventListener('pause', function(){
+        cancelAnimationFrame(handler);
+    })
 
     //draw the video on the canvas
     function draw () {
@@ -87,14 +105,8 @@
         //The toFixed() method formats a number using fixed-point notation
         //Number.prototype.toFixed(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
 
-        requestAnimationFrame(draw);
+        handler = requestAnimationFrame(draw);
     }
-    requestAnimationFrame(draw);
-
-    //An alternative approach would be to use setTimeout()
-    //The setTimeout() method calls a function or evaluates an expression after a specified number of milliseconds.
-    //Tip: 1000 ms = 1 second.
-    //33ms ~= 30fps
 </script>
 </body>
 
