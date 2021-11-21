@@ -37,11 +37,11 @@ https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onresize
 //Note: global letiables should be avoided. Learn more at: https://www.w3.org/wiki/JavaScript_best_practices#Avoid_globals
 let effect = "normal";
 
-let video = document.getElementById('video');
-let canvas = document.getElementById('canvasProcessed');
-let context = canvas.getContext('2d');
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvasProcessed');
+const context = canvas.getContext('2d');
 
-let buttons = document.getElementsByClassName("effectType");
+const buttons = document.querySelectorAll("[data-effect]");
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
         //Restores the previously saved canvas state
@@ -49,7 +49,7 @@ for (let i = 0; i < buttons.length; i++) {
         //Saves the entire state of the canvas by pushing the current state onto a stack
         context.save();
         //more about the data attribute: https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes
-        window.effect = this.dataset.effect;
+        effect = this.dataset.effect;
     });
 }
 
@@ -68,8 +68,8 @@ function draw(video, context) {
             context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
             break;
         case "rotation":
-            let unghi = 3 * Math.PI / 180;
-            let ct = Math.cos(unghi), st = Math.sin(unghi);
+            const unghi = 3 * Math.PI / 180;
+            const ct = Math.cos(unghi), st = Math.sin(unghi);
             let x = video.clientWidth / 2, y = video.clientHeight / 2;
             context.transform(ct, -st, st, ct, -x * ct - y * st + x, x * st - y * ct + y);
             context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
@@ -78,9 +78,9 @@ function draw(video, context) {
         case "emboss":
             //further reading http://html5doctor.com/video-canvas-magic/
             context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
-            let imageData = context.getImageData(0, 0, video.clientWidth, video.clientHeight);
-            let pixels = imageData.data;
-            let imgDataWidth = imageData.width;
+            const imageData = context.getImageData(0, 0, video.clientWidth, video.clientHeight);
+            const pixels = imageData.data;
+            const imgDataWidth = imageData.width;
 
             for (let i = 0; i < pixels.length; i++) {
                 if (i % 4 != 3) {
@@ -90,7 +90,7 @@ function draw(video, context) {
             context.putImageData(imageData, 0, 0);
             context.fillText("Emboss Effect", 10, 10);
             break;
-        case "blackWhite":
+        case "grayscale":
             //context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
             //let imageData = context.getImageData(0, 0, video.clientWidth, video.clientHeight);
             //process the pixels
