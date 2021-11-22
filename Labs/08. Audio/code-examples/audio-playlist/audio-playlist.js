@@ -4,10 +4,6 @@ const app = {
     audio: null,
     tracks: [], //track list
     currentUrl: null,
-    //UI
-    currentTime: null,
-    duration: null,
-    btnPlayPause: null
 };
 
 /** Plays a song 
@@ -40,9 +36,7 @@ app.next = function () {
 
 app.load = function () {
     app.audio = document.getElementById('audio');
-    app.currentTime = document.querySelector('#currentTime');
-    app.duration = document.querySelector('#duration');
-    app.btnPlayPause = document.getElementById('btnPlayPause');
+    const btnPlayPause = document.getElementById('btnPlayPause');
 
     // Iterate over the playlist in order to associate events
     const elements = document.querySelectorAll('#playlist li');
@@ -58,33 +52,34 @@ app.load = function () {
 
     // Handle the timeupdate event
     app.audio.addEventListener('durationchange', function(){
-        app.duration.textContent = app.secondsToString(app.audio.duration);
+        const duration = document.querySelector('#duration');
+        duration.textContent = app.secondsToString(app.audio.duration);
     });
 
     app.audio.addEventListener('timeupdate', function () {
-        const currentTime = app.audio.currentTime;
+        const currentTime = document.getElementById("currentTime");
 
         if (app.audio.duration) {
-            app.currentTime.textContent = app.secondsToString(currentTime);
+            currentTime.textContent = app.secondsToString(app.audio.currentTime);
         }
         else {
             //innerText can also be used
             //differences https://www.w3schools.com/jsref/prop_html_innerhtml.asp
-            app.currentTime.textContent = '...';
+            currentTime.textContent = '...';
         };
     });
 
     // Handle the play event
     app.audio.addEventListener('play', function () {
-        //alternative: app.btnPlayPause.children[0].classList.replace('fa-play', 'fa-pause');
-        app.btnPlayPause.children[0].classList.remove('fa-play');
-        app.btnPlayPause.children[0].classList.add('fa-pause');
+        //alternative: btnPlayPause.children[0].classList.replace('fa-play', 'fa-pause');
+        btnPlayPause.children[0].classList.remove('fa-play');
+        btnPlayPause.children[0].classList.add('fa-pause');
     });
 
     // Handle the pause event
     app.audio.addEventListener('pause', function () {
-        app.btnPlayPause.children[0].classList.add('fa-play');
-        app.btnPlayPause.children[0].classList.remove('fa-pause');
+        btnPlayPause.children[0].classList.add('fa-play');
+        btnPlayPause.children[0].classList.remove('fa-pause');
     });
 
     // Handle the ended event
