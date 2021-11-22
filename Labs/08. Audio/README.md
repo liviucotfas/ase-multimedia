@@ -100,7 +100,7 @@ Our goal is to use the `HTMLAudioElement` in order to build an audio player appl
 7. (optional) Try to build your own audio player for Spotify. Details regarding the Spotify API are available at: https://developer.spotify.com/documentation/web-api/ .
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
-Our goal is to use the Web Audio API in order to build a library for visualizing the frequencies in a sound. In order to have an audio source, we are going to capture the signal from the microphone of the device on which the application is running. 
+Our goal is to use the `Web Audio API` in order to build a library for visualizing the frequencies in a sound. In order to have an audio source, we are going to capture the signal from the microphone of the device on which the application is running. 
 1. Try the "audio-web-audio-api" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-web-audio-api).
 2. Check the source code.
 3. Integrate the visualization in the "Audio Playlist" application developed in assignment 1.
