@@ -44,7 +44,7 @@ class SoundAnalyser {
   }
 
   /**
-   * 
+   * Sets the stream source
    * @param {MediaStream} stream 
    */
   setStreamSource(stream) {
@@ -54,7 +54,7 @@ class SoundAnalyser {
   }
 
   /**
-   * 
+   * Sets the media element source
    * @param {HTMLMediaElement} mediaElement 
    */
   setMediaElementSource(mediaElement){
