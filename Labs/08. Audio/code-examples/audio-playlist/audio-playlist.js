@@ -10,18 +10,18 @@ const app = {
  * @param {string} url - The url of the song 
  */
 app.play = function (url) {
-    const elements = document.querySelectorAll('#playlist li.active');
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].classList.remove('active');
-    }
+    // Remove the `active` class from the li corresponding to the previous song
+    let element = document.querySelector('#playlist li[data-url="' + url + '"]');
+    if (element !== null)
+        element.classList.remove('active');
 
-    const selectedElement = document.querySelector('#playlist li[data-url="' + url + '"]');
-    selectedElement.classList.add('active');
-
-    app.currentUrl = url;
-    app.audio.src = app.currentUrl;
-    app.audio.load();
+    // Change the song
+    app.audio.src = app.currentUrl = url;
     app.audio.play();
+
+    // Add the `active` class to the li corresponding to the current song
+    let element = document.querySelector('#playlist li[data-url="' + url + '"]');
+    element.classList.add('active');
 }
 
 /** Changes the current song */
