@@ -11,7 +11,7 @@ const app = {
  */
 app.play = function (url) {
     // Remove the `active` class from the li corresponding to the previous song
-    let element = document.querySelector('#playlist li[data-url="' + url + '"]');
+    let element = document.querySelector('[data-url="' + url + '"]');
     if (element !== null)
         element.classList.remove('active');
 
@@ -20,7 +20,7 @@ app.play = function (url) {
     app.audio.play();
 
     // Add the `active` class to the li corresponding to the current song
-    let element = document.querySelector('#playlist li[data-url="' + url + '"]');
+    element = document.querySelector('[data-url="' + url + '"]');
     element.classList.add('active');
 }
 
@@ -39,7 +39,7 @@ app.load = function () {
     const btnPlayPause = document.getElementById('btnPlayPause');
 
     // Iterate over the playlist in order to associate events
-    const elements = document.querySelectorAll('#playlist li');
+    const elements = document.querySelectorAll('[data-url]');
     for (let i = 0; i < elements.length; i++) {
 
         const url = elements[i].dataset.url;
