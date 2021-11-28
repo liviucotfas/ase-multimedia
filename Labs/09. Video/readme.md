@@ -19,7 +19,7 @@
 ##  1. <a name='Objectives'></a>Objectives
 - playing video files in the browser using the `<video>` element;
 - controlling the video playback (play/pause/stop/etc.) using the `HTMLVideoElement` interface;
-- applying effects using the `canvas` element (black & white, sephia, etc).
+- applying effects using the `canvas` element (grayscale, sephia, etc).
 
 ##  2. <a name='Documentation'></a>Documentation
 -   HTML Video Element (HTML):
