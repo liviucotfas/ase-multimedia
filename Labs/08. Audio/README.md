@@ -63,7 +63,7 @@ Our goal is to use the `HTMLAudioElement` in order to build an audio player appl
 2. Check the source code.
 	> Similar examples: https://521dimensions.com/open-source/amplitudejs, https://codepen.io/markhillard/pen/Hjcwu, https://codepen.io/craigstroman/pen/aOyRYx
 3. Allow the user to change the volume level using a slider.
-	> Hint: A slider will be displayed by setting `type='range'` for an `input` element. You should handle the `change` event.
+	> Hint: A slider will be displayed by setting `type='range'` for an `input` element. You should handle the `change` event. Alternatively, you can use a `progress` element.
 4. Allow the user to change the current position inside the track with the help of a slider.
 	> Hint: You will probably need to handle the `mousedown` and `mouseup`.
 5. Add a button for playing the previous track. Add a button for playing the next track.
