@@ -71,9 +71,7 @@ class BarChart{
             const barX = i * barWidth + barWidth/4;
 
             const bar = document.createElementNS(this.#svgns, 'rect');
-            bar.setAttribute('class','bar');
-            //or
-            //bar.classList.add('bar'); //!recommended
+            bar.classList.add('bar');
             bar.setAttribute('x', barX);
             bar.setAttribute('y', barY);
             bar.setAttribute('height', barHeight);
