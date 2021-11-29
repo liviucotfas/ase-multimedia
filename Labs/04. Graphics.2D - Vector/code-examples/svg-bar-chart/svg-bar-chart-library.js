@@ -18,7 +18,7 @@ class BarChart{
 
     /**
      * Displays the bar chart
-     * @param {Array} data 
+     * @param {Array<Array>} data 
      */
     draw(data){
         this.data = data;
@@ -61,9 +61,10 @@ class BarChart{
         const f = this.#height / Math.max(...this.data.map(x=>x[1]));
 
         for(let i=0; i<this.data.length; i++){
+            const element = this.data[i];
 
-            const label = this.data[i][0];
-            const value = this.data[i][1];
+            const label = element[0];
+            const value = element[1];
 
             const barHeight = value * f * 0.9;
             const barY = this.#height - barHeight;
