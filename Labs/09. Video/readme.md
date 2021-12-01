@@ -7,7 +7,7 @@
 * 4. [Assignments](#Assignments)
 	* 4.1. [Assignment 1](#Assignment1)
 	* 4.2. [Assignment 2](#Assignment2)
-	* 4.3. [Assignment 2](#Assignment2-1)
+	* 4.3. [Assignment 3](#Assignment3)
 * 5. [Bibliography](#Bibliography)
 
 <!-- vscode-markdown-toc-config
@@ -52,7 +52,7 @@
 2. Check the source code.
 3. Complete the assignments included in the `*.html` file.
 
-###  4.3. <a name='Assignment2-1'></a>Assignment 3
+###  4.3. <a name='Assignment3'></a>Assignment 3
 1. Try the "video-effects" sample by clicking [here](https://ase-multimedia.azurewebsites.net/video-effects).
 2. Check the source code.
 3. Complete the assignments included in the `*.js` file.
