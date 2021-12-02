@@ -10,7 +10,7 @@
 
     <!-- Add to home screen -->
     <link rel="manifest" href="manifest.json">
-    
+
     <meta name="theme-color" content="#2F3BA2">
     <link rel="icon" sizes="192x192" href="img/icons/icon-192x192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,9 +28,25 @@
     <noscript>
         JavaScript is required for running this game.
     </noscript>
-    <script src="app.js"></script>
+    <script src="game.js"></script>
     <script>
-        app.load();
+        // instantiate game
+        const canvas = document.getElementById('gameCanvas');
+        const game = new Game(canvas);
+
+        // start drawing
+        game.draw();
+
+        // register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/serviceworker.js')
+                .then(function (registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function (err) {
+                    console.log('Service worker registration failed:', err);
+                });
+        }
     </script>
 </body>
+
 </html>
