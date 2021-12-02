@@ -19,7 +19,7 @@
 ##  1. <a name='Objectives'></a>Objectives
 - playing audio files in the browser using the `<audio>` element;
 - controlling the audio playback (play/pause/stop/etc.) using the `HTMLAudioElement` interface;
-- capturing sound from the microphone using the `Web RTC API`;
+- capturing sound from the microphone using the `Media Capture and Streams API`;
 - analyzing the sound using the `Web Audio API` and displaying sound visualisations;
 - performing speech recognition using the `Speech API`.
 
@@ -31,8 +31,8 @@
     <https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement>
 -   Web Audio API:
     <https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API>
--   Web RTC API:
-    <https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia>
+-   Media Capture and Streams API:
+    <https://developer.mozilla.org/en-US/docs/Web/API/Media_Streams_API>
 - Speech API: <https://w3c.github.io/speech-api/webspeechapi.html>, <https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition>
 - Audio and Video Delivery: https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery
 - Audio and Video Manipulation: https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_manipulation
@@ -102,7 +102,7 @@ Our goal is to use the `HTMLAudioElement` in order to build an audio player appl
 7. (optional) Try to build your own audio player for Spotify. Details regarding the Spotify API are available at: https://developer.spotify.com/documentation/web-api/ .
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
-Our goal is to use the `Web Audio API` in order to build a library for visualizing the frequencies in a sound. In order to have an audio source, we are going to capture the signal from the microphone of the device on which the application is running. 
+Our goal is to use the `Web Audio API` in order to build a library for visualizing the frequencies in a sound. In order to have an audio source, we are going to capture the signal from the microphone of the device on which the application is running using the `Media Capture and Streams API`. 
 1. Try the "audio-web-audio-api" sample by clicking [here](https://ase-multimedia.azurewebsites.net/audio-web-audio-api).
 2. Check the source code.
 3. Integrate the visualization in the "Audio Playlist" application developed in assignment 1.
@@ -112,12 +112,9 @@ Our goal is to use the `Web Audio API` in order to build a library for visualizi
 2. Check the source code.
 
 ##  5. <a name='Bibliography'></a>Bibliography
--   HTML Audio Element (HTML):
-    <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio>
--   HTMLAudioElement interface (JavaScript - HTML Media API):
-    <https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement>
--   Web Audio API:
-    <https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API>
--   Web RTC API:
-    <https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia>
+- HTML Audio Element (HTML): <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio>
+- HTMLAudioElement interface (JavaScript - HTML Media API): <https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement>
+- Web Audio API: <https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API>
+- Web RTC API: <https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia>
+- Media Capture and Streams API: <https://developer.mozilla.org/en-US/docs/Web/API/Media_Streams_API>  
 - Speech API: <https://w3c.github.io/speech-api/webspeechapi.html>, <https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition>
