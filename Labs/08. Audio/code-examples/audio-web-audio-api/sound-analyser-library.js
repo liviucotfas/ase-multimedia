@@ -6,6 +6,7 @@ class SoundAnalyser {
   #context;
   #audioCtx;
   #analyserNode;
+  #requestID;
 
   /**
    * Creates a new SoundAnalyser instance
@@ -28,7 +29,7 @@ class SoundAnalyser {
    * @param {string} visualSetting 
    */
   display(visualSetting) {
-    window.cancelAnimationFrame(this.drawVisual);
+    window.cancelAnimationFrame(this.#requestID);
 
     this.#audioCtx.resume();  
 
@@ -79,7 +80,7 @@ class SoundAnalyser {
 
     const barWidth = this.#canvas.width / bufferLength;
     //255 is the maximum possible value in a Uint8Array
-    let f = this.#canvas.height / 255;
+    const f = this.#canvas.height / 255;
 
     for (let i = 0; i < bufferLength; i++) {
       const barHeight = f * dataArray[i];
@@ -94,7 +95,7 @@ class SoundAnalyser {
     //The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.
     //Return value: A long integer value, the request id, that uniquely identifies the entry in the callback list. This is a non-zero value, but you may not make any other assumptions about its value. You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
     //More info: https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-    this.drawVisual = requestAnimationFrame(() => this.#drawFrequencyBars());
+    this.#requestID = requestAnimationFrame(() => this.#drawFrequencyBars());
   }
 
   #drawSineWave() {
@@ -130,6 +131,6 @@ class SoundAnalyser {
     this.#context.lineTo(this.#canvas.width, this.#canvas.height / 2);
     this.#context.stroke();
 
-    this.drawVisual = requestAnimationFrame(() => this.#drawSineWave());
+    this.#requestID = requestAnimationFrame(() => this.#drawSineWave());
   }
 }
