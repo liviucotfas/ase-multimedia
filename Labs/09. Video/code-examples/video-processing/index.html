@@ -57,9 +57,9 @@
     video.src = "../media/tears-of-steel-battle-clip-medium.mp4";
 
     //attach to the events
-    let handler;
+    let requestID;
     video.addEventListener('play', function(){
-        handler = requestAnimationFrame(draw);
+        requestID = requestAnimationFrame(draw);
 
         //An alternative approach would be to use setTimeout()
         //The setTimeout() method calls a function or evaluates an expression after a specified number of milliseconds.
@@ -68,7 +68,7 @@
     });
 
     video.addEventListener('pause', function(){
-        cancelAnimationFrame(handler);
+        cancelAnimationFrame(requestID);
     })
 
     //draw the video on the canvas
@@ -105,7 +105,7 @@
         //The toFixed() method formats a number using fixed-point notation
         //Number.prototype.toFixed(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
 
-        handler = requestAnimationFrame(draw);
+        requestID = requestAnimationFrame(draw);
     }
 </script>
 </body>
