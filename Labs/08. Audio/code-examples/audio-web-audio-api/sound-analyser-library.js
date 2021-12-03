@@ -5,6 +5,7 @@ class SoundAnalyser {
   #canvas;
   #context;
   #audioCtx;
+  #sourceNode;
   #analyserNode;
   #requestID;
 
@@ -49,9 +50,9 @@ class SoundAnalyser {
    * @param {MediaStream} stream 
    */
   setStreamSource(stream) {
-    const sourceNode = this.#audioCtx.createMediaStreamSource(stream);
+    this.#sourceNode = this.#audioCtx.createMediaStreamSource(stream); //might get garbage collected if declared in this method
     // Connect the output of the source to the input of the analyser
-    sourceNode.connect(this.#analyserNode);
+    this.#sourceNode.connect(this.#analyserNode);
   }
 
   /**
@@ -59,9 +60,9 @@ class SoundAnalyser {
    * @param {HTMLMediaElement} mediaElement 
    */
   setMediaElementSource(mediaElement){
-    const sourceNode = this.#audioCtx.createMediaElementSource(mediaElement);
+    this.#sourceNode = this.#audioCtx.createMediaElementSource(mediaElement); //might get garbage collected if declared in this method
     // Connect the output of the source to the input of the analyser
-    sourceNode.connect(this.#analyserNode)
+    this.#sourceNode.connect(this.#analyserNode)
     // Connect the output of the analyser to the destination
     this.#analyserNode.connect(this.#audioCtx.destination);
   }
