@@ -2,12 +2,14 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
 
 class SoundAnalyser {
+  // Canvas related
   #canvas;
   #context;
+  #requestID;
+  // Audio related
   #audioCtx;
   #sourceNode;
   #analyserNode;
-  #requestID;
 
   /**
    * Creates a new SoundAnalyser instance
@@ -65,6 +67,16 @@ class SoundAnalyser {
     this.#sourceNode.connect(this.#analyserNode)
     // Connect the output of the analyser to the destination
     this.#analyserNode.connect(this.#audioCtx.destination);
+  }
+
+  /**
+   * Suspend the sound analysis
+   */
+  suspend(){
+    // Stop drawing
+    window.cancelAnimationFrame(this.#requestID);
+    // Stop the sound analysis
+    this.#audioCtx.suspend();
   }
 
   #drawFrequencyBars() {
