@@ -30,12 +30,11 @@
     </noscript>
     <script src="game.js"></script>
     <script>
-        // instantiate game
         const canvas = document.getElementById('gameCanvas');
-        const game = new Game(canvas);
 
-        // start drawing
-        game.draw();
+        // initialise game and start drawing
+        Game.init(canvas);
+        Game.draw();
 
         // register service worker
         if ('serviceWorker' in navigator) {
