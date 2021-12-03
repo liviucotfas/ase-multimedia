@@ -254,7 +254,7 @@ class Game {
     static #score = 0;
     static #lives = 3;
 
-    static init(canvas) {
+    static load(canvas) {
         this.#canvas = canvas;
         this.#context = this.#canvas.getContext('2d');
 
