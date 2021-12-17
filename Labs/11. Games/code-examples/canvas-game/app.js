@@ -37,6 +37,15 @@ app.load = function () {
     app.canvas = document.getElementById('gameCanvas');
     app.context = app.canvas.getContext('2d');
    
+    //Game data
+    for (let r = 0; r < app.brickRowCount; r++) {
+        app.bricks[r] = [];
+        for (let c = 0; c < app.brickColumnCount; c++) {
+            app.bricks[r][c] = { x: 0, y: 0, status: 1 };
+        }
+    }
+
+    //Resize the canvas
     app.resize();
 
     //Ball settings
@@ -48,17 +57,6 @@ app.load = function () {
 
     //Paddle settings
     app.paddleX = (app.canvas.width - app.paddleWidth) / 2;
-
-    const brickTotalWidth = (app.canvas.width - 2 * app.brickOffsetLeft) / app.brickColumnCount;
-    app.brickWidth = brickTotalWidth - app.brickPadding;
-
-    //Game data
-    for (let r = 0; r < app.brickRowCount; r++) {
-        app.bricks[r] = [];
-        for (let c = 0; c < app.brickColumnCount; c++) {
-            app.bricks[r][c] = { x: 0, y: 0, status: 1 };
-        }
-    }
 
     //Attach events
     app.canvas.addEventListener('touchmove', app.touchMove, { passive: true });
@@ -79,6 +77,20 @@ app.touchMove = function (e) {
 }
 
 app.resize = function () {
+    const brickTotalWidth = (app.canvas.width - 2 * app.brickOffsetLeft) / app.brickColumnCount;
+    app.brickWidth = brickTotalWidth - app.brickPadding;
+
+    for (let r = 0; r < app.brickRowCount; r++) {
+        for (let c = 0; c < app.brickColumnCount; c++) {
+            if (app.bricks[r][c].status == 1) {
+                const brickX = (c * (app.brickWidth + app.brickPadding)) + app.brickOffsetLeft;
+                const brickY = (r * (app.brickHeight + app.brickPadding)) + app.brickOffsetTop;
+                app.bricks[r][c].x = brickX;
+                app.bricks[r][c].y = brickY;
+            }
+        }
+    }
+
     const width = app.canvas.clientWidth;
     const height = app.canvas.clientHeight;
     if (app.canvas.width != width ||
@@ -133,13 +145,10 @@ app.drawPaddle = function () {
 app.drawBricks = function () {
     for (let r = 0; r < app.brickRowCount; r++) {
         for (let c = 0; c < app.brickColumnCount; c++) {
-            if (app.bricks[r][c].status == 1) {
-                const brickX = (c * (app.brickWidth + app.brickPadding)) + app.brickOffsetLeft;
-                const brickY = (r * (app.brickHeight + app.brickPadding)) + app.brickOffsetTop;
-                app.bricks[r][c].x = brickX;
-                app.bricks[r][c].y = brickY;
+            const b = app.bricks[r][c];
+            if (b.status == 1) {
                 app.context.beginPath();
-                app.context.rect(brickX, brickY, app.brickWidth, app.brickHeight);
+                app.context.rect(b.x, b.y, app.brickWidth, app.brickHeight);
                 app.context.fillStyle = '#0095DD';
                 app.context.fill();
                 app.context.closePath();
