@@ -133,7 +133,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
         'use strict';
 
         var app = {
-            originialImage: null,
+            originalImage: null,
             processedImage: null,
             donwloadLink: null,
             currentEffect: null
@@ -144,7 +144,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 7. When the `DOM` has finished loading, initialize the properties of the `app` object.
 
     ```JavaScript
-    app.originialImage = document.createElement("img");
+    app.originalImage = document.createElement("img");
     app.donwloadLink = document.getElementById("donwloadLink");
     app.processedImage = document.getElementById("processedImage");
     ```
@@ -159,10 +159,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
         console.log("t0: "+t0);
 
         let processingCanvas = document.createElement('canvas');
-        processingCanvas.width = app.originialImage.naturalWidth;
-        processingCanvas.height = app.originialImage.naturalHeight;
+        processingCanvas.width = app.originalImage.naturalWidth;
+        processingCanvas.height = app.originalImage.naturalHeight;
         let context = processingCanvas.getContext("2d");
-        context.drawImage(app.originialImage, 0, 0, processingCanvas.width, processingCanvas.height);
+        context.drawImage(app.originalImage, 0, 0, processingCanvas.width, processingCanvas.height);
 
         let t1 = performance.now();
         console.log(t1-t0 + ": drawing the image on the canvas");
@@ -233,29 +233,29 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
         var reader = new FileReader();
         //2. attach events
         reader.onload = function(event){
-            app.originialImage.src = event.target.result;
+            app.originalImage.src = event.target.result;
         }
         //3. start loading the file
         reader.readAsDataURL(e.target.files[0]);    
     });
     ```
 
-12. Handle the `load` event of the originialImage element in order to display the image.
+12. Handle the `load` event of the `originalImage` element in order to display the image.
 
     ```JavaScript
-    app.originialImage.addEventListener("load",function(){
+    app.originalImage.addEventListener("load",function(){
             app.currentEffect = null;
             app.changeEffect("normal");
     });
     ```
 
-13. Handle the `onerror` event of the originialImage element.
+13. Handle the `onerror` event of the `originalImage` element.
 
     ```JavaScript
-    /*app.originialImage.onerror = function (msg, source, lineNo) {
+    /*app.originalImage.onerror = function (msg, source, lineNo) {
             alert("Mesaj eroare: {0}".format(msg));
     };*/
-    app.originialImage.addEventListener("error", function (msg) {
+    app.originalImage.addEventListener("error", function (msg) {
             alert("Mesaj eroare: {0}".format(msg));
     });
     ```
