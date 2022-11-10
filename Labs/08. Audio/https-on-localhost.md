@@ -52,6 +52,12 @@ Now, let's generate a key:
 openssl genrsa -out localhost.key -des3 2048
 ```
 
+Let's generate our CA root certificate in .pem format:
+
+```
+openssl req -x509 -sha256 -new -nodes -days 3650 -key CA.key -out CA.pem
+```
+
 Now, let's create a CSR (certificate signing request):
 
 ```
