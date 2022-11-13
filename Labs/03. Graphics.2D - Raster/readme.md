@@ -69,48 +69,46 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 2. Download the `code-examples.zip` archive. We'll be doing all our coding work in a directory called `canvas-image-editor-dev`. The directory called `canvas-image-editor-final` contains the final version of the application.
 3. Add an `html` file called `index.html` and add the code included below.
     ```html
-    <!DOCTYPE html> 
-    <html>
+    <!DOCTYPE html>
+    <html lang="en">
 
     <head>
         <meta charset="utf-8" />
         <title>Image Editor</title>
+        <meta name="description" content="HTML5 image editor.">
 
-        <script 
-            src="https://code.jquery.com/jquery-latest.js"
-            crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="image-editor.css">
     </head>
 
-    <body style="text-align:center;">
-        <div>
-            <label for="fileBrowser">Choose file to upload</label>
-            <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
-            <input type="file" id="fileBrowser" name="fileBrowser" value="Choose image"
-                accept="image/*">
+    <body>
+        <canvas id="visibleCanvas">
+            Your browser does not support the canvas element.
+        </canvas>
+
+        <input type="file" id="fileBrowser" accept="image/*" placeholder="Choose an image" class="outline top">
+
+        <div class="outline bottom">
+            <button type="button" data-effect="normal">Normal</button>
+
+            <button type="button" data-effect="grayscale">Grayscale</button>
+            <button type="button" data-effect="threshold">Threshold</button>
+            <button type="button" data-effect="sepia">Sepia</button>
+            <button type="button" data-effect="invert">Invert Colors</button>
+            <button type="button" data-effect="pixelate">Pixelate</button>
+            <button type="button" data-effect="twoChannels">2 Channels</button>
+            <button type="button" data-effect="red">Red</button>
+            <button type="button" data-effect="green">Green</button>
+            <button type="button" data-effect="blue">Blue</button>
+
+            <button id="btnSave" type="button">Save</button>
         </div>
 
-        <h2>Transformed</h2>
-        <div>
-            <!-- https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes -->
-            <button type="button" class="effectType" data-effect="normal">Normal</button>
-
-            <button type="button" class="effectType" data-effect="blackWhite">Black & White</button>
-            <button type="button" class="effectType" data-effect="threshold">Threshold</button>
-            <button type="button" class="effectType" data-effect="sepia">Sepia</button>
-            <button type="button" class="effectType" data-effect="invert">Invert Colors</button>
-            <button type="button" class="effectType" data-effect="pixelate">Pixelate</button>
-            <button type="button" class="effectType" data-effect="twoChannels">2 Channels</button>
-            <button type="button" class="effectType" data-effect="red">Red</button>
-            <button type="button" class="effectType" data-effect="green">Green</button>
-            <button type="button" class="effectType" data-effect="blue">Blue</button>
+        <div class="loader hidden">
+            <div id="spinner"></div>
         </div>
-        <a id="donwloadLink" href="#" download="processedImage.png">
-            <!-- 
-                download attribute: download file when clicking on the link (instead of navigating to the file)
-                http://www.w3schools.com/tags/att_a_download.asp
-            -->
-            <img id="processedImage" style="width:100%"></canvas>
-        </a>
+        
+        <script src="image-editor.js"></script>
+        <script src="main.js"></script>
     </body>
 
     </html>
@@ -118,203 +116,242 @@ https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 4. In the ```<head>``` section of the HTML file add some additional metadata for controlling how the application will be displayed in a mobile browser
 
     ```HTML
-     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     ```
 
-5. Add a `JavaScript` file called `canvas-processing-3.js` and reference it from the `html` as shown below.
+5. Add a `JavaScript` file called `image-editor.js` and reference it from the `html` as shown below.
 
     ```HTML
-     <script src="canvas-processing-3.js"></script>
+     <script src="image-editor.js"></script>
     ```
 
-6. Update the `JavaScript` file as follows.
+> Does it matter where (`<head>` or `<body>`) we reference this script within our HTML file? When will the code within be executed or be available for execution in each case?
+
+6. Update the `image-editor.js` `JavaScript` file as follows.
    ```JavaScript
-    (function () {
-        'use strict';
+    class ImageEditor {
 
-        var app = {
-            originalImage: null,
-            processedImage: null,
-            donwloadLink: null,
-            currentEffect: null
+        #visibleCanvas;
+        #visibleCanvasContext;
+        #offscreenCanvas;
+        #offscreenCanvasContext;
+
+        #loader;
+
+        #effect;
+
+        constructor(visibleCanvas){
+            this.#visibleCanvas = visibleCanvas;
+            this.#visibleCanvasContext = this.#visibleCanvas.getContext("2d");
+            this.#offscreenCanvas = document.createElement("canvas"); 
+            this.#offscreenCanvasContext = this.#offscreenCanvas.getContext("2d");
+
+            this.#loader = document.querySelector('.loader');
         }
-    })();
+    }
     ```
+> Classes can be used in JavaScript just like in many other languages. However, they have not always been supported and there are different from more straightforward object-oriented languages such as Java. For more information you may consult https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Classes_in_JavaScript.
 
-7. When the `DOM` has finished loading, initialize the properties of the `app` object.
+7. Add a `main.js` `JavaScript` file. Instantiate an `ImageEditor` object once the `DOM` has finished loading:
 
     ```JavaScript
-    app.originalImage = document.createElement("img");
-    app.donwloadLink = document.getElementById("donwloadLink");
-    app.processedImage = document.getElementById("processedImage");
+    const visibleCanvas = document.getElementById("visibleCanvas");
+    const imageEditor = new ImageEditor(visibleCanvas);
     ```
 
-8. On the `app` object add the following method `drawImage` (used for displaying the image), `normal` (normal effect) and `blackWhite` (black and white effect).
+8. At the level of the `ImageEditor` class, add the method `drawImage` (used for displaying the image), `normal` (no effect, displaying the normal unaltered image) and `grayscale` (converting to black-and-white).
 
     ```JavaScript
-    app.drawImage = function() {
-       
+    #drawImage () {
+    
+        //show spinner
+        this.#loader.style.display = 'block';
+    
         //https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
-        let t0 = performance.now();
+        const t0 = performance.now();
         console.log("t0: "+t0);
-
-        let processingCanvas = document.createElement('canvas');
-        processingCanvas.width = app.originalImage.naturalWidth;
-        processingCanvas.height = app.originalImage.naturalHeight;
-        let context = processingCanvas.getContext("2d");
-        context.drawImage(app.originalImage, 0, 0, processingCanvas.width, processingCanvas.height);
-
-        let t1 = performance.now();
-        console.log(t1-t0 + ": drawing the image on the canvas");
-
-        switch (app.currentEffect) {
+    
+        switch (this.#effect) {
             case "normal":
-                app.normal(context);
+                this.#normal();
                 break;
             case "grayscale":
-                app.grayscale(context);
+                this.#grayscale();
                 break;
         }
-
-        let t2 = performance.now();
-        console.log(t2-t1+": applying the effect on the canvas");
-              
-        processingCanvas.toBlob(function(blob){
-            let blobUrl = URL.createObjectURL(blob);
-            app.processedImage.src = blobUrl;
-            app.donwloadLink.href = blobUrl;
-        },"image/png");
-
-        let t3 = performance.now();
-        console.log(t3-t2 + ": generating a blob from the processed canvas");
-        
-        console.log("finished");
+    
+        const t1 = performance.now();
+        console.log(t1-t0 + ": drawing the image on the canvas");    
+        this.#loader.style.display = 'none';
     }
 
-    app.normal = function(context){
-        
+    #normal () {
+        this.#visibleCanvasContext.drawImage(this.#offscreenCanvas, 0, 0);
     }
-
-    app.grayscale = function(context){
-        let imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
-        let pixels = imageData.data;
+    
+    #grayscale () {   
+        const imageData = this.#offscreenCanvasContext.getImageData(
+            0, 0, this.#offscreenCanvas.width, this.#offscreenCanvas.height);
+        const pixels = imageData.data;
+    
         for (let i = 0; i < pixels.length; i += 4)
             pixels[i] = pixels[i + 1] = pixels[i + 2] = Math.round((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
-        context.putImageData(imageData, 0, 0); 
+            
+        this.#visibleCanvasContext.putImageData(imageData, 0, 0); 
     }
     ```
 
 9. Add the `changeEffect` method, that will be used for changing the current effect.
 
     ```JavaScript
-     app.changeEffect = function(effect){
-        if(effect !== app.currentEffect)
-        {
-            app.currentEffect = effect;
-            app.drawImage();
+    changeEffect (effect) {
+        if (effect !== this.#effect) {
+            this.#effect = effect;
+            this.#drawImage();
         }
     }
     ```
 
-10. Call the `changeEffect` method when a button is pressed in the UI
+10. In file `main.js`, call the `changeEffect` method when a button is pressed in the UI:
 
     ```JavaScript
-    $('.effectType').click(function () {
-        //more about the data attribute: https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes
-        app.changeEffect($(this).data("effect")); //equivalent to $(this)[0].dataset.effect
-    });
+    const buttons = document.querySelectorAll("[data-effect]");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function () { imageEditor.changeEffect(this.dataset.effect) });
+    }
     ```
 
-11. Handle the `change` event of the file input as follows.
+> More about the `data-` attribute: https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes
+
+11. Let's define the public method `changeImage`, which will set the current image when the user loads an image for processing:
 
     ```JavaScript
-    document.getElementById("fileBrowser").addEventListener("change",function(e){  
+    changeImage (img) {
+        this.#offscreenCanvas.width = this.#visibleCanvas.width = img.naturalWidth;
+        this.#offscreenCanvas.height = this.#visibleCanvas.height = img.naturalHeight;
+
+        this.#offscreenCanvasContext.drawImage(img,0,0);
+
+        this.changeEffect("normal");
+    }
+    ```
+
+12. In the `main.js` file, handle the `change` event of the file input as follows.
+
+    ```JavaScript
+    document.getElementById("fileBrowser").addEventListener("change", function (ev) {
         //1. create the reader
-        var reader = new FileReader();
+        const reader = new FileReader();
         //2. attach events
-        reader.onload = function(event){
-            app.originalImage.src = event.target.result;
-        }
+        reader.addEventListener('load', function (ev) {
+            const dataUrl = ev.target.result;
+
+            const img = document.createElement("img");
+            img.addEventListener("load", function () {
+                imageEditor.changeImage(img);
+            });
+            img.src = dataUrl;
+        });
         //3. start loading the file
-        reader.readAsDataURL(e.target.files[0]);    
+        reader.readAsDataURL(ev.target.files[0]);
     });
     ```
 
-12. Handle the `load` event of the `originalImage` element in order to display the image.
+13. Let's add a way for the user to save the processed image by implementing the `saveImage` public method:
 
     ```JavaScript
-    app.originalImage.addEventListener("load",function(){
-            app.currentEffect = null;
-            app.changeEffect("normal");
-    });
+    saveImage () {
+        const a = document.createElement("a");
+
+        // You can also use the `toBlob` and `URL.createObjectURL(blob)` methods
+        a.href = this.#visibleCanvas.toDataURL("image/png", 1);
+        
+        // Download attribute: download file when clicking on the link (instead of navigating to the file)
+        // http://www.w3schools.com/tags/att_a_download.asp
+        a.download = "image.png";
+        
+        // Simulate a click on the link
+        a.click();
+    }
     ```
 
-13. Handle the `onerror` event of the `originalImage` element.
+14. Let's call this method when the user clicks on the appropriate button in the UI:
 
     ```JavaScript
-    /*app.originalImage.onerror = function (msg, source, lineNo) {
-            alert("Mesaj eroare: {0}".format(msg));
-    };*/
-    app.originalImage.addEventListener("error", function (msg) {
-            alert("Mesaj eroare: {0}".format(msg));
-    });
+    document.getElementById("btnSave").addEventListener("click", function () {
+        imageEditor.saveImage();
+    })
     ```
 
-17. Let's make the application more mobile friendly by defining icons, theme-color, etc.
+15. Let's make the application more mobile friendly by defining icons, theme-color, etc.
 
     ```HTML
     <meta name="theme-color" content="#2F3BA2">
-    <link rel="icon" sizes="192x192" href="img/icons/icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Image Editor">
     <link rel="apple-touch-icon" href="img/icons/icon-152x152.png">
-    <meta name="msapplication-TileImage" content="img/icons/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
     ```
 
-18. Add a manifest file, called `manifest.json`. 
+16. Add a manifest file, called `manifest.json`. 
 
     ```JSON
     {
-    "name": "Image Editor",
-    "short_name": "Image Editor",
-    "icons": [{
-        "src": "img/icons/icon-128x128.png",
-        "sizes": "128x128",
-        "type": "image/png"
-        }, {
-        "src": "img/icons/icon-144x144.png",
-        "sizes": "144x144",
-        "type": "image/png"
-        }, {
-        "src": "img/icons/icon-152x152.png",
-        "sizes": "152x152",
-        "type": "image/png"
-        }, {
-        "src": "img/icons/icon-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-        }, {
-        "src": "img/icons/icon-256x256.png",
-        "sizes": "256x256",
-        "type": "image/png"
-        }, {
-        "src": "img/icons/icon-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-        }],
-    "start_url": "index.html",
-    "display": "standalone",
-    "background_color": "#3E4EB8",
-    "theme_color": "#2F3BA2"
+        "short_name": "Image Editor",
+        "name": "Image Editor",
+        "description": "HTML5 Image Editor",
+        "icons": [
+            {
+            "src": "img/icons/icon-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+            },
+            {
+            "src": "img/icons/icon-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+            },
+            {
+            "src": "img/icons/icon-152x152.png",
+            "sizes": "152x152",
+            "type": "image/png"
+            },
+            {
+            "src": "img/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+            },
+            {
+            "src": "img/icons/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+            },
+            {
+            "src": "img/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+            },
+            {
+            "src": "img/icons/maskable_icon.png",
+            "sizes": "1024x1024",
+            "type": "image/png",
+            "purpose": "maskable"
+            }
+        ],
+        "start_url": "index.html",
+        "background_color": "#3E4EB8",
+        "display": "standalone",
+        "scope": "https://ase-multimedia.azurewebsites.net/canvas-image-editor/",
+        "theme_color": "#2F3BA2"  
     }
     ```
 
-19. Complete the assignments included in the `*.js` file.
+17. Finish converting the application into a progressive web app (PWA) by:
+    - adding a Service Worker
+    - handling HTTP requests using the `caches` API
+    - passing the audits in Lighthouse
+    - allowing the user to install the application
 
 ##  5. Bibliography
 - HTML5 Canvas: <https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images>
 -   [Canvas Pocket Reference](http://ase.softmentor.ro/Multimedia/resurse/OReilly%20-%20Canvas%20Pocket%20Reference.pdf) -  Chapter 1.
 - (optional) HTML Living Standard: <https://html.spec.whatwg.org/#the-canvas-element>
 - Graphics on the web: <https://developer.mozilla.org/en-US/docs/Web/Guide/Graphics>
+- Progressive Web Apps (PWAs): <https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps>
