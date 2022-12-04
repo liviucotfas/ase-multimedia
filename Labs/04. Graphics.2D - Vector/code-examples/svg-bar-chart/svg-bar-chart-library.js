@@ -18,16 +18,15 @@ class BarChart{
 
     /**
      * Displays the bar chart
-     * @param {Array<Array>} data 
+     * @param {Array<Array<>} data 
      */
     draw(data){
-        this.data = data;
         this.#width = this.#domElement.clientWidth;
         this.#height = this.#domElement.clientHeight;
 
         this.#createSVG();
         this.#drawBackground();
-        this.#drawBars();
+        this.#drawBars(data);
 
         this.#domElement.appendChild(this.#svg);
     }
@@ -55,13 +54,13 @@ class BarChart{
         
         this.#svg.appendChild(rect);
     }
-    #drawBars(){
-        const barWidth = this.#width / this.data.length;
+    #drawBars(data){
+        const barWidth = this.#width / data.length;
 
-        const f = this.#height / Math.max(...this.data.map(x=>x[1]));
+        const f = this.#height / Math.max(...data.map(x=>x[1]));
 
-        for(let i=0; i<this.data.length; i++){
-            const element = this.data[i];
+        for(let i=0; i<data.length; i++){
+            const element = data[i];
 
             const label = element[0];
             const value = element[1];

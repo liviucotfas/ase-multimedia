@@ -138,7 +138,6 @@ chart.draw(data, options);
         ....
 
         draw(data){
-            this.data = data;
             this.#width = this.#domElement.clientWidth;
             this.#height = this.#domElement.clientHeight;
         }
@@ -179,15 +178,15 @@ chart.draw(data, options);
 7. Add the `drawBars()` method to the `BarChart` class that will draw the actual bars. Call it from the `draw()` method.
 
     ```JavaScript
-    #drawBars(){
-        const barWidth = this.#width / this.data.length;
+    #drawBars(data){
+        const barWidth = this.#width / data.length;
 
-        const f = this.#height / Math.max(...this.data.map(x=>x[1]));
+        const f = this.#height / Math.max(...data.map(x=>x[1]));
 
-        for(let i=0; i<this.data.length; i++){
+        for(let i=0; i<data.length; i++){
 
-            const label = this.data[i][0];
-            const value = this.data[i][1];
+            const label = data[i][0];
+            const value = data[i][1];
 
             const barHeight = value * f * 0.9;
             const barY = this.#height - barHeight;
