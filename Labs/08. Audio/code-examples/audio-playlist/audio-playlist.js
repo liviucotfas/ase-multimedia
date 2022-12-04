@@ -11,7 +11,7 @@ const app = {
  */
 app.play = function (url) {
     // Remove the `active` class from the li corresponding to the previous song
-    let element = document.querySelector('[data-url="' + url + '"]');
+    let element = document.querySelector('[data-url].active');
     if (element !== null)
         element.classList.remove('active');
 
