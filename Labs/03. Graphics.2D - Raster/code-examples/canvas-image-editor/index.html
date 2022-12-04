@@ -22,7 +22,7 @@
     </canvas>
 
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
-    <input type="file" id="fileBrowser" accept="image/*" placeholder="Choose an image" class="outline top">
+    <input type="file" id="fileBrowser" accept="image/*" class="outline top">
 
     <div class="outline bottom">
         <!-- https://developer.mozilla.org/en/docs/Web/Guide/HTML/Using_data_attributes -->
@@ -39,17 +39,17 @@
         <button type="button" data-effect="blue">Blue</button>
 
         <button id="btnSave" type="button">Save</button>
+
+        <!-- Install button, hidden by default -->
+        <div id="installContainer" class="hidden">
+            <button id="butInstall" type="button">
+                Install
+            </button>
+        </div>
     </div>
 
     <div class="loader hidden">
         <div id="spinner"></div>
-    </div>
-
-    <!-- Install button, hidden by default -->
-    <div id="installContainer" class="hidden">
-        <button id="butInstall" type="button">
-          Install
-        </button>
     </div>
 
     <script src="image-editor.js"></script>
