@@ -1,4 +1,8 @@
-﻿/* Assignment
+﻿/* 
+Notes: 
+- The example has been implemented using `setTimeout` in order to also demonstrate this method. However, a better implementation would use the `requestAnimationFrame` method instead.
+
+Assignments
 1. Change the code below to make the dimensions of the two canvases equal to the dimensions of the video element
 Hint:
 When video.clientWidth / video.clientHeight < video.videoWidth / video.videoHeight we should have canvas.height = video.clientWidth * video.videoHeight / video.videoWidth;
@@ -53,12 +57,18 @@ for (let i = 0; i < buttons.length; i++) {
     });
 }
 
+let handler = null; // handler for setTimeout
+
 video.addEventListener('play', function () {
-    draw(video, context);
+    draw();
     //TODO add the code for resizing the canvas here     
 }, false);
 
-function draw(video, context) {
+video.addEventListener('pause', function(){
+    clearTimeout(handler)
+})
+
+function draw() {
     if (video.paused || video.ended) {
         return false;
     }
@@ -101,5 +111,5 @@ function draw(video, context) {
     //The setTimeout() method calls a function or evaluates an expression after a specified number of milliseconds.
     //Tip: 1000 ms = 1 second.
     //66ms ~= 15fps
-    setTimeout(draw, 66, video, context);
+    handler = setTimeout(draw, 66);
 }
