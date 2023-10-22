@@ -84,8 +84,13 @@
         }
 
         //Events
-        document.addEventListener('dragover', function(e){e.preventDefault();})
+        // According to https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragover_event#examples: "in the dragover event handler for the target container, we call event.preventDefault(), which enables it to receive drop events."  
+        document.addEventListener('dragover', function(e){
+            // prevent default to allow drop
+            e.preventDefault();
+        })
         document.addEventListener('drop', function (e) {
+            // prevent default action (open as link for some elements)
             e.preventDefault();
 
             //Access the `dataTransfer` property from the `drop` event which

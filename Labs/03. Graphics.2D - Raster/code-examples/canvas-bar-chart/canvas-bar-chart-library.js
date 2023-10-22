@@ -15,8 +15,9 @@ class BarChart{
     /**
      * 
      * @param {Array<number>} values - The values that will be displayed in the chart
+     * @param {*} options 
      */
-    draw(values){
+    draw(values, options){
         const context = this.#canvas.getContext('2d');
     
         // Save the current context of the applciation. We will restore it later.
@@ -44,7 +45,9 @@ class BarChart{
             const barY = this.#canvas.height - barHeight;
     
             context.fillRect(barX, barY, barWidth / 2, barHeight);
-            context.strokeRect(barX, barY, barWidth / 2, barHeight);
+
+            if(options.stroke)
+                context.strokeRect(barX, barY, barWidth / 2, barHeight);
     
             /* Equivalent to:
             context.beginPath();

@@ -4,7 +4,7 @@ class BarChart{
     constructor(canvas) {
         this.canvas = canvas;
     }
-    draw(values){
+    draw(values, options){
         
         let context = this.canvas.getContext('2d');
 
