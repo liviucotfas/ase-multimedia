@@ -126,6 +126,8 @@ class ImageEditor {
             case "grayscale":
                 this.#grayscale();
                 break;
+            default:
+                throw new Error(`The ${this.#effect} is not implemented!`);
         }
     
         const t1 = performance.now();
