@@ -114,13 +114,12 @@ app.load = function () {
 * @return {string} The time in minutes and/or seconds.
 **/
 app.secondsToString = function (seconds) {
-    let min = Math.floor(seconds / 60);
-    let sec = Math.floor(seconds % 60);
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
 
-    min = min >= 10 ? min : '0' + min;
-    sec = sec >= 10 ? sec : '0' + sec;
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+    const formattedMinutes = String(minutes).padStart(2,'0');
+    const formattedSeconds = String(remainingSeconds).padStart(2,'0');
     
-    const time = min + ':' + sec;
-
-    return time;
+    return `${formattedMinutes}:${formattedSeconds}`;
 };
