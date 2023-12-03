@@ -36,7 +36,7 @@ app.next = function () {
 
 app.load = function () {
     app.audio = document.getElementById('audio');
-    const btnPlayPause = document.getElementById('btnPlayPause');
+    const btnPlayPause = document.getElementById('btn-play-pause');
 
     // Iterate over the playlist in order to associate events
     const elements = document.querySelectorAll('[data-url]');
@@ -86,7 +86,7 @@ app.load = function () {
     app.audio.addEventListener('ended', app.next);
 
     // Handle the click event btnPlayPause
-    document.getElementById('btnPlayPause').addEventListener('click', function () {
+    btnPlayPause.addEventListener('click', function () {
         if (app.audio.src === "") {
             app.play(app.tracks[0]);
         } else {
@@ -100,12 +100,12 @@ app.load = function () {
     });
 
     // Handle the click event on btnForward
-    document.getElementById('btnForward').addEventListener('click', function () {
+    document.getElementById('btn-forward').addEventListener('click', function () {
         app.audio.currentTime += 10;
     });
 
     // Handle the click event on btnNext
-    document.getElementById('btnNext').addEventListener('click', app.next);
+    document.getElementById('btn-next').addEventListener('click', app.next);
 };
 
 /**
