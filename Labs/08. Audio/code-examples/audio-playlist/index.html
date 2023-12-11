@@ -48,21 +48,28 @@ https://521dimensions.com/open-source/amplitudejs/docs/
         </div>
     </div>
 
-    <ul class="list-group">
-        <li data-url="media/Ravel-Bolero.mp3" class="list-group-item">
-            Ravel - Bolero
-        </li>
-        <li data-url="media/Beethoven-Moonlight-Sonata.mp3" class="list-group-item">
-            Beethoven - Moonlight Sonata
-        </li>
-        <li data-url="media/Pachelbel-Canon-in-D-Major.mp3" class="list-group-item">
-            Pachelbel - Canon in D
-        </li>
+    <ul id="ul-tracks" class="list-group">
     </ul>
 
     <script src="audio-playlist.js"></script>
     <script>
-        app.load();
+        const tracks = [
+            {
+                title: 'Moonlight Sonata',
+                url: 'media/Beethoven-Moonlight-Sonata.mp3'
+            },
+            {
+                title: 'Canon in D Major',
+                url: 'media/Pachelbel-Canon-in-D-Major.mp3'
+            },
+            {
+                title: 'Bolero',
+                url: 'media/Ravel-Bolero.mp3'
+            }
+        ]
+
+        const audioPlayer = new AudioPlayer();
+        audioPlayer.loadTracks(tracks);
     </script>
 </body>
 
