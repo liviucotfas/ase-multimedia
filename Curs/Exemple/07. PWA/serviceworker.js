@@ -1,6 +1,6 @@
 self.addEventListener("install", function() {
   console.log("install");
-  //throw 'error';  fdfds
+  //throw 'error';
 });
 
 self.addEventListener("activate", function() {
