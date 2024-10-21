@@ -47,10 +47,7 @@ Hint: use an `<a>` element and simulate a `click` event
         btnDraw.addEventListener('click', () => {
             const tbValues = document.getElementById('tbValues');
             const values = tbValues.value;
-
-            //the eval() function evaluates JavaScript code represented as a string.
-            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
-            barChart.draw(eval('[' + values + ']'), options);
+            barChart.draw(values.split(',').map(Number), options);
         });
 
         //?After an event triggers on the deepest possible element, it then triggers on parents in nesting order
