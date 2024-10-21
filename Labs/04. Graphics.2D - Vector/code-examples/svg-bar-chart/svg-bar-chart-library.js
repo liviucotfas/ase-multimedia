@@ -1,19 +1,16 @@
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 class BarChart{
-    #svgns;
-    #domElement;
+    #svgns = "http://www.w3.org/2000/svg";
     #svg;
-    #width;
-    #height;
 
     /**
      * Creates a new bar chart
      * @param {HTMLElement} domElement 
      */
     constructor(domElement) {
-        this.#domElement = domElement;
-        this.#svgns  = "http://www.w3.org/2000/svg";
+        this.#createSVG();
+        domElement.appendChild(this.#svg);
     }
 
     /**
@@ -21,43 +18,13 @@ class BarChart{
      * @param {Array<Array<>} data 
      */
     draw(data){
-        this.#width = this.#domElement.clientWidth;
-        this.#height = this.#domElement.clientHeight;
+        // Clear the chart
+        this.#svg.replaceChildren();
 
-        this.#createSVG();
-        this.#drawBackground();
-        this.#drawBars(data);
+        // Add the bars
+        const barWidth = this.#svg.clientWidth / data.length;
 
-        this.#domElement.appendChild(this.#svg);
-    }
-    #createSVG(){
-        this.#svg = document.createElementNS(this.#svgns, "svg");
-             
-        this.#svg.style.borderColor = 'black';
-        this.#svg.style.borderWidth = '1px';
-        this.#svg.style.borderStyle = 'solid';
-        //or
-        //this.#svg.setAttribute('style', 'border: 1px solid black'); 
-        
-        this.#svg.setAttribute('width', this.#width); //note: this.#svg.width is readonly
-        this.#svg.setAttribute('height', this.#height);
-    }
-    #drawBackground(){
-        const rect = document.createElementNS(this.#svgns, 'rect');
-        rect.setAttribute('x', 0);
-        rect.setAttribute('y', 0);
-        rect.setAttribute('height', this.#height);
-        rect.setAttribute('width', this.#width);
-        
-        rect.style.fill = 'WhiteSmoke';
-        //rect.setAttribute("fill", 'WhiteSmoke'); //! not recommended
-        
-        this.#svg.appendChild(rect);
-    }
-    #drawBars(data){
-        const barWidth = this.#width / data.length;
-
-        const f = this.#height / Math.max(...data.map(x=>x[1]));
+        const f = this.#svg.clientHeight / Math.max(...data.map(x=>x[1]));
 
         for(let i=0; i<data.length; i++){
             const element = data[i];
@@ -66,7 +33,7 @@ class BarChart{
             const value = element[1];
 
             const barHeight = value * f * 0.9;
-            const barY = this.#height - barHeight;
+            const barY = this.#svg.clientHeight - barHeight;
             const barX = i * barWidth + barWidth/4;
 
             const bar = document.createElementNS(this.#svgns, 'rect');
@@ -89,5 +56,18 @@ class BarChart{
             text.setAttribute('y', barY - 10);
             this.#svg.appendChild(text);
         }
+    }
+    #createSVG(){
+        this.#svg = document.createElementNS(this.#svgns, "svg");
+             
+        this.#svg.style.borderColor = 'black';
+        this.#svg.style.borderWidth = '1px';
+        this.#svg.style.borderStyle = 'solid';
+        this.#svg.style.backgroundColor = 'WhiteSmoke';
+        //or
+        //this.#svg.setAttribute('style', 'border: 1px solid black'); 
+        
+        this.#svg.setAttribute('width', '100%'); //note: this.#svg.width is readonly
+        this.#svg.setAttribute('height', '100%');
     }
 }
