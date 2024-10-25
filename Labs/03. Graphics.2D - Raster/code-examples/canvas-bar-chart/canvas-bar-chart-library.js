@@ -1,6 +1,6 @@
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
-class BarChart{
+export class BarChart{
     /**
      * The canvas on which the chart will be displayed
      */
