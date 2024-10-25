@@ -39,6 +39,7 @@
 ###  4.1. <a name='Assignment1'></a>Assignment 1
 1. Try the "canvas-bar-chart" sample by clicking [here](https://ase-multimedia.azurewebsites.net/canvas-bar-chart). 
 2. Check the source code in the `code-examples.zip` archive or in the `code-examples` folder. 
+   > The code uses [JavaScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). Please make sure to familiarize yourself with these topics.
 3. Complete the assignments included in the ```html``` file. 
 
 ###  4.2. <a name='Assignment2'></a>Assignment 2
