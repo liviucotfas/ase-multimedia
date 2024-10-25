@@ -10,16 +10,14 @@
                 fill: yellow;
             }
         </style>
-
-        <script src="svg-bar-chart-library.js"></script>
     </head>
 
     <body>
         <div id="barChart" style="width: 600px; height:400px;"></div>
 
-        <script>
-            'use strict';
-            
+        <script type="module">
+            import { BarChart } from './svg-bar-chart-library.js';
+
             const data = [
                 ['Label 1', 1],
                 ['Label 2', 2],
