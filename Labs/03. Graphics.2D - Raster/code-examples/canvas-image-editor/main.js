@@ -1,3 +1,5 @@
+import { ImageEditor } from "./image-editor.js";
+
 const visibleCanvas = document.getElementById("visibleCanvas");
 const imageEditor = new ImageEditor(visibleCanvas);
 

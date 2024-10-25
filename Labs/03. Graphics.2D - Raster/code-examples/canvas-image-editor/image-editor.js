@@ -44,7 +44,7 @@ Hint: use the .classList property and add()/remove()/toogle() methods or the .cl
 Hint: https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions
 */
 
-class ImageEditor {
+export class ImageEditor {
     // Private fields: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields
     #visibleCanvas;
     #visibleCanvasContext;

@@ -13,7 +13,6 @@
 <head>
     <meta charset="utf-8" />
     <title>HTML5Multimedia - DragDrop</title>
-    <script src="canvas-bar-chart-library.js"></script>
 </head>
 <body style="text-align:center;">
     Drag and drop an image to start. Click on the image afterwards to download it. <br>
@@ -34,8 +33,8 @@
         Your browser does not support the canvas element. :(
     </canvas>
 
-    <script>
-        'use strict';
+    <script type="module">
+        import { BarChart } from './canvas-bar-chart-library.js';
 
         //Selectors
         const canvasImage = document.getElementById('canvasImage');
@@ -80,7 +79,7 @@
                 }
             }
 
-            barChart.draw(v);
+            barChart.draw(v, {stroke: false});
         }
 
         //Events
