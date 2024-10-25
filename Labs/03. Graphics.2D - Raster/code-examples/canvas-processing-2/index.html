@@ -9,13 +9,6 @@
         rel="stylesheet" 
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
         crossorigin="anonymous">
-
-    <script 
-        src="histogram-library.js"></script>
-    <script 
-        src="drawing-library.js"></script>
-    <script 
-        src="canvas-processing-2.js"></script>
 </head>
 <body>
     <div class="container">       
@@ -33,8 +26,9 @@
         <canvas id="histogram" width="512" height="200"></canvas>
     </div>
 
-    <script>
-        let app = new App(document.getElementById('result'), document.getElementById('histogram'));
+    <script type="module">
+        import { App } from './canvas-processing-2.js';
+        const app = new App(document.getElementById('result'), document.getElementById('histogram'));
 
         document.getElementById('fileBrowser')
             .addEventListener('change', function(e){ app.loadFile(e.target.files[0]); });

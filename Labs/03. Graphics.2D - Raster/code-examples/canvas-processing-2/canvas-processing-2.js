@@ -1,6 +1,4 @@
-﻿"use strict";
-
-/* Assignment
+﻿/* Assignment
 1. Implement the "convertToGreyScale" function
 Hint:   
 function (x, y, r, g, b, a) {var average = (r + g + b) / 3; return [average, average, average];}
@@ -9,7 +7,10 @@ Hint: use the empty() and append() jQuery methods
 3. Open the Developer Tools in the browser of your choice. Choose the Console tab. Click the browse button in the application and afterwards choose the Cancel option. An error will be displayed in the console tab. Try to fix it.
 */
 
-class App{
+import {DrawingLibrary} from './drawing-library.js';
+import {Histogram} from './histogram-library.js';
+
+export class App{
     constructor(canvasImage, canvasHistogram){
         this.canvasImage = canvasImage;
         this.canvasHistogram = canvasHistogram;
@@ -40,10 +41,10 @@ class App{
     }
 
     displayImageOnCanvas(img){
-        app.canvasImage.height = img.height;
-        app.canvasImage.width = img.width;
+        this.canvasImage.height = img.height;
+        this.canvasImage.width = img.width;
 
-        var context =  app.canvasImage.getContext("2d");
+        const context =  this.canvasImage.getContext("2d");
         context.drawImage(img, 0, 0);
 
         context.font = "bold 10pt sans-serif";
@@ -53,8 +54,8 @@ class App{
     }
 
     drawHistogram(){
-        let result = DrawingLibrary.analyzeColorChannels(app.canvasImage);
-        app.histogram.draw(result.vR, result.vG, result.vB);
+        const result = DrawingLibrary.analyzeColorChannels(this.canvasImage);
+        this.histogram.draw(result.vR, result.vG, result.vB);
     }
 
     convertToGreyScale (){

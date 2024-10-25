@@ -1,4 +1,4 @@
-class DrawingLibrary {
+export class DrawingLibrary {
     static processImage(canvas, action) {
         var context = canvas.getContext("2d");
     
