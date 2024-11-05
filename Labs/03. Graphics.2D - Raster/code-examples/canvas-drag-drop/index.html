@@ -52,12 +52,17 @@
         }
 
         function drawImageHistogram(){
-            const v = [];
-            for (let i = 0; i < 256; i++) {
-                //The push() method adds new items to the end of an array, and returns the new length.
-                // http://www.w3schools.com/jsref/jsref_push.asp
-                v.push(0);
-            }
+
+            //Create an array of 256 elements, each initialized with 0
+            // 1) Using the fill() method
+            const v = new Array(256).fill(0);
+            // 2) Using a for loop
+            // const v = [];
+            // for (let i = 0; i < 256; i++) {
+            //     //The push() method adds new items to the end of an array, and returns the new length.
+            //     // http://www.w3schools.com/jsref/jsref_push.asp
+            //     v.push(0);
+            // }
 
             const context = canvasImage.getContext('2d');
             const cW = canvasImage.width;
