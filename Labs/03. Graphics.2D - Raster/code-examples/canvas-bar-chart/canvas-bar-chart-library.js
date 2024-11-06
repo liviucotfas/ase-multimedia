@@ -14,8 +14,9 @@ export class BarChart{
     }
     /**
      * 
-     * @param {Array<number>} values - The values that will be displayed in the chart
-     * @param {*} options 
+     * @param {Array<number>} values - The values that will be displayed in the chart.
+     * @param {Object} options - The options for drawing the bar chart.
+     * @param {boolean} [options.drawOutline] - Whether to draw the stroke around the bars.
      */
     draw(values, options){
         const context = this.#canvas.getContext('2d');
@@ -46,7 +47,7 @@ export class BarChart{
     
             context.fillRect(barX, barY, barWidth / 2, barHeight);
 
-            if(options.stroke)
+            if(options.drawOutline)
                 context.strokeRect(barX, barY, barWidth / 2, barHeight);
     
             /* Equivalent to:
