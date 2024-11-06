@@ -28,9 +28,9 @@
     <noscript>
         JavaScript is required for running this game.
     </noscript>
-    <script src="app.js"></script>
-    <script>
-        app.load();
+    <script type="module">
+        import {Game} from './src/Game.js';
+        new Game();
     </script>
 </body>
 </html>
