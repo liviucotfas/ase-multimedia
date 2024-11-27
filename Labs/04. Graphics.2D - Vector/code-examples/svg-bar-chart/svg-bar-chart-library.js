@@ -34,14 +34,14 @@ export class BarChart{
 
             const barHeight = value * f * 0.9;
             const barY = this.#svg.clientHeight - barHeight;
-            const barX = i * barWidth + barWidth/4;
+            const barX = i * barWidth;
 
             const bar = document.createElementNS(this.#svgns, 'rect');
             bar.classList.add('bar');
-            bar.setAttribute('x', barX);
+            bar.setAttribute('x', barX + barWidth / 4);
             bar.setAttribute('y', barY);
             bar.setAttribute('height', barHeight);
-            bar.setAttribute('width', barWidth/2);
+            bar.setAttribute('width', barWidth / 2);
 
             //note: if the styles are set using CSS .bar:hover {...} will only work if marked as !important
             //the styling should be moved to the .bar {...} instead
@@ -51,9 +51,9 @@ export class BarChart{
             this.#svg.appendChild(bar);
 
             const text = document.createElementNS(this.#svgns, 'text');
-            text.appendChild(document.createTextNode(label));
-            text.setAttribute('x', barX);
-            text.setAttribute('y', barY - 10);
+            text.textContent = label;
+            text.setAttribute('x', barX + barWidth / 2);
+            text.setAttribute('y', this.#svg.clientHeight - 5);
             this.#svg.appendChild(text);
         }
     }
