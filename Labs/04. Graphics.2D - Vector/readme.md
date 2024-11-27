@@ -233,6 +233,8 @@ chart.draw(data, options);
     - instantiate the `BarChart` class;
     - call the `draw()` method pssing as an argument a matrix.
 
+10. Center the labels over the bars using the `text-anchor` property.
+
 ##  5. <a name='Assignmentforyoutotry'></a>Assignment (for you to try)
 The Google Charts library supports many more features than our library, as you can see in the screenshot bellow. 
 
