@@ -277,3 +277,6 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/**
 # !tools/packages.config
+
+# Ignore package-lock.json in any folder
+**/package-lock.json
