@@ -64,8 +64,6 @@ export class BarChart{
         this.#svg.style.borderWidth = '1px';
         this.#svg.style.borderStyle = 'solid';
         this.#svg.style.backgroundColor = 'WhiteSmoke';
-        //or
-        //this.#svg.setAttribute('style', 'border: 1px solid black'); 
         
         this.#svg.setAttribute('width', '100%'); //note: this.#svg.width is readonly
         this.#svg.setAttribute('height', '100%');
