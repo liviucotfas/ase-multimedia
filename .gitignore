@@ -280,3 +280,6 @@ __pycache__/
 
 # Ignore package-lock.json in any folder
 **/package-lock.json
+
+# Ignore dist folder in any folder
+**/dist/
