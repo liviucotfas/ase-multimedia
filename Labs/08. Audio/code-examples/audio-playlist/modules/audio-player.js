@@ -4,10 +4,6 @@ export class AudioPlayer{
     #audio;    
     #ulTracks;
     
-    /**
-     * 
-     * @param {HTMLUListElement} ulTracks 
-     */
     constructor(){
         this.#ulTracks = document.getElementById('ul-tracks');
         this.#audio = document.getElementById('audio');
@@ -73,6 +69,10 @@ export class AudioPlayer{
 
     }
 
+    /**
+     * Update the list of tracks
+     * @param {Array<object>} tracks 
+     */
     loadTracks(tracks){
         this.#tracks = tracks;
 
