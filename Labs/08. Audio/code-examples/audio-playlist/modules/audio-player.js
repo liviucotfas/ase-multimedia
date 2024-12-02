@@ -1,8 +1,8 @@
-class AudioPlayer{
-    #tracks
-    #currentTrack
-    
-    #ulTracks
+export class AudioPlayer{
+    #tracks;
+    #currentTrack;
+    #audio;    
+    #ulTracks;
     
     /**
      * 
@@ -10,20 +10,19 @@ class AudioPlayer{
      */
     constructor(){
         this.#ulTracks = document.getElementById('ul-tracks');
-
-        const audio = document.getElementById('audio');
+        this.#audio = document.getElementById('audio');
         const btnPlayPause = document.getElementById('btn-play-pause');
         const currentTime = document.getElementById("currentTime");
         const duration = document.querySelector('#duration'); // equivalent to getElementById
                 
         // Handle the timeupdate event
-        audio.addEventListener('durationchange', () => {
+        this.#audio.addEventListener('durationchange', () => {
             duration.textContent = this.secondsToString(audio.duration);
         });
             
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration) {
-                currentTime.textContent = this.secondsToString(audio.currentTime);
+        this.#audio.addEventListener('timeupdate', () => {
+            if (this.#audio.duration) {
+                currentTime.textContent = this.secondsToString(this.#audio.currentTime);
             }
             else {
                 //innerText can also be used
@@ -33,38 +32,38 @@ class AudioPlayer{
         });
             
         // Handle the play event
-        audio.addEventListener('play', function () {
+        this.#audio.addEventListener('play', function () {
             //alternative: btnPlayPause.children[0].classList.replace('fa-play', 'fa-pause');
             btnPlayPause.children[0].classList.remove('fa-play');
             btnPlayPause.children[0].classList.add('fa-pause');
         });
 
         // Handle the pause event
-        audio.addEventListener('pause', function () {
+        this.#audio.addEventListener('pause', function () {
             btnPlayPause.children[0].classList.add('fa-play');
             btnPlayPause.children[0].classList.remove('fa-pause');
         });
 
         // Handle the ended event
-        audio.addEventListener('ended', ()=> this.next());
+        this.#audio.addEventListener('ended', ()=> this.next());
             
         // Handle the click event btnPlayPause
         btnPlayPause.addEventListener('click', () => {
-            if (audio.src === '' && this.tracks.length > 0) {
+            if (this.#audio.src === '' && this.#tracks.length > 0) {
                 this.play(this.#tracks[0]);
             } else {
-                if (audio.paused) {
-                    audio.play();
+                if (this.#audio.paused) {
+                    this.#audio.play();
                 }
                 else {
-                    audio.pause();
+                    this.#audio.pause();
                 }
             }
         });
 
         // Handle the click event on btnForward
         document.getElementById('btn-forward').addEventListener('click', () => {
-            audio.currentTime += 10;
+            this.#audio.currentTime += 10;
         });
 
         // Handle the click event on btnNext
@@ -75,7 +74,7 @@ class AudioPlayer{
     }
 
     loadTracks(tracks){
-        this.tracks = tracks;
+        this.#tracks = tracks;
 
         for(let i = 0; i < this.#tracks.length; i++){
             const li = document.createElement('li');
@@ -100,8 +99,8 @@ class AudioPlayer{
 
         // Change the song
         this.#currentTrack = track;
-        audio.src = this.#currentTrack.url;
-        audio.play();
+        this.#audio.src = this.#currentTrack.url;
+        this.#audio.play();
 
         // Add the `active` class to the li corresponding to the current song
         element = document.querySelector('[data-url="' + this.#currentTrack.url + '"]');
