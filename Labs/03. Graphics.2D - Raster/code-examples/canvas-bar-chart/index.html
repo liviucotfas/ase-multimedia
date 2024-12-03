@@ -15,6 +15,7 @@ Hint: use an `<a>` element and simulate a `click` event
 <head>
     <title>BarChart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -31,7 +32,7 @@ Hint: use an `<a>` element and simulate a `click` event
     </a>
 
     <script type="module">
-        import { BarChart } from './canvas-bar-chart-library.js';
+        import { BarChart } from '../dist/canvas-bar-chart/canvas-bar-chart-library.js';
 
         const canvasChart = document.getElementById('canvasChart');
         const btnDraw = document.getElementById('btnDraw');

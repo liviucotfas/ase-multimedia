@@ -14,5 +14,8 @@
 
 Visual Studio Code (https://code.visualstudio.com/)
 
-## Further Reading
-- https://web.dev
+For typescript development, you will need to install the typescript compiler and node. You can do this by running the following command in the terminal:
+
+```bash 
+   npm install -g typescript
+```

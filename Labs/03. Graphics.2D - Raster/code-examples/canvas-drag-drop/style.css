@@ -1,0 +1,34 @@
+body {
+   font-family: system-ui, -apple-system, sans-serif;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 1.5rem;
+   padding: 2rem;
+   background: #f8f9fa;
+   color: #1a1a1a;
+}
+
+canvas {
+   border: 2px dashed #ccc;
+   border-radius: 8px;
+   background: white;
+   transition: border-color 0.3s;
+}
+
+canvas:hover {
+   border-color: #666;
+}
+
+a {
+   display: block;
+   text-decoration: none;
+   color: inherit;
+}
+
+@media (max-width: 600px) {
+   canvas {
+       width: 100% !important;
+       height: auto;
+   }
+}
