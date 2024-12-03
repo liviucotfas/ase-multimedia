@@ -13,6 +13,7 @@
 <head>
     <meta charset="utf-8" />
     <title>HTML5Multimedia - DragDrop</title>
+    <link rel="stylesheet" href="style.css.css">
 </head>
 <body style="text-align:center;">
     Drag and drop an image to start. Click on the image afterwards to download it. <br>
@@ -34,7 +35,7 @@
     </canvas>
 
     <script type="module">
-        import { BarChart } from './canvas-bar-chart-library.js';
+        import { BarChart } from '../dist/canvas-drag-drop/canvas-bar-chart-library.js';
 
         //Selectors
         const canvasImage = document.getElementById('canvasImage');

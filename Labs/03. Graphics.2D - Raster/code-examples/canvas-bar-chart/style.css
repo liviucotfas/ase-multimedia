@@ -1,0 +1,44 @@
+body {
+    max-width: 800px;
+    margin: 2rem auto;
+    font-family: system-ui, sans-serif;
+    padding: 0 1rem;
+}
+
+form {
+    margin-bottom: 2rem;
+}
+
+input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+button:hover {
+    background: #0052a3;
+}
+
+canvas {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#btnDownload {
+    display: block;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: #666;
+}
