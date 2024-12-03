@@ -21,7 +21,7 @@ export class BarChart {
      * @param {boolean} [options.drawOutline] - Whether to draw the stroke around the bars.
      */
     draw(values: number[], options: { drawOutline: boolean }): void {
-        const context = this.canvas.getContext('2d');
+        const context: CanvasRenderingContext2D | null = this.canvas.getContext('2d');
 
         if (!context) {
             throw new Error('2D context is not supported');
