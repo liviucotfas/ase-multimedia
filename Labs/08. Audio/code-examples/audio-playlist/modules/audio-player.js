@@ -90,7 +90,7 @@ export class AudioPlayer{
     }
 
     /** Plays a song 
-     * @param {string} url - The url of the song 
+     * @param {object} url - The url of the song 
      */
     play(track) {
         // Remove the `active` class from the li corresponding to the previous song
