@@ -16,11 +16,12 @@ class AudioPlayer{
         const currentTime = document.getElementById("currentTime");
         const duration = document.querySelector('#duration'); // equivalent to getElementById
                 
-        // Handle the timeupdate event
+        // Handle the durationchange event
         audio.addEventListener('durationchange', () => {
             duration.textContent = this.secondsToString(audio.duration);
         });
             
+        // Handle the timeupdate event
         audio.addEventListener('timeupdate', () => {
             if (audio.duration) {
                 currentTime.textContent = this.secondsToString(audio.currentTime);
@@ -48,7 +49,7 @@ class AudioPlayer{
         // Handle the ended event
         audio.addEventListener('ended', ()=> this.next());
             
-        // Handle the click event btnPlayPause
+        // Handle the click event on btnPlayPause
         btnPlayPause.addEventListener('click', () => {
             if (audio.src === '' && this.tracks.length > 0) {
                 this.play(this.#tracks[0]);
