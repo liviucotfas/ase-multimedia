@@ -118,7 +118,7 @@ chart.draw(data, options);
 3. Declare the `BarChart` class and add a `constructor`.
     
     ```JavaScript
-    class BarChart{
+    export class BarChart{
         #svgns;
         #domElement;
         #svg;
@@ -134,7 +134,7 @@ chart.draw(data, options);
 4. Add the `draw()` method that will be called everytime we want to update the displayed data.
 
     ```JavaScript
-    class BarChart{
+    export class BarChart{
         ....
 
         draw(data){
@@ -223,15 +223,17 @@ chart.draw(data, options);
 
     ```JavaScript
     const text = document.createElementNS(this.#svgns, 'text');
-    text.appendChild(document.createTextNode(label));
-    text.setAttribute('x', barX);
-    text.setAttribute('y', barY);
+    text.textContent = label;
+    text.setAttribute('x', barX + barWidth / 2);
+    text.setAttribute('y', this.#svg.clientHeight - 5);
     this.#svg.appendChild(text);
     ```
 >**Remarks:** While the `*.html` file is specific to our example, the bar chart library in the `.*js` file is general and can be used in any project. Our users will need to: 
     - include the `.*js` file;
     - instantiate the `BarChart` class;
     - call the `draw()` method pssing as an argument a matrix.
+
+10. Center the labels over the bars using the `text-anchor` CSS property.
 
 ##  5. <a name='Assignmentforyoutotry'></a>Assignment (for you to try)
 The Google Charts library supports many more features than our library, as you can see in the screenshot bellow. 

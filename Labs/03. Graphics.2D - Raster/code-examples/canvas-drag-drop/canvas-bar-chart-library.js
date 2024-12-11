@@ -3,6 +3,7 @@
 export class BarChart{
     /**
      * The canvas on which the chart will be displayed
+     * @type {HTMLCanvasElement}
      */
     #canvas;
     /**

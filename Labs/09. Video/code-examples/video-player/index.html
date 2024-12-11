@@ -63,11 +63,11 @@ Full source code available at: https://github.com/iandevlin/iandevlin.github.io/
 
             e.preventDefault();
 
-            if (video.hasAttribute("controls")) {
-                video.removeAttribute("controls")
+            if (video.controls) {
+                video.controls = false;
                 btnControls.textContent = "Show Controls";
             } else {
-                video.setAttribute("controls", "")
+                video.controls = true;
                 //we put "" because the controls atribute has no value <video controls></video>
                 //https://developer.mozilla.org/en/docs/Web/API/Element/setAttribute
 
