@@ -29,20 +29,20 @@ export class AudioPlayer{
         });
             
         // Handle the play event
-        this.#audio.addEventListener('play', function () {
+        this.#audio.addEventListener('play', () => {
             //alternative: btnPlayPause.children[0].classList.replace('fa-play', 'fa-pause');
             btnPlayPause.children[0].classList.remove('fa-play');
             btnPlayPause.children[0].classList.add('fa-pause');
         });
 
         // Handle the pause event
-        this.#audio.addEventListener('pause', function () {
+        this.#audio.addEventListener('pause', () => {
             btnPlayPause.children[0].classList.add('fa-play');
             btnPlayPause.children[0].classList.remove('fa-pause');
         });
 
         // Handle the ended event
-        this.#audio.addEventListener('ended', ()=> this.next());
+        this.#audio.addEventListener('ended', () => this.next());
             
         // Handle the click event on btnPlayPause
         btnPlayPause.addEventListener('click', () => {
@@ -111,7 +111,7 @@ export class AudioPlayer{
     /** Changes the current song */
     next() {
         if (this.#tracks.length === 0)
-        return;
+            return;
 
         let index = this.#tracks.indexOf(this.#currentTrack) + 1;
         if (index >= this.#tracks.length) {
