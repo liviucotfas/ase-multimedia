@@ -6,14 +6,14 @@ export class BarChart{
      */
     #canvas;
     /**
-     * 
+     * Creates an instance of BarChart.
      * @param {HTMLCanvasElement} canvas - The canvas used for drawing the histogram
      */
     constructor(canvas) {
         this.#canvas = canvas;
     }
     /**
-     * 
+     * Draws the bar chart on the canvas.
      * @param {Array<number>} values - The values that will be displayed in the chart.
      * @param {Object} options - The options for drawing the bar chart.
      * @param {boolean} [options.drawOutline] - Whether to draw the stroke around the bars.
