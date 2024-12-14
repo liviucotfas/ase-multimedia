@@ -11,11 +11,12 @@ export class AudioPlayer{
         const currentTime = document.getElementById("currentTime");
         const duration = document.querySelector('#duration'); // equivalent to getElementById
                 
-        // Handle the timeupdate event
+        // Handle the durationchange event
         this.#audio.addEventListener('durationchange', () => {
-            duration.textContent = this.secondsToString(audio.duration);
+            duration.textContent = this.secondsToString(this.#audio.duration);
         });
             
+        // Handle the timeupdate event
         this.#audio.addEventListener('timeupdate', () => {
             if (this.#audio.duration) {
                 currentTime.textContent = this.secondsToString(this.#audio.currentTime);
@@ -28,22 +29,22 @@ export class AudioPlayer{
         });
             
         // Handle the play event
-        this.#audio.addEventListener('play', function () {
+        this.#audio.addEventListener('play', () => {
             //alternative: btnPlayPause.children[0].classList.replace('fa-play', 'fa-pause');
             btnPlayPause.children[0].classList.remove('fa-play');
             btnPlayPause.children[0].classList.add('fa-pause');
         });
 
         // Handle the pause event
-        this.#audio.addEventListener('pause', function () {
+        this.#audio.addEventListener('pause', () => {
             btnPlayPause.children[0].classList.add('fa-play');
             btnPlayPause.children[0].classList.remove('fa-pause');
         });
 
         // Handle the ended event
-        this.#audio.addEventListener('ended', ()=> this.next());
+        this.#audio.addEventListener('ended', () => this.next());
             
-        // Handle the click event btnPlayPause
+        // Handle the click event on btnPlayPause
         btnPlayPause.addEventListener('click', () => {
             if (this.#audio.src === '' && this.#tracks.length > 0) {
                 this.play(this.#tracks[0]);
@@ -89,7 +90,7 @@ export class AudioPlayer{
     }
 
     /** Plays a song 
-     * @param {string} url - The url of the song 
+     * @param {object} url - The url of the song 
      */
     play(track) {
         // Remove the `active` class from the li corresponding to the previous song
@@ -110,7 +111,7 @@ export class AudioPlayer{
     /** Changes the current song */
     next() {
         if (this.#tracks.length === 0)
-        return;
+            return;
 
         let index = this.#tracks.indexOf(this.#currentTrack) + 1;
         if (index >= this.#tracks.length) {
