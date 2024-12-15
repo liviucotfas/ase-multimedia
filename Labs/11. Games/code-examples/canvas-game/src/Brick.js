@@ -1,8 +1,8 @@
 export class Brick {
     static brickWidth;
-    x
-    y
-    status
+    x;
+    y;
+    status;
 
     /**
      *  

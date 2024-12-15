@@ -4,31 +4,31 @@ import { Brick } from "./Brick.js";
 import { Paddle } from "./Paddle.js";
 
 export class Game {
-    #canvas = null
-    #context = null
+    #canvas;
+    #context;
     //Brick settings
-    brickColumnCount = 5
-    brickRowCount = 3
-    brickHeight = 20
-    brickPadding = 10
-    brickOffsetTop = 30
-    brickOffsetLeft = 30
+    brickColumnCount = 5;
+    brickRowCount = 3;
+    brickHeight = 20;
+    brickPadding = 10;
+    brickOffsetTop = 30;
+    brickOffsetLeft = 30;
     //Paddle settings
-    paddleHeight = 10
-    paddleWidth = 75
-    #paddle = null
+    paddleHeight = 10;
+    paddleWidth = 75;
+    #paddle;
     //Ball settings
-    #ball = null;
-    ballRadius = 10
-    dxDefault = 2
-    dyDefault = -2
+    #ball;
+    ballRadius = 10;
+    dxDefault = 2;
+    dyDefault = -2;
     //Keyboard - store information on whether the left or right control button is pressed
-    rightKeyPressed = false
-    leftKeyPressed = false
+    rightKeyPressed = false;
+    leftKeyPressed = false;
     //Game data
-    score = 0
-    lives = 3
-    #bricks = []
+    score = 0;
+    lives = 3;
+    #bricks = [];
 
     constructor() {
         this.#canvas = document.getElementById('gameCanvas');
@@ -139,11 +139,8 @@ export class Game {
             for (let c = 0; c < this.brickColumnCount; c++) {
                 const b = this.#bricks[r][c];
                 if (b.status == 1) {
-                    this.#context.beginPath();
-                    this.#context.rect(b.x, b.y, this.brickWidth, this.brickHeight);
                     this.#context.fillStyle = '#0095DD';
-                    this.#context.fill();
-                    this.#context.closePath();
+                    this.#context.fillRect(b.x, b.y, this.brickWidth, this.brickHeight);
                 }
             }
         }
@@ -163,12 +160,14 @@ export class Game {
         this.resize()
         //clear the canvas before each frame
         this.#context.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
+        
         //draw the elements
         this.drawBricks();
         this.drawBall();
         this.drawPaddle();
         this.drawScore();
         this.drawLives();
+
         //detect collisions
         this.collisionDetection();
 
@@ -181,6 +180,7 @@ export class Game {
         if (this.#ball.y + this.#ball.dy < this.ballRadius) {
             this.#ball.dy = -this.#ball.dy;
         }
+
         //Bouncing off the bottom
         else if (this.#ball.y + this.#ball.dy > this.#canvas.height - this.ballRadius) {
 
@@ -189,7 +189,7 @@ export class Game {
             }
             else {
                 this.lives--;
-                if (!this.lives) {
+                if (this.lives === 0) {
                     alert('GAME OVER');
                     document.location.reload();
                 }
