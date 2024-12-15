@@ -1,5 +1,5 @@
 // Adapted from: https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
-import { Ball } from "./ball.js";
+import { Ball } from "./Ball.js";
 import { Brick } from "./Brick.js";
 import { Paddle } from "./Paddle.js";
 
