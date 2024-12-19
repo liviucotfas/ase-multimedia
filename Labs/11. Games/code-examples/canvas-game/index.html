@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"
+    />
     <title>Canvas Game</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 
     <!-- Add to home screen -->
-    <link rel="manifest" href="manifest.json">
-    
-    <meta name="theme-color" content="#2F3BA2">
-    <link rel="icon" sizes="192x192" href="img/icons/icon-192x192.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Bricks">
-    <link rel="apple-touch-icon" href="img/icons/icon-152x152.png">
-    <meta name="msapplication-TileImage" content="img/icons/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
-</head>
+    <link rel="manifest" href="manifest.json" />
 
-<body>
+    <meta name="theme-color" content="#2F3BA2" />
+    <link rel="icon" sizes="192x192" href="img/icons/icon-192x192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Bricks" />
+    <link rel="apple-touch-icon" href="img/icons/icon-152x152.png" />
+    <meta name="msapplication-TileImage" content="img/icons/icon-144x144.png" />
+    <meta name="msapplication-TileColor" content="#2F3BA2" />
+  </head>
+
+  <body>
+    <div class="controls">
+      <button onclick="game.setSimulatedRefreshRate(30)">30 Hz</button>
+      <button onclick="game.setSimulatedRefreshRate(60)">60 Hz</button>
+      <button onclick="game.setSimulatedRefreshRate(144)">144 Hz</button>
+      <button onclick="game.setSimulatedRefreshRate(240)">240 Hz</button>
+    </div>
     <canvas id="gameCanvas">
-        Your browser does not support the HTML5 canvas element.
+      Your browser does not support the HTML5 canvas element.
     </canvas>
-    <noscript>
-        JavaScript is required for running this game.
-    </noscript>
+    <noscript> JavaScript is required for running this game. </noscript>
     <script type="module" src="main.js"></script>
-</body>
+  </body>
 </html>
