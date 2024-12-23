@@ -241,7 +241,7 @@ export class Game {
     }
   }
 
-  update(dt) {
+  updateGameState(dt) {
     // Calculate normalized direction vector
     const magnitude = Math.sqrt(
       this.#ball.dx * this.#ball.dx + this.#ball.dy * this.#ball.dy
@@ -321,6 +321,9 @@ export class Game {
     this.#lastTime = currentTime;
 
     // Prevent spiral of death
+    /*
+    The "spiral of death" refers to when frame times get increasingly longer due to processing taking longer than the available time between frames. This causes more work to accumulate, leading to even longer frame times in a downward spiral. The code prevents this by capping frameTime at 250ms.
+    */
     if (frameTime > 250) {
       frameTime = 250;
     }
@@ -342,7 +345,7 @@ export class Game {
 
     // Process physics at fixed timestep
     while (this.#accumulator >= this.#fixedTimeStep) {
-      this.update(this.#fixedTimeStep / 1000);
+      this.updateGameState(this.#fixedTimeStep / 1000);
       this.#accumulator -= this.#fixedTimeStep;
     }
 
