@@ -5,18 +5,20 @@ import { Paddle } from "./Paddle.js";
 export class Game {
   #canvas;
   #context;
-  #lastTime = 0;
+
+  // FPS
+  #lastFrameTime = 0;
   #accumulator = 0;
   #fixedTimeStep = 1000 / 60; // Fixed 60Hz physics update
 
   // FPS monitoring
-  #frameCount = 0;
-  #lastFPSUpdate = 0;
+  #frameCount = 0; // Frames drawn in the last second
+  #lastFPSUpdateTime = 0;
   #currentFPS = 0;
 
   // FPS simulation
   #simulatedRefreshRate = 60;
-  #frameDelay = 1000 / 60; // Default to 60Hz
+  #frameDuration = 1000 / 60; // Default to 60Hz
 
   // Brick settings
   brickColumnCount = 5;
@@ -83,18 +85,22 @@ export class Game {
     });
     document.addEventListener("keydown", (e) => this.keyDownHandler(e), false);
     document.addEventListener("keyup", (e) => this.keyUpHandler(e), false);
-    document.addEventListener(
-      "mousemove",
-      (e) => this.mouseMoveHandler(e),
-      false
-    );
+    document.addEventListener("mousemove", (e) => this.mouseMoveHandler(e), false);
 
     // Initialize lastTime and start game loop
-    this.#lastTime = performance.now();
+    this.#lastFrameTime = performance.now();
     requestAnimationFrame((timestamp) => this.draw(timestamp));
   }
 
   resize() {
+    // Update canvas dimensions if needed
+    const width = this.#canvas.clientWidth;
+    const height = this.#canvas.clientHeight;
+    if (this.#canvas.width !== width || this.#canvas.height !== height) {
+      this.#canvas.width = width;
+      this.#canvas.height = height;
+    }
+
     // Calculate brick dimensions based on canvas size
     const brickTotalWidth =
       (this.#canvas.width - 2 * this.brickOffsetLeft) / this.brickColumnCount;
@@ -112,14 +118,6 @@ export class Game {
           this.#bricks[r][c].y = brickY;
         }
       }
-    }
-
-    // Update canvas dimensions if needed
-    const width = this.#canvas.clientWidth;
-    const height = this.#canvas.clientHeight;
-    if (this.#canvas.width !== width || this.#canvas.height !== height) {
-      this.#canvas.width = width;
-      this.#canvas.height = height;
     }
   }
 
@@ -160,24 +158,21 @@ export class Game {
   }
 
   drawPaddle() {
-    this.#context.beginPath();
-    this.#context.rect(
+    this.#context.fillStyle = "#0095DD";
+    this.#context.fillRect(
       this.#paddle.x,
       this.#canvas.height - this.paddleHeight,
       this.paddleWidth,
       this.paddleHeight
     );
-    this.#context.fillStyle = "#0095DD";
-    this.#context.fill();
-    this.#context.closePath();
   }
 
   drawBricks() {
+    this.#context.fillStyle = "#0095DD";
     for (let r = 0; r < this.brickRowCount; r++) {
       for (let c = 0; c < this.brickColumnCount; c++) {
         const brick = this.#bricks[r][c];
         if (brick.status === 1) {
-          this.#context.fillStyle = "#0095DD";
           this.#context.fillRect(
             brick.x,
             brick.y,
@@ -213,7 +208,7 @@ export class Game {
 
   setSimulatedRefreshRate(hz) {
     this.#simulatedRefreshRate = hz;
-    this.#frameDelay = 1000 / hz;
+    this.#frameDuration = 1000 / hz;
   }
 
   collisionDetection() {
@@ -304,39 +299,40 @@ export class Game {
   }
 
   draw(currentTime) {
-    if (!this.#lastTime) {
-      this.#lastTime = currentTime;
-      requestAnimationFrame((timestamp) => this.draw(timestamp));
-      return;
-    }
+    // Calculate time since last frame
+    let timeSinceLastFrame = currentTime - this.#lastFrameTime;
 
     // FPS simulation - skip frames to simulate lower refresh rates
-    if (currentTime - this.#lastTime < this.#frameDelay) {
+    // Check if the time that has passed since the last frame is less than the frame duration
+    if (timeSinceLastFrame < this.#frameDuration) {
+      // Skip the frame
       requestAnimationFrame((timestamp) => this.draw(timestamp));
       return;
     }
 
-    // Calculate time since last frame
-    let frameTime = currentTime - this.#lastTime;
-    this.#lastTime = currentTime;
+    //Update the time of the last frame to the current time    
+    this.#lastFrameTime = currentTime;
 
     // Prevent spiral of death
     /*
     The "spiral of death" refers to when frame times get increasingly longer due to processing taking longer than the available time between frames. This causes more work to accumulate, leading to even longer frame times in a downward spiral. The code prevents this by capping frameTime at 250ms.
     */
-    if (frameTime > 250) {
-      frameTime = 250;
-    }
+    if (timeSinceLastFrame > 250) 
+      timeSinceLastFrame = 250; // Maximum frame time to avoid spiral of death
 
     // Accumulate time to process
-    this.#accumulator += frameTime;
+    this.#accumulator += timeSinceLastFrame;
 
     // Update FPS counter
     this.#frameCount++;
-    if (currentTime - this.#lastFPSUpdate >= 1000) {
+    // Check if more than 1 second has passed
+    if (currentTime - this.#lastFPSUpdateTime >= 1000) { 
+      // Update the number of frames that we have been able to draw in the last second
       this.#currentFPS = this.#frameCount;
+      // Reset the frame counter
       this.#frameCount = 0;
-      this.#lastFPSUpdate = currentTime;
+      // Update the last time we updated the FPS counter
+      this.#lastFPSUpdateTime = currentTime;
     }
 
     // Clear and resize
@@ -359,16 +355,4 @@ export class Game {
 
     requestAnimationFrame((timestamp) => this.draw(timestamp));
   }
-}
-
-// Register service worker if available
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/serviceworker.js")
-    .then(function (registration) {
-      console.log("Service Worker registered with scope:", registration.scope);
-    })
-    .catch(function (err) {
-      console.log("Service worker registration failed:", err);
-    });
 }
