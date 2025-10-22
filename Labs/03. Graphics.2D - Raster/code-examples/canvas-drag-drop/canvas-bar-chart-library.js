@@ -3,20 +3,20 @@
 export class BarChart{
     /**
      * The canvas on which the chart will be displayed
-     * @type {HTMLCanvasElement}
      */
     #canvas;
     /**
-     * 
+     * Creates an instance of BarChart.
      * @param {HTMLCanvasElement} canvas - The canvas used for drawing the histogram
      */
     constructor(canvas) {
         this.#canvas = canvas;
     }
     /**
-     * 
-     * @param {Array<number>} values - The values that will be displayed in the chart
-     * @param {*} options 
+     * Draws the bar chart on the canvas.
+     * @param {Array<number>} values - The values that will be displayed in the chart.
+     * @param {Object} options - The options for drawing the bar chart.
+     * @param {boolean} [options.drawOutline] - Whether to draw the stroke around the bars.
      */
     draw(values, options){
         const context = this.#canvas.getContext('2d');
@@ -47,7 +47,7 @@ export class BarChart{
     
             context.fillRect(barX, barY, barWidth / 2, barHeight);
 
-            if(options.stroke)
+            if(options.drawOutline)
                 context.strokeRect(barX, barY, barWidth / 2, barHeight);
     
             /* Equivalent to:
@@ -61,4 +61,3 @@ export class BarChart{
         context.restore();
     }
 }
-

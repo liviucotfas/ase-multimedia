@@ -115,7 +115,7 @@
                         drawImage(image); //"this" can also be used as a parameter
                         drawImageHistogram();
                     });
-                    image.setAttribute('src', e.target.result);
+                    image.setAttribute('src', reader.result);
                 });
 
                 //FileReader.readAsDataURL: starts reading the contents of the specified Blob, once finished, the result attribute contains a data: URL representing the file's data.

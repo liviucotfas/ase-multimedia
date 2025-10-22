@@ -36,11 +36,11 @@ Full source code available at: https://github.com/iandevlin/iandevlin.github.io/
     <script>
         "use strict";
 
-        let video = document.getElementById("video");
-        let btnStop = document.getElementById("btnStop");
-        let btnControls = document.getElementById('btnControls');
+        const video = document.getElementById("video");
+        const btnStop = document.getElementById("btnStop");
+        const btnControls = document.getElementById('btnControls');
 
-        //Play/Pause
+        // Play/Pause the video
         btnStop.addEventListener('click', function (e) {
 
             //prevent the browser from navigating to # (adding # to the url)
