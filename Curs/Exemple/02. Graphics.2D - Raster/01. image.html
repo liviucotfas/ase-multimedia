@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        "use strict";
+        
+        //1. Creare imagine
+        //const img = new Image();
+        const img = document.createElement('img');
+
+        // 2. Setare sursa
+        //img.src = 'photo-935x702.jpg';
+        img.alt = 'A Rhino';
+        //console.log(img.height);
+        //console.log(img.naturalHeight);
+        
+        //3. Asteptare incarcare imagine
+        // img.onload = function() {
+        //     console.log('Image loaded');
+        //     console.log('Height: ' + img.height);
+        //     console.log('Natural Height: ' + img.naturalHeight);
+        // };
+        img.addEventListener('load', function() {
+            console.log('Image loaded');
+            console.log('Height: ' + img.height);
+            console.log('Natural Height: ' + img.naturalHeight);
+        });
+
+        //4. Setare sursa dupa definirea handler-ului de incarcare
+        img.src = 'photo-935x702.jpg';
+
+        // 5. Setare dimensiune afisata
+        // img.height = 150; // Set the displayed height to 150 pixels
+        img.style.height = '150px'; // Set the displayed height to 150 pixels using CSS
+
+        // 6. Adaugare in document
+        document.body.appendChild(img);
+    </script>
+</body>
+</html>
