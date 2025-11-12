@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" style="border: solid;">
+        Your browser does not support the canvas element.
+    </canvas>
+
+    <script>
+        'use strict';
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const img = document.createElement('img');
+        img.addEventListener('load', ()=>{
+            //canvas.width = img.naturalWidth;
+            //canvas.height = img.naturalHeight;
+            //ctx.drawImage(img, 0, 0);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            const sx = 519;
+            const sy = 295;
+            const sWidth = 220;
+            const sHeight = 220;
+            ctx.drawImage(img, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
+        })
+        img.src = 'photo-935x702.jpg';
+    </script>
+</body>
+</html>

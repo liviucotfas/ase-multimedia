@@ -25,8 +25,8 @@
 
             loadImage("https://www.mozilla.org/media/protocol/img/logos/firefox/logo-lg-high-res.7ba3ce88e665.png")
                 .then(img => {
-                    canvas.width = img.naturalHeight;
-                    canvas.height = img.naturalWidth;
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
                     context.drawImage(img, 0, 0);
                 });
         </script>
