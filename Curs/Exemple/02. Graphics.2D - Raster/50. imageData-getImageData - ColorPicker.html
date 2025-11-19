@@ -17,25 +17,23 @@
 
             const img = document.createElement("img");
             img.addEventListener("load", function(ev){
-                canvas.width = ev.target.width;
-                canvas.height = ev.target.height;
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
 
-                context.drawImage(ev.target, 0, 0);
-                canvas.addEventListener("mousemove", function(ev){
-                    colorPicker(ev.clientX, ev.clientY);
+                context.drawImage(img, 0, 0);
+                canvas.addEventListener("mousemove", (ev) => {
+                    const x = ev.clientX - canvas.getBoundingClientRect().left;
+                    const y = ev.clientY - canvas.getBoundingClientRect().top;
+                    const imageData = context.getImageData(x, y, 1, 1);
+                    const data = imageData.data;
+                    const r = data[0];
+                    const g = data[1];
+                    const b = data[2];
+
+                    console.log(`r: ${r} g: ${g} b: ${b}`);
                 });
             });
             img.src = "photo-935x702.jpg";
-
-            function colorPicker(x, y){
-                const imageData = context.getImageData(x, y, 1, 1);
-                const data = imageData.data;
-                const r = data[0];
-                const g = data[1];
-                const b = data[2];
-
-                console.log(`r: ${r} g: ${g} b: ${b}`);
-            }
         </script>
     </body>
 </html>
