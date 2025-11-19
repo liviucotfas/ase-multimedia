@@ -13,11 +13,11 @@
                 
                 const canvas = document.createElement("canvas");
 
-                canvas.width = ev.target.width;
-                canvas.height = ev.target.height;
+                canvas.width = img.width;
+                canvas.height = img.height;
 
                 const context = canvas.getContext("2d");
-                context.drawImage(ev.target, 0, 0);
+                context.drawImage(img, 0, 0);
 
                 const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imageData.data;
