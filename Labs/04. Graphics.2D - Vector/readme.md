@@ -226,6 +226,7 @@ chart.draw(data, options);
     text.textContent = label;
     text.setAttribute('x', barX + barWidth / 2);
     text.setAttribute('y', this.#svg.clientHeight - 5);
+    text.setAttribute('text-anchor', 'middle');
     this.#svg.appendChild(text);
     ```
 >**Remarks:** While the `*.html` file is specific to our example, the bar chart library in the `.*js` file is general and can be used in any project. Our users will need to: 
