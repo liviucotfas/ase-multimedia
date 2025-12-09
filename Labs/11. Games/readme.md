@@ -16,7 +16,6 @@
 <!-- /vscode-markdown-toc -->
 
 ##  1. <a name='HTML5gamesrealworldexamples:'></a>HTML5 games real world examples:
-- Facebook Messenger Instant Games: https://messenger.fb.com/blog/instant-games-now-on-messenger/
 - Google Doodles (try them on your smartphone): 
    - SVG: https://www.google.com/doodles/celebrating-50-years-of-kids-coding
    - WebGL / Canvas: https://www.google.com/doodles/valentines-day-2017-day-4 (developed using the Pixi framework)
