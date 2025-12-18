@@ -15,7 +15,7 @@ https://521dimensions.com/open-source/amplitudejs/docs/
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Font Awesome CSS -->
     <link 
         rel="stylesheet"
@@ -28,21 +28,21 @@ https://521dimensions.com/open-source/amplitudejs/docs/
 <body class="container">
 
     <div class="text-center" style="margin:20px;">
-        <audio id="audio">
+        <audio id="audio-player">
             Your browser does not support the <code>audio</code> element.
         </audio>
 
-        <button id="btn-play-pause" class="btn btn-primary" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
+        <button id="play-pause" class="btn btn-primary" aria-label="Play or pause"><i class="fas fa-play"></i></button>
         <div id="controls" class="btn-group">
-            <div id="audioTime" class="btn">
-                <span id="currentTime">...</span> / <span id="duration">...</span>
+            <div id="audio-time" class="btn">
+                <span id="time-current">...</span> / <span id="time-duration">...</span>
             </div>
-            <button id="btn-forward" class="btn btn-light" aria-label="Forward"><i class="fas fa-forward"></i></button>
-            <button id="btn-next" class="btn btn-light" aria-label="Next"><i class="fas fa-step-forward"></i></button>
+            <button id="skip-forward" class="btn btn-light" aria-label="Skip forward 10 seconds"><i class="fas fa-forward"></i></button>
+            <button id="next-track" class="btn btn-light" aria-label="Next track"><i class="fas fa-step-forward"></i></button>
         </div>
     </div>
 
-    <ul id="ul-tracks" class="list-group">
+    <ul id="playlist" class="list-group">
     </ul>
 
     <script type="module" src="main.js"></script>
