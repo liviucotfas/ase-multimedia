@@ -1,7 +1,11 @@
 const cacheName = 'bricks-final-1';
 const filesToCache = [
   'index.html',
-  'app.js',
+  'main.js',
+  'modules/Game.js',
+  'modules/Brick.js',
+  'modules/Ball.js',
+  'modules/Paddle.js',
   'styles.css',
   'img/icons/icon-152x152.png',
   'img/icons/icon-192x192.png'
