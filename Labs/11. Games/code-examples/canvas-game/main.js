@@ -1,4 +1,4 @@
-import { Game } from "./src/Game.js";
+import { Game } from "./modules/Game.js";
 
 window.game = new Game();
 
