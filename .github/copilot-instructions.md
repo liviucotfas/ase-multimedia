@@ -1,71 +1,65 @@
-Copilot / Contributor instructions
-=================================
+## Project context
 
-Purpose
--------
-Short, practical guidelines to help code completions and contributors produce consistent, maintainable code.
+This repository contains teaching materials and code examples for the university
+Multimedia course. The course teaches students how to develop multimedia
+applications using web technologies, combining foundational concepts with
+practical skills.
 
-JavaScript target
------------------
-- Use the latest stable ECMAScript (ES2025) and modern browser APIs. There's no need to support older browsers or add polyfills.
-- Use ES modules (import / export).
+## Teaching guidelines
 
-Documentation and types
------------------------
-- Add JSDoc comments to every function and class. Prefer explicit @param and @returns tags and include short examples when useful.
-- If a function expects a specific object shape, add a @typedef and reference it in @param.
-- Example:
+- Prioritize pedagogical clarity.
+- Keep each example focused on the concept being taught.
+- Preserve commented alternatives that support classroom demonstrations.
+- Use English for identifiers, comments, and messages in code examples.
+- Follow the existing example structure, file numbering, and local formatting.
+- Prefer existing local media assets when they support the lesson.
 
-	/**
-	 * Draws a single bar on the provided canvas context.
-	 * @param {CanvasRenderingContext2D} ctx - Canvas 2D context to draw into.
-	 * @param {{x:number,y:number,width:number,height:number}} rect - Rectangle for the bar.
-	 * @param {string} color - CSS color string for the bar fill.
-	 * @returns {void}
-	 * @example
-	 * drawBar(ctx, {x:10,y:20,width:100,height:200}, '#2b8cbe')
-	 */
-	function drawBar(ctx, rect, color) {
-		// ...implementation
-	}
+## JavaScript and browser target
 
-Coding style and best practices
-------------------------------
-- Use const / let; avoid var.
-- Favor small, pure functions where practical. Keep side effects explicit and localized.
-- Prefer clear, descriptive names for functions and variables.
-- Avoid creating lots of temporary objects inside tight draw loops — reuse objects when possible.
-- Keep files small and single-purpose; export only what's needed for other modules or the demo page.
+- Use the latest standardized ECMAScript features and modern browser APIs
+  supported by default in the current stable release of Google Chrome.
+- Examples must run without experimental flags or origin trials.
+- Prefer ES modules for multi-file examples or lessons about modularity.
+  Inline scripts are appropriate for self-contained demonstrations.
 
-Canvas-specific tips
---------------------
-- Support high-DPI displays by using devicePixelRatio to scale the canvas backing store and then use CSS to size the element.
-- Use ctx.clearRect to clear the canvas each frame when redrawing.
-- Batch canvas state changes where possible (set fillStyle once for many draws).
-- Use requestAnimationFrame for animations; avoid setTimeout/setInterval for rendering loops.
-- Precompute scales, positions, and formatted labels outside the render loop when possible.
+## Documentation and types
 
-Performance notes
------------------
-- Avoid layout thrashing (reading layout properties like offsetWidth inside tight render loops).
-- Reuse buffers/objects across frames.
-- Measure only when needed (console.time), and prefer simple optimizations first.
+- Add concise JSDoc to functions and classes to provide type information for
+  VS Code IntelliSense in JavaScript.
+- Include explicit `@param` and `@returns` annotations where applicable.
+- Use `@type` for variables or properties when inference is insufficient, and
+  `@typedef` for reusable object shapes.
+- Add `@example` when it supports the concept being taught.
 
-Commit messages and PRs
-----------------------
-- Use short, imperative commit messages (e.g., "fix: handle high-DPI canvas scaling").
-- When opening a PR, include a one-sentence summary and short notes about intended behavior, API changes, and any demo steps.
+## Coding style
 
-Legal / copyright
------------------
-- Keep third-party content clearly attributed. Don't paste large copyrighted examples.
+- Use `const` by default and `let` when reassignment is needed.
+- Prefer clear, descriptive names and small, focused functions.
+- Keep side effects explicit and localized; use pure functions where practical.
+- Handle asynchronous failures when demonstrating asynchronous operations.
+- Add dependencies or abstractions only when they serve the lesson.
 
-Checklist for contributors / copilot prompts
------------------------------------------
-- Target ES2025 + ES modules
-- Add JSDoc to all functions and classes (include @param/@returns)
-- Prefer const/let and small pure helpers
-- Follow canvas tips (high-DPI, clearRect, requestAnimationFrame)
-- Provide accessible fallback text or summary for canvas outputs
+## Canvas, animation, and performance
 
-If something is ambiguous, prefer clarity and small, well-documented changes rather than clever one-liners.
+- Use `requestAnimationFrame` for rendering loops.
+- Clear the canvas when a frame should replace the previous drawing; preserve
+  intentional accumulation, trails, and overlays.
+- Apply high-DPI scaling when relevant to the lesson. Preserve the intended
+  dimensions and coordinate system in examples that teach pixel manipulation.
+- Provide accessible fallback text or a meaningful description of canvas output.
+- Optimize when measurements or the learning objective justify it. In rendering
+  loops, reduce unnecessary allocations, repeated layout reads, and redundant
+  canvas state changes when doing so keeps the example clear.
+
+## Validation and contributions
+
+- For behavior changes, verify the affected examples in current stable Chrome
+  and check the browser console for errors.
+- Use a local HTTP server for examples that need one, including ES modules and
+  fetching local resources.
+- Run relevant existing checks when available and report what was verified.
+- Use short, imperative commit messages. In pull requests, summarize the
+  behavior change and include relevant validation or demonstration steps.
+- Attribute third-party content and use material whose license permits reuse.
+- Keep the shared guidance in `AGENTS.md` and `.github/copilot-instructions.md`
+  synchronized so each file remains self-contained.
