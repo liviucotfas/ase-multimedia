@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Loading an image with decode()</title>
+    </head>
+    <body>
+        <canvas
+            id="canvas"
+            style="border: 1px solid;">
+            Your browser does not support the canvas element.
+        </canvas>
+
+        <script>
+            "use strict";
+
+            const canvas = document.getElementById("canvas");
+            const context = canvas.getContext("2d");
+            const img = new Image();
+
+            img.src = "photo-935x702.jpg";
+
+            // decode() returns a Promise that fulfills after the image is loaded and decoded.
+            img.decode()
+                .then(() => {
+                    // The Promise fulfills with undefined; use the existing img variable.
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    context.drawImage(img, 0, 0);
+                })
+                .catch(error => {
+                    console.error("Could not load or decode the image:", error);
+                });
+        </script>
+    </body>
+</html>

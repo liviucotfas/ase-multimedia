@@ -1,29 +1,29 @@
 <!-- Notes:
- - ALternativ, folosind elementul img din HTML -->
+ - Alternatively, use an img element defined in HTML. -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Loading an image with the load event</title>
 </head>
 <body>
     
     <script>
         "use strict";
         
-        //1. Creare imagine
+        // 1. Create the image
         //const img = new Image();
         const img = document.createElement('img');
 
-        // 2. Setare sursa
+        // 2. Set the source
         //img.src = 'photo-935x702.jpg';
         img.alt = 'A Rhino';
         //console.log(img.height);
         //console.log(img.naturalHeight);
         
-        //3. Asteptare incarcare imagine
+        // 3. Wait for the image to load
         // img.onload = function() {
         //     console.log('Image loaded');
         //     console.log('Height: ' + img.height);
@@ -35,14 +35,14 @@
             console.log('Natural Height: ' + img.naturalHeight);
         });
 
-        //4. Setare sursa dupa definirea handler-ului de incarcare
+        // 4. Set the source after registering the load handler
         img.src = 'photo-935x702.jpg';
 
-        // 5. Setare dimensiune afisata
+        // 5. Set the displayed size
         // img.height = 150; // Set the displayed height to 150 pixels
         img.style.height = '150px'; // Set the displayed height to 150 pixels using CSS
 
-        // 6. Adaugare in document
+        // 6. Add the image to the document
         document.body.appendChild(img);
     </script>
 </body>
