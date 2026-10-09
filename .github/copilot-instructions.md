@@ -8,7 +8,11 @@ practical skills.
 ## Teaching guidelines
 
 - Prioritize pedagogical clarity.
+- Teach correct, robust, and maintainable application development
+  alongside API usage.
 - Keep each example focused on the concept being taught.
+- Make teaching simplifications explicit: explain their limitations
+  and how a complete application would address them.
 - Preserve commented alternatives that support classroom demonstrations.
 - Use English for identifiers, comments, and messages in code examples.
 - Follow the existing example structure, file numbering, and local formatting.
