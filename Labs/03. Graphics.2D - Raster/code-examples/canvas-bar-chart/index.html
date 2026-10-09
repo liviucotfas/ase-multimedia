@@ -1,4 +1,4 @@
-﻿<!-- Assignment
+<!-- Assignment
 1. Display the corresponding value above each bar
 2. Display the value using the black color (don't change the color of the bars)
 3. Center the displayed values horizontally against the corresponding bar
@@ -18,9 +18,9 @@ Hint: use an `<a>` element and simulate a `click` event
 </head>
 
 <body>
-    <form>
+    <form id="chart-form">
     <input id="chart-values-input" type="text" value="12, 13, 3, 2, 1, 10, 7, 18">
-    <button id="chart-draw-button" type="button">Draw chart</button>
+    <button id="chart-draw-button" type="submit">Draw chart</button>
     </form>
 
     Click on the bar chart to donwload it<br>
@@ -34,7 +34,7 @@ Hint: use an `<a>` element and simulate a `click` event
     import { BarChart } from './canvas-bar-chart-library.js';
 
     const chartCanvas = document.getElementById('chart-canvas');
-    const chartDrawButton = document.getElementById('chart-draw-button');
+    const chartForm = document.getElementById('chart-form');
     const chartDownloadLink = document.getElementById('chart-download-link');
     const chartValuesInput = document.getElementById('chart-values-input');
 
@@ -44,7 +44,8 @@ Hint: use an `<a>` element and simulate a `click` event
             'drawOutline': true
         }
 
-        chartDrawButton.addEventListener('click', () => {
+        chartForm.addEventListener('submit', (event) => {
+            event.preventDefault();
             const values = chartValuesInput.value;
             barChart.draw(values.split(',').map(Number), options);
         });
