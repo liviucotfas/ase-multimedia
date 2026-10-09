@@ -1,13 +1,17 @@
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+/**
+ * Draws numeric values as vertical bars on a canvas.
+ */
 export class BarChart{
     /**
-     * The canvas on which the chart will be displayed
+     * The canvas on which the chart will be displayed.
+     * @type {HTMLCanvasElement}
      */
     #canvas;
     /**
      * Creates an instance of BarChart.
-     * @param {HTMLCanvasElement} canvas - The canvas used for drawing the histogram
+     * @param {HTMLCanvasElement} canvas - The canvas used for drawing the bar chart.
      */
     constructor(canvas) {
         this.#canvas = canvas;
@@ -16,12 +20,13 @@ export class BarChart{
      * Draws the bar chart on the canvas.
      * @param {Array<number>} values - The values that will be displayed in the chart.
      * @param {Object} options - The options for drawing the bar chart.
-     * @param {boolean} [options.drawOutline] - Whether to draw the stroke around the bars.
+     * @param {boolean} [options.drawOutline] - Whether to draw an outline around each bar.
+     * @returns {void}
      */
     draw(values, options){
         const context = this.#canvas.getContext('2d');
     
-        // Save the current context of the applciation. We will restore it later.
+        // Save the current drawing state. We will restore it later.
         context.save();
     
         // Draw the chart background
@@ -35,13 +40,13 @@ export class BarChart{
         
         //...spread operator
         const maxValue = Math.max(...values);
-        const f = this.#canvas.height / maxValue;
+        const scaleFactor = this.#canvas.height / maxValue;
 
         const barWidth = this.#canvas.width / values.length;
     
         for (let i = 0; i < values.length; i++) {
                
-            const barHeight = values[i] * f * 0.9;
+            const barHeight = values[i] * scaleFactor * 0.9;
             const barX = i * barWidth + barWidth / 4;
             const barY = this.#canvas.height - barHeight;
     
