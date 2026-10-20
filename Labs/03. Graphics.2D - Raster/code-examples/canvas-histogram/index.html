@@ -11,31 +11,61 @@
 -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>HTML5Multimedia - DragDrop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Image histogram</title>
+    <style>
+        body {
+            max-width: 960px;
+            margin: 32px auto;
+            padding: 0 20px;
+            font: 16px/1.5 system-ui, sans-serif;
+        }
+        .results { display: flex; flex-wrap: wrap; gap: 24px; }
+        figure {
+            flex-grow: 1; /* Share extra space equally between the figures. */
+            flex-basis: 300px; /* Starting width before growing or shrinking. */
+            margin: 0;
+        }
+        figcaption { margin-bottom: 12px; }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 240px;
+            background: #f3f5f7;
+        }
+        #image-canvas { object-fit: scale-down; }
+    </style>
 </head>
-<body style="text-align:center;">
-    Drag and drop an image to start.<br>
+<body>
+    <main>
+        <h1>Image histogram</h1>
 
-    <canvas id="canvasHistogram" width="512" style="width:512px;border-style: dotted;">
-            Your browser does not support the canvas element. :(
-    </canvas>
-
-    <br>
-   
-    <canvas id="canvasImage" style="border-style: dotted;">
-        Your browser does not support the canvas element. :(
-    </canvas>
+        <div class="results">
+            <figure>
+                <figcaption>Image</figcaption>
+                <canvas id="image-canvas">
+                    Your browser does not support the HTML canvas element.
+                </canvas>
+            </figure>
+            <figure>
+                <figcaption>Intensity histogram</figcaption>
+                <canvas id="histogram-canvas" width="512" height="240">
+                    Your browser does not support the HTML canvas element.
+                </canvas>
+            </figure>
+        </div>
+    </main>
 
     <script type="module">
         import { BarChart } from './canvas-bar-chart-library.js';
 
         //Selectors
-        const canvasImage = /** @type {HTMLCanvasElement} */ (document.getElementById('canvasImage'));
-        const canvasHistogram = /** @type {HTMLCanvasElement} */ (document.getElementById('canvasHistogram'));
-        const barChart = new BarChart(canvasHistogram);
+        const imageCanvas = /** @type {HTMLCanvasElement} */ (document.getElementById('image-canvas'));
+        const histogramCanvas = /** @type {HTMLCanvasElement} */ (document.getElementById('histogram-canvas'));
+        const barChart = new BarChart(histogramCanvas);
 
         //Methods
         /**
@@ -45,10 +75,11 @@
          */
         function drawImage(image) {
             // resize the canvas
-            canvasImage.width = image.naturalWidth;
-            canvasImage.height = image.naturalHeight;
+            imageCanvas.width = image.naturalWidth;
+            imageCanvas.height = image.naturalHeight;
+            // CSS scales only the preview; the histogram still counts the original pixels.
            
-            const context = canvasImage.getContext('2d');
+            const context = imageCanvas.getContext('2d');
             context.drawImage(image, 0, 0);
         }
 
@@ -100,11 +131,11 @@
          * @returns {void}
          */
         function drawImageHistogram() {
-            const context = canvasImage.getContext('2d');
-            const imageData = context.getImageData(0, 0, canvasImage.width, canvasImage.height);
+            const context = imageCanvas.getContext('2d');
+            const imageData = context.getImageData(0, 0, imageCanvas.width, imageCanvas.height);
             const bins = calculateHistogram(imageData);
 
-            barChart.draw(bins, {drawOutline: false});
+            barChart.draw(bins);
         }
 
         //Events
@@ -112,17 +143,16 @@
         document.addEventListener('dragover', function(e){
             // prevent default to allow drop
             e.preventDefault();
-        })
+        });
         document.addEventListener('drop', function (e) {
             // prevent default action (open as link for some elements)
             e.preventDefault();
 
-            //Access the `dataTransfer` property from the `drop` event which
-            //holds the files dropped into the browser window.
-            const files = e.dataTransfer.files;
+            // Access the first file in the drop event's DataTransfer object.
+            const file = e.dataTransfer.files[0];
             
-            //we need to check the length of the files property in order to make sure that the user has dragged and dropped a file and not something else (ex: a text). Note: if the user has dropped a text, we can access it in a similar manner, using the DataTransfer object
-            if (files.length > 0) {
+            // Ignore drops that do not contain a file, such as text.
+            if (file) {
                 //The FileReader object lets web applications asynchronously read the contents of files (or raw data buffers) stored on the user's computer, using File or Blob objects to specify the file or data to read
                 //https://developer.mozilla.org/en/docs/Web/API/FileReader
                 const reader = new FileReader();
@@ -131,17 +161,23 @@
 
                 //FileReader.onload: a handler for the load event. This event is triggered each time the reading operation is successfully completed.
                 //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
-                reader.addEventListener('load', function (e) {
+                reader.addEventListener('load', function () {
                     const image = document.createElement('img');
                     image.addEventListener('load', function(){
                         drawImage(image); //"this" can also be used as a parameter
                         drawImageHistogram();
                     });
+                    image.addEventListener('error', function () {
+                        console.error('Could not open this image. Drop a supported image file.');
+                    });
                     image.setAttribute('src', reader.result);
+                });
+                reader.addEventListener('error', function () {
+                    console.error('Could not read this file. Try dropping it again.', reader.error);
                 });
 
                 //FileReader.readAsDataURL: starts reading the contents of the specified Blob, once finished, the result attribute contains a data: URL representing the file's data.
-                reader.readAsDataURL(files[0]);
+                reader.readAsDataURL(file);
             }
         });
     </script>
