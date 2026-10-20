@@ -1,5 +1,7 @@
 ﻿<!--- Assignment
-1. Check the histogram for the same image in Adobe PhotoShop or on https://www.dcode.fr/image-histogram
+1. Compare the histogram for the same image in Adobe Photoshop or on https://www.dcode.fr/image-histogram.
+   Check the channel or intensity definition, transparency handling, and chart scaling;
+   these may differ between tools, so the plots need not match.
 2. Allow the user to drop the image only in specific area of the page (ex: on a div)
 3. Provide a visual cue when the user is dragging a file over the div added above (hint: use the events exposed by the API https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
 4. Change the color of the histogram to black: rgba(0,0,0,0.8)
@@ -45,6 +47,13 @@
             context.drawImage(img, 0, 0);
         }
 
+        /**
+         * Draws pixel counts for the rounded arithmetic mean of the RGB channels (0-255).
+         * This simple intensity measure is a teaching simplification, not perceptual luminance.
+         * Alpha is ignored: every pixel counts once using the RGB values returned by
+         * getImageData(), including partially and fully transparent pixels.
+         * @returns {void}
+         */
         function drawImageHistogram(){
 
             //Create an array of 256 elements, each initialized with 0
@@ -74,6 +83,7 @@
                     const blue = data[offset + 2];
 
                     const val = Math.round((red + green + blue)/3);
+
                     v[val]++;
                 }
             }
