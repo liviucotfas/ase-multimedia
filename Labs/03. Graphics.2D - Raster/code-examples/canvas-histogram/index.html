@@ -104,7 +104,7 @@
             const imageData = context.getImageData(0, 0, canvasImage.width, canvasImage.height);
             const bins = calculateHistogram(imageData);
 
-            barChart.draw(bins, {stroke: false});
+            barChart.draw(bins, {drawOutline: false});
         }
 
         //Events
