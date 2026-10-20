@@ -18,6 +18,7 @@ export class BarChart{
     }
     /**
      * Draws the bar chart on the canvas.
+     * Empty and all-zero datasets draw only the background.
      * @param {Array<number>} values - The values that will be displayed in the chart.
      * @param {Object} [options] - The options for drawing the bar chart.
      * @param {boolean} [options.drawOutline] - Whether to draw an outline around each bar.
@@ -32,14 +33,19 @@ export class BarChart{
         // Draw the chart background
         context.fillStyle = '#DEDEDE';
         context.fillRect(0, 0, this.#canvas.width, this.#canvas.height);
+
+        //...spread operator
+        const maxValue = values.length === 0 ? 0 : Math.max(...values);
+        if (maxValue === 0) {
+            context.restore();
+            return;
+        }
     
         // Set the color for the bars
         context.fillStyle = 'red';
         context.strokeStyle = 'black';
         context.lineWidth = 2;
         
-        //...spread operator
-        const maxValue = Math.max(...values);
         const scaleFactor = this.#canvas.height / maxValue;
 
         const barWidth = this.#canvas.width / values.length;
@@ -83,4 +89,3 @@ export class BarChart{
         downloadLink.click();
     }
 }
-
