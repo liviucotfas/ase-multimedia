@@ -33,62 +33,78 @@
         import { BarChart } from './canvas-bar-chart-library.js';
 
         //Selectors
-        const canvasImage = document.getElementById('canvasImage');
-        const canvasHistogram = document.getElementById('canvasHistogram');
+        const canvasImage = /** @type {HTMLCanvasElement} */ (document.getElementById('canvasImage'));
+        const canvasHistogram = /** @type {HTMLCanvasElement} */ (document.getElementById('canvasHistogram'));
         const barChart = new BarChart(canvasHistogram);
 
         //Methods
-        function drawImage(img) {
+        /**
+         * Draws the image at its natural dimensions.
+         * @param {HTMLImageElement} image - The loaded image to draw.
+         * @returns {void}
+         */
+        function drawImage(image) {
             // resize the canvas
-            canvasImage.width = img.naturalWidth;
-            canvasImage.height = img.naturalHeight;
+            canvasImage.width = image.naturalWidth;
+            canvasImage.height = image.naturalHeight;
            
             const context = canvasImage.getContext('2d');
-            context.drawImage(img, 0, 0);
+            context.drawImage(image, 0, 0);
         }
 
         /**
-         * Draws pixel counts for the rounded arithmetic mean of the RGB channels (0-255).
+         * Counts pixels by the rounded arithmetic mean of the RGB channels (0-255).
          * This simple intensity measure is a teaching simplification, not perceptual luminance.
          * Alpha is ignored: every pixel counts once using the RGB values returned by
          * getImageData(), including partially and fully transparent pixels.
-         * @returns {void}
+         * @param {ImageData} imageData - The RGBA pixels to count.
+         * @returns {number[]} The 256 intensity bins, each containing a pixel count.
          */
-        function drawImageHistogram(){
+        function calculateHistogram(imageData) {
 
             //Create an array of 256 elements, each initialized with 0
             // 1) Using the fill() method
-            const v = new Array(256).fill(0);
+            const bins = new Array(256).fill(0);
             // 2) Using a for loop
-            // const v = [];
+            // const bins = [];
             // for (let i = 0; i < 256; i++) {
             //     //The push() method adds new items to the end of an array, and returns the new length.
             //     // http://www.w3schools.com/jsref/jsref_push.asp
-            //     v.push(0);
+            //     bins.push(0);
             // }
 
-            const context = canvasImage.getContext('2d');
-            const cW = canvasImage.width;
-            const cH = canvasImage.height;
-            const imageData = context.getImageData(0, 0, cW, cH);
+            const width = imageData.width;
+            const height = imageData.height;
             const data = imageData.data;
 
-            for (let y = 0; y < cH; y++) { //each line
-                for (let x = 0; x < cW; x++) { //each column
+            for (let y = 0; y < height; y++) { //each line
+                for (let x = 0; x < width; x++) { //each column
                     
-                    const offset = ((cW * y) + x) * 4
+                    const offset = ((width * y) + x) * 4;
 
                     const red = data[offset];
                     const green = data[offset + 1];
                     const blue = data[offset + 2];
 
-                    const val = Math.round((red + green + blue)/3);
+                    const intensity = Math.round((red + green + blue) / 3);
 
-                    v[val]++;
+                    bins[intensity]++;
                 }
             }
 
-            barChart.draw(v, {stroke: false});
+            return bins;
+        }
+
+        /**
+         * Reads the image canvas pixels, counts their intensities, and draws the histogram.
+         * @returns {void}
+         */
+        function drawImageHistogram() {
+            const context = canvasImage.getContext('2d');
+            const imageData = context.getImageData(0, 0, canvasImage.width, canvasImage.height);
+            const bins = calculateHistogram(imageData);
+
+            barChart.draw(bins, {stroke: false});
         }
 
         //Events
