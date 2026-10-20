@@ -1,13 +1,17 @@
 //http://exploringjs.com/es6/ch_classes.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+/**
+ * Draws numeric values as vertical bars on a canvas.
+ */
 export class BarChart{
     /**
-     * The canvas on which the chart will be displayed
+     * The canvas on which the chart will be displayed.
+     * @type {HTMLCanvasElement}
      */
     #canvas;
     /**
      * Creates an instance of BarChart.
-     * @param {HTMLCanvasElement} canvas - The canvas used for drawing the histogram
+     * @param {HTMLCanvasElement} canvas - The canvas used for drawing the bar chart.
      */
     constructor(canvas) {
         this.#canvas = canvas;
@@ -15,13 +19,14 @@ export class BarChart{
     /**
      * Draws the bar chart on the canvas.
      * @param {Array<number>} values - The values that will be displayed in the chart.
-     * @param {Object} options - The options for drawing the bar chart.
-     * @param {boolean} [options.drawOutline] - Whether to draw the stroke around the bars.
+     * @param {Object} [options] - The options for drawing the bar chart.
+     * @param {boolean} [options.drawOutline] - Whether to draw an outline around each bar.
+     * @returns {void}
      */
     draw(values, options){
         const context = this.#canvas.getContext('2d');
     
-        // Save the current context of the applciation. We will restore it later.
+        // Save the current drawing state. We will restore it later.
         context.save();
     
         // Draw the chart background
@@ -35,19 +40,19 @@ export class BarChart{
         
         //...spread operator
         const maxValue = Math.max(...values);
-        const f = this.#canvas.height / maxValue;
+        const scaleFactor = this.#canvas.height / maxValue;
 
         const barWidth = this.#canvas.width / values.length;
     
         for (let i = 0; i < values.length; i++) {
                
-            const barHeight = values[i] * f * 0.9;
+            const barHeight = values[i] * scaleFactor * 0.9;
             const barX = i * barWidth + barWidth / 4;
             const barY = this.#canvas.height - barHeight;
     
             context.fillRect(barX, barY, barWidth / 2, barHeight);
 
-            if(options.drawOutline)
+            if(options?.drawOutline)
                 context.strokeRect(barX, barY, barWidth / 2, barHeight);
     
             /* Equivalent to:
@@ -59,5 +64,22 @@ export class BarChart{
 
         // Restore the initial context
         context.restore();
+    }
+
+    /**
+     * Initiates downloading the chart as a PNG image.
+     * @param {string} [filename='barchart'] - The suggested download filename.
+     * @returns {void}
+     * @throws {Error} If the canvas cannot be exported.
+     */
+    download(filename = 'barchart') {
+        // For large images, toBlob() with URL.createObjectURL() can be a better
+        // choice because toDataURL() encodes the entire image in a string.
+        const dataUrl = this.#canvas.toDataURL('image/png');
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = filename;
+        downloadLink.click();
     }
 }
