@@ -19,7 +19,7 @@ export class BarChart{
     /**
      * Draws the bar chart on the canvas.
      * @param {Array<number>} values - The values that will be displayed in the chart.
-     * @param {Object} options - The options for drawing the bar chart.
+     * @param {Object} [options] - The options for drawing the bar chart.
      * @param {boolean} [options.drawOutline] - Whether to draw an outline around each bar.
      * @returns {void}
      */
