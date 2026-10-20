@@ -127,6 +127,8 @@
                 //https://developer.mozilla.org/en/docs/Web/API/FileReader
                 const reader = new FileReader();
 
+                // An alternative would be to use await window.createImageBitmap(file), which can than be written on the canvas using drawImage().
+
                 //FileReader.onload: a handler for the load event. This event is triggered each time the reading operation is successfully completed.
                 //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
                 reader.addEventListener('load', function (e) {
