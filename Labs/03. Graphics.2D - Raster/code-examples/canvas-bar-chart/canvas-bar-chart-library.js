@@ -65,5 +65,22 @@ export class BarChart{
         // Restore the initial context
         context.restore();
     }
+
+    /**
+     * Initiates downloading the chart as a PNG image.
+     * @param {string} [filename='barchart.png'] - The suggested download filename.
+     * @returns {void}
+     * @throws {Error} If the canvas cannot be exported.
+     */
+    download(filename = 'barchart') {
+        // For large images, toBlob() with URL.createObjectURL() can be a better
+        // choice because toDataURL() encodes the entire image in a string.
+        const dataUrl = this.#canvas.toDataURL('image/png');
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = filename;
+        downloadLink.click();
+    }
 }
 
