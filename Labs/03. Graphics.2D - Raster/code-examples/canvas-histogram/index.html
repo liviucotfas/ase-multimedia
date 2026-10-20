@@ -116,18 +116,6 @@
                 reader.readAsDataURL(files[0]);
             }
         });
-
-        //After an event triggers on the deepest possible element, it then triggers on parents in nesting order
-        //https://javascript.info/tutorial/bubbling-and-capturing
-        document.getElementById('downloadLink').addEventListener('click', function(){
-            
-            //1. Ok for small images. Does not work with large images
-            //downloadLink.setAttribute("href", this.toDataURL("image/png"));
-
-            //2. create a Blob object representing the image contained in the canvas; this file may be cached on the disk or stored in memory at the discretion of the user agent.
-            //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
-            canvasHistogram.toBlob(function(blob){downloadLink.setAttribute('href', URL.createObjectURL(blob))}, 'image/png');
-        });
     </script>
 </body>
 </html>
