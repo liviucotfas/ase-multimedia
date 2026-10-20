@@ -47,12 +47,6 @@ Hint: use either the `measureText` method or `textAlign = "center"`
             barChart.draw(values.split(',').map(Number), options);
         });
 
-        //?After an event triggers on the deepest possible element, it then triggers on parents in nesting order
-        //https://javascript.info/tutorial/bubbling-and-capturing
-        /*chartCanvas.addEventListener('click', function () {
-            this.parentNode.setAttribute('href', this.toDataURL('image/png'));
-        });*/
-
         chartDownloadButton.addEventListener("click", () => {
             barChart.download();
         });
