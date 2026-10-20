@@ -25,7 +25,7 @@ Hint: use either the `measureText` method or `textAlign = "center"`
     <canvas id="chart-canvas">
         Your browser does not support the canvas element. :(
     </canvas>
-    <button id="chart-download-button">Download chart</button>
+    <button id="chart-download-button" type="button">Download chart</button>
 
     <script type="module">
     import { BarChart } from './canvas-bar-chart-library.js';
@@ -53,8 +53,7 @@ Hint: use either the `measureText` method or `textAlign = "center"`
             this.parentNode.setAttribute('href', this.toDataURL('image/png'));
         });*/
 
-        chartDownloadButton.addEventListener("click", (event) => {
-            event.preventDefault();
+        chartDownloadButton.addEventListener("click", () => {
             barChart.download();
         });
     

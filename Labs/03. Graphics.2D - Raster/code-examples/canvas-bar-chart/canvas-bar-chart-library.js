@@ -52,7 +52,7 @@ export class BarChart{
     
             context.fillRect(barX, barY, barWidth / 2, barHeight);
 
-            if(options.drawOutline)
+            if(options?.drawOutline)
                 context.strokeRect(barX, barY, barWidth / 2, barHeight);
     
             /* Equivalent to:
@@ -68,7 +68,7 @@ export class BarChart{
 
     /**
      * Initiates downloading the chart as a PNG image.
-     * @param {string} [filename='barchart.png'] - The suggested download filename.
+     * @param {string} [filename='barchart'] - The suggested download filename.
      * @returns {void}
      * @throws {Error} If the canvas cannot be exported.
      */
