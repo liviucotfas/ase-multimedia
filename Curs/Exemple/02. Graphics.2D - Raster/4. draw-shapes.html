@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas">
+        The canvas element is not supported in your browser.
+    </canvas>
+
+    <script>
+        'use strict';
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d'); // CanvasRenderingContext2D
+        ctx.fillStyle = '#0000ff'; // Set the fill color to blue
+        ctx.fillRect(10, 10, 100, 100); // Draw a filled rectangle
+        ctx.strokeStyle = 'red'; // Set the stroke color to red
+        ctx.strokeRect(10, 10, 100, 100); // Draw a rectangle outline
+        ctx.clearRect(20, 20, 80, 80); // Clear a smaller rectangle inside the filled rectangle
+        ctx.font = '30px Arial'; // Set the font size and family
+        ctx.textAlign = 'center'; // Set text alignment to center
+        ctx.fillText('Hello, World!', 10, 150); // Draw text
+        ctx.strokeText('Hello, World!', 10, 150);
+        console.log(ctx.measureText('Hello, World! Hello, World!')); // Measure the text
+
+    </script>
+</body>
+</html>

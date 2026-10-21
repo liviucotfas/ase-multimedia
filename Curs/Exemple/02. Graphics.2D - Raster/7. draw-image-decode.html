@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500">
+        The canvas element is not supported in your browser.
+    </canvas>
+
+    <script>
+        'use strict';
+        const img = document.createElement('img');
+        img.src = 'media/photo-935x702.jpg';
+        img.decode()
+            .then(() => {
+                const canvas = document.getElementById('canvas');
+                //canvas.width = img.naturalWidth;
+                //canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 100, 100, 100, 100, 0, 0, 100, 100);
+            })
+            .catch(error => {
+                console.error('Could not load or decode the image:', error);
+            });
+    </script>
+</body>
+</html>
