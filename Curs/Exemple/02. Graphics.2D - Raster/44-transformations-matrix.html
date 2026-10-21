@@ -29,12 +29,12 @@
             
             //context.scale(1, -1);
             //Q: equivalent?
-            const m11 = 1; //Horizontal scaling
-            const m12 = 0; //Horizontal skewing
-            const m21 = 0; //Vertical skewing
-            const m22 = -1; //Vertical scaling
-            const dx = 0; //Horizontal moving
-            const dy = 0; //Vertical moving
+            m11 = 1; //Horizontal scaling
+            m12 = 0; //Horizontal skewing
+            m21 = 0; //Vertical skewing
+            m22 = -1; //Vertical scaling
+            dx = 0; //Horizontal moving
+            dy = 0; //Vertical moving
             context.transform(m11, m12, m21, m22, dx, dy);
 
             context.fillStyle = "darkgrey";
