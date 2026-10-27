@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canvas - ImageData convolution filters</title>
+        <style>
+            main {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            figure {
+                flex: 1 1 28rem;
+                margin: 0;
+                min-width: 0;
+                max-width: 100%;
+            }
+
+            canvas {
+                display: block;
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Matrix filters with ImageData</h1>
+        <p>
+            A convolution filter replaces each pixel's RGB values with weighted sums
+            of neighboring values. The 3 &times; 3 matrix of weights is called a <em>kernel</em>.
+            Multiply each neighboring value by its weight, add the nine products,
+            then divide by the divisor. Repeat for red, green, and blue.
+        </p>
+        <label for="filter">Filter:</label>
+        <select id="filter" disabled>
+            <option value="boxBlur">Box blur</option>
+            <option value="gaussianBlur">Gaussian blur</option>
+            <option value="sharpen">Sharpen</option>
+            <option value="edges">Edge detection</option>
+            <option value="identity">Identity (no change)</option>
+        </select>
+        <pre id="kernel" aria-label="Selected kernel and divisor"></pre>
+        <p id="description"></p>
+        <p>
+            Every selection starts with the original pixels, so effects do not accumulate.
+            At image borders, the nearest valid pixel is repeated.
+        </p>
+        <main>
+            <figure>
+                <figcaption>Original</figcaption>
+                <canvas id="original">The original photograph used as the source for each filter.</canvas>
+            </figure>
+            <figure>
+                <figcaption id="result-caption">Filtered image</figcaption>
+                <canvas id="result" aria-labelledby="result-caption">
+                    The photograph after applying the selected 3 by 3 convolution kernel.
+                </canvas>
+            </figure>
+        </main>
+        <p id="status" role="status">Loading photograph...</p>
+        <p>
+            Teaching simplification: this example filters encoded RGB values and keeps
+            the original alpha channel. It is intended for the opaque photograph shown here.
+            For accurate color and transparent images, a complete application would work
+            in linear light and handle premultiplied color and alpha together.
+        </p>
+
+        <script>
+            "use strict";
+
+            /**
+             * @typedef {Object} ConvolutionFilter
+             * @property {number[][]} weights - A 3 by 3 kernel, stored as rows.
+             * @property {number} divisor - Nonzero normalization divisor.
+             * @property {string} description - Explanation of the filter.
+             */
+
+            /** @type {Record<string, ConvolutionFilter>} */
+            const filters = {
+                boxBlur: {
+                    weights: [
+                        [1, 1, 1],
+                        [1, 1, 1],
+                        [1, 1, 1]
+                    ],
+                    divisor: 9,
+                    description: "Box blur averages the center pixel and its eight neighbors. "
+                        + "Dividing by 9 makes the normalized weights sum to 1, preserving constant colors."
+                },
+                gaussianBlur: {
+                    weights: [
+                        [1, 2, 1],
+                        [2, 4, 2],
+                        [1, 2, 1]
+                    ],
+                    divisor: 16,
+                    description: "This small Gaussian blur approximation gives more weight to nearby pixels. "
+                        + "The weights sum to 16, so the divisor is 16."
+                },
+                sharpen: {
+                    weights: [
+                        [0, -1, 0],
+                        [-1, 5, -1],
+                        [0, -1, 0]
+                    ],
+                    divisor: 1,
+                    description: "Sharpening emphasizes the center pixel and subtracts its four direct neighbors. "
+                        + "The weights sum to 1, so constant colors are preserved."
+                },
+                edges: {
+                    weights: [
+                        [-1, -1, -1],
+                        [-1, 8, -1],
+                        [-1, -1, -1]
+                    ],
+                    divisor: 1,
+                    description: "Edge detection highlights local changes. The weights sum to 0, "
+                        + "so uniform areas become black. Use divisor 1 to avoid division by zero; "
+                        + "negative responses are clipped to black in this demonstration."
+                },
+                identity: {
+                    weights: [
+                        [0, 0, 0],
+                        [0, 1, 0],
+                        [0, 0, 0]
+                    ],
+                    divisor: 1,
+                    description: "The identity kernel uses only the center pixel, leaving the image unchanged."
+                }
+            };
+
+            const originalCanvas = /** @type {HTMLCanvasElement} */ (document.getElementById("original"));
+            const resultCanvas = /** @type {HTMLCanvasElement} */ (document.getElementById("result"));
+            const filterSelect = /** @type {HTMLSelectElement} */ (document.getElementById("filter"));
+            const kernelDisplay = document.getElementById("kernel");
+            const description = document.getElementById("description");
+            const resultCaption = document.getElementById("result-caption");
+            const status = document.getElementById("status");
+
+            initialize().catch((error) => {
+                status.textContent = "Could not load or process the photograph. See the console for details.";
+                console.error(error);
+            });
+
+            /**
+             * Loads the local photograph and connects the filter selector.
+             * @returns {Promise<void>}
+             */
+            async function initialize() {
+                const image = new Image();
+                image.src = "photo-935x702.jpg";
+                await image.decode();
+
+                // Keep one canvas pixel per image pixel; CSS only scales the display.
+                originalCanvas.width = resultCanvas.width = image.naturalWidth;
+                originalCanvas.height = resultCanvas.height = image.naturalHeight;
+
+                const originalContext = originalCanvas.getContext("2d");
+                const resultContext = resultCanvas.getContext("2d");
+                if (!originalContext || !resultContext) {
+                    throw new Error("A 2D canvas context is not available.");
+                }
+
+                originalContext.drawImage(image, 0, 0);
+                const source = originalContext.getImageData(0, 0, image.naturalWidth, image.naturalHeight);
+
+                /**
+                 * Applies the selected kernel to the unchanged source pixels.
+                 * @returns {void}
+                 */
+                function renderFilter() {
+                    const filter = filters[filterSelect.value];
+                    const filtered = applyConvolution(source, filter.weights, filter.divisor);
+                    resultContext.putImageData(filtered, 0, 0);
+
+                    const label = filterSelect.selectedOptions[0].text;
+                    resultCaption.textContent = label;
+                    kernelDisplay.textContent = filter.weights
+                        .map((row) => row.map((weight) => String(weight).padStart(2)).join(" "))
+                        .join("\n") + `\nDivisor: ${filter.divisor}`;
+                    description.textContent = filter.description;
+                    status.textContent = `${label} applied to the original photograph.`;
+                }
+
+                renderFilter();
+                filterSelect.addEventListener("change", renderFilter);
+                filterSelect.disabled = false;
+            }
+
+            /**
+             * Applies a 3 by 3 convolution kernel with nearest-edge padding.
+             * Reads from the source and writes to a separate buffer to avoid feedback.
+             * @param {ImageData} source - Unchanged source pixels (8-bit RGBA).
+             * @param {number[][]} weights - A 3 by 3 kernel, stored as rows.
+             * @param {number} divisor - Nonzero normalization divisor.
+             * @returns {ImageData} Filtered pixels with the original alpha values.
+             */
+            function applyConvolution(source, weights, divisor) {
+                const { width, height, data } = source;
+                const result = new ImageData(width, height);
+                const output = result.data;
+
+                for (let y = 0; y < height; y++) {
+                    for (let x = 0; x < width; x++) {
+                        let red = 0;
+                        let green = 0;
+                        let blue = 0;
+
+                        for (let kernelY = 0; kernelY < 3; kernelY++) {
+                            for (let kernelX = 0; kernelX < 3; kernelX++) {
+                                // Center and flip the kernel offsets for convolution.
+                                // All presets are symmetric, so flipping does not change them.
+                                // Clamp coordinates to repeat edge pixels outside the image.
+                                const sourceX = Math.min(width - 1, Math.max(0, x + 1 - kernelX));
+                                const sourceY = Math.min(height - 1, Math.max(0, y + 1 - kernelY));
+                                const sourceOffset = (sourceY * width + sourceX) * 4;
+                                const weight = weights[kernelY][kernelX];
+
+                                red += data[sourceOffset] * weight;
+                                green += data[sourceOffset + 1] * weight;
+                                blue += data[sourceOffset + 2] * weight;
+                            }
+                        }
+
+                        const offset = (y * width + x) * 4;
+                        // Uint8ClampedArray rounds and clamps RGB results to 0-255.
+                        output[offset] = red / divisor;
+                        output[offset + 1] = green / divisor;
+                        output[offset + 2] = blue / divisor;
+                        output[offset + 3] = data[offset + 3];
+                    }
+                }
+
+                return result;
+            }
+        </script>
+    </body>
+</html>
