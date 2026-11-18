@@ -6,7 +6,7 @@ export class BarChart{
 
     /**
      * Creates a new bar chart
-     * @param {HTMLElement} domElement 
+     * @param {HTMLElement} domElement The HTML container that will hold the chart.
      */
     constructor(domElement) {
         this.#createSVG();

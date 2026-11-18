@@ -134,7 +134,7 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
 
         /**
          * Creates a chart in the supplied container.
-         * @param {HTMLElement} domElement
+         * @param {HTMLElement} domElement The HTML container that will hold the chart.
          */
         constructor(domElement) {
             this.#createSVG();
