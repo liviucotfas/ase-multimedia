@@ -203,7 +203,7 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
     ```
 7. Replace the `draw()` method from step 4 with the following version to draw the bars. The SVG is already attached to the page, so its rendered width and height are available. Here, `barWidth` is the width of a category's slot; each rectangle occupies the middle half of that slot.
 
-    Passing `[]`, `undefined`, or `null` clears the bars and labels. Calling `draw()` without an argument does the same. The check `data == null` covers both `null` and `undefined`. For nonempty data, this example assumes `[label, value]` pairs with finite, nonnegative values and at least one positive value. It uses a fixed-size container. A complete library would validate input, handle all-zero data, and update its geometry when the container is resized.
+    Passing `[]`, `undefined`, or `null` clears the bars and labels. Calling `draw()` without an argument does the same. The check `data == null` covers both `null` and `undefined`. For nonempty data, this example assumes `[label, value]` pairs with finite, nonnegative values. When every value is zero, the scale factor is zero so each label is drawn with a zero-height bar. It uses a fixed-size container. A complete library would validate input and update its geometry when the container is resized.
 
     ```JavaScript
     /**
@@ -223,7 +223,7 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
         const barWidth = this.#svg.clientWidth / data.length;
 
         const maxValue = Math.max(...data.map(([, value]) => value));
-        const f = this.#svg.clientHeight / maxValue;
+        const f = maxValue === 0 ? 0 : this.#svg.clientHeight / maxValue;
 
         for(let i=0; i<data.length; i++){
 

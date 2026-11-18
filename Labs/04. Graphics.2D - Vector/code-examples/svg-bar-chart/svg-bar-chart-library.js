@@ -30,7 +30,7 @@ export class BarChart{
         const barWidth = this.#svg.clientWidth / data.length;
 
         const maxValue = Math.max(...data.map(([, value]) => value));
-        const f = this.#svg.clientHeight / maxValue;
+        const f = maxValue === 0 ? 0 : this.#svg.clientHeight / maxValue;
 
         for(let i=0; i<data.length; i++){
             const element = data[i];
