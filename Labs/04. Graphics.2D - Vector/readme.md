@@ -222,7 +222,8 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
         // Add the bars
         const barWidth = this.#svg.clientWidth / data.length;
 
-        const f = this.#svg.clientHeight / Math.max(...data.map(x=>x[1]));
+        const maxValue = Math.max(...data.map(([, value]) => value));
+        const f = this.#svg.clientHeight / maxValue;
 
         for(let i=0; i<data.length; i++){
 
