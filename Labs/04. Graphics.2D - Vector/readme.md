@@ -87,7 +87,9 @@ function drawBasic() {
 }
 ```
 
-The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-chart/). To build it yourself, create a folder called `svg-bar-chart` and follow the steps below. The Google Charts loader above is only used for the comparison example; our library has no external dependencies.
+The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-chart/). [Download the examples](code-examples.zip) as a ZIP file.
+
+To build it yourself, create a folder called `svg-bar-chart` and follow the steps below. The Google Charts loader above is only used for the comparison example; our library has no external dependencies.
 
 1. Add an `HTML` file called `index.html` and add the code included below.
 
@@ -156,6 +158,8 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
     ```
 5. Add the private `#createSVG()` method inside the class. The constructor calls it once. The SVG fills the container, whose dimensions were set in step 1.
 
+    The namespace tells the browser to create `svg`, `rect`, and `text` as SVG elements inside the HTML document.
+
     ```JavaScript
     /**
      * Creates the SVG drawing surface.
@@ -202,6 +206,8 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
     }
     ```
 7. Replace the `draw()` method from step 4 with the following version to draw the bars. The SVG is already attached to the page, so its rendered width and height are available. Here, `barWidth` is the width of a category's slot; each rectangle occupies the middle half of that slot.
+
+    In the 400-pixel-high sample chart, the tallest bar has `barHeight = 400 × 0.9 = 360` pixels. SVG's y-coordinate increases downward from the top, so the bar starts at `barY = 400 − 360 = 40` and extends down to the baseline at `y = 400`.
 
     Passing `[]`, `undefined`, or `null` clears the bars and labels. Calling `draw()` without an argument does the same. The check `data == null` covers both `null` and `undefined`. For nonempty data, this example assumes `[label, value]` pairs with finite, nonnegative values. When every value is zero, the scale factor is zero so each label is drawn with a zero-height bar. It uses a fixed-size container. A complete library would validate input and update its geometry when the container is resized.
 
@@ -274,7 +280,7 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
 >**Remarks:** To reuse the library, provide a container with explicit dimensions, import `BarChart` from `svg-bar-chart-library.js` in a module script, instantiate the class with the container, and call `draw()` with an array of `[label, value]` pairs that meets the assumptions in step 7. Page CSS is optional and can customize the library's default appearance through the `.bar` class.
 
 ##  5. <a name='Assignmentforyoutotry'></a>Assignment (for you to try)
-The Google Charts library supports many more features than our library, as you can see in the screenshot bellow. 
+The Google Charts library supports many more features than our library, as you can see in the screenshot below.
 
 ![Google Charts](media/google-charts.png)
 
@@ -283,7 +289,7 @@ Hint: Attach a handler to the `click` event of the bars.
 2. Comment the CSS code used for changing the color of the bars (".bar:hover"). Implement the same functionality using JavaScript.
 Hint: You need to handle the mouse events.
 3. Display the horizontal and vertical axes (as shown above).
-4. Display tooltips when the user hovers over the bars in you chart (as shown above).
+4. Display tooltips when the user hovers over the bars in your chart (as shown above).
 Hint: Check the type of element that is used in the Google Charts library
 5. (optional) Check the [D3.js](https://d3js.org/) library. Reimplement the example above using this library.
 
