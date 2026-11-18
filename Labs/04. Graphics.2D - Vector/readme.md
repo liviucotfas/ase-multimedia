@@ -147,7 +147,7 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
     ```JavaScript
     /**
      * Displays the supplied labels and values.
-     * @param {Array<[string, number]>} data
+     * @param {Array<[string, number]> | null} [data] An empty array, null, or an omitted value clears the chart.
      * @returns {void}
      */
     draw(data){
@@ -203,17 +203,21 @@ The local sample is in [`code-examples/svg-bar-chart`](code-examples/svg-bar-cha
     ```
 7. Replace the `draw()` method from step 4 with the following version to draw the bars. The SVG is already attached to the page, so its rendered width and height are available. Here, `barWidth` is the width of a category's slot; each rectangle occupies the middle half of that slot.
 
-    This introductory example assumes a nonempty array of `[label, value]` pairs with finite, nonnegative values and at least one positive value. It uses a fixed-size container. A complete library would validate input, handle empty and all-zero data, and update its geometry when the container is resized.
+    Passing `[]`, `undefined`, or `null` clears the bars and labels. Calling `draw()` without an argument does the same. The check `data == null` covers both `null` and `undefined`. For nonempty data, this example assumes `[label, value]` pairs with finite, nonnegative values and at least one positive value. It uses a fixed-size container. A complete library would validate input, handle all-zero data, and update its geometry when the container is resized.
 
     ```JavaScript
     /**
      * Displays the supplied labels and values.
-     * @param {Array<[string, number]>} data
+     * @param {Array<[string, number]> | null} [data] An empty array, null, or an omitted value clears the chart.
      * @returns {void}
      */
     draw(data){
         // Clear the chart
         this.#svg.replaceChildren();
+
+        if (data == null || data.length === 0) {
+            return;
+        }
 
         // Add the bars
         const barWidth = this.#svg.clientWidth / data.length;

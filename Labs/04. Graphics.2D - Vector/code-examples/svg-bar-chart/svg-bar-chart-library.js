@@ -15,11 +15,16 @@ export class BarChart{
 
     /**
      * Displays the bar chart
-     * @param {Array<[string, number]>} data
+     * @param {Array<[string, number]> | null} [data] An empty array, null, or an omitted value clears the chart.
+     * @returns {void}
      */
     draw(data){
         // Clear the chart
         this.#svg.replaceChildren();
+
+        if (data == null || data.length === 0) {
+            return;
+        }
 
         // Add the bars
         const barWidth = this.#svg.clientWidth / data.length;
