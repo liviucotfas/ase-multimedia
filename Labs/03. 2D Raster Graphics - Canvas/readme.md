@@ -1,4 +1,4 @@
-# 2D Raster Graphics
+# 2D Raster Graphics - Canvas
 
 <!-- vscode-markdown-toc -->
 * 1. [Objectives](#Objectives)

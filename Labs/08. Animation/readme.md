@@ -1,4 +1,4 @@
-# HTML5 Animation
+# Animation
 
 ## Documentation
 -   Web Animations API:

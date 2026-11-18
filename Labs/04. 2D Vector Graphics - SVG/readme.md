@@ -1,4 +1,4 @@
-# Scalable Vector Graphics - SVG
+# 2D Vector Graphics - SVG
 <!-- vscode-markdown-toc -->
 * 1. [Objectives](#Objectives)
 * 2. [What is it?](#Whatisit)

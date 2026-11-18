@@ -1,4 +1,4 @@
-# HTML5 Video
+# Video
 
 <!-- vscode-markdown-toc -->
 * 1. [Objectives](#Objectives)
