@@ -15,7 +15,7 @@ export class BarChart{
 
     /**
      * Displays the bar chart
-     * @param {Array<Array<>} data 
+     * @param {Array<[string, number]>} data
      */
     draw(data){
         // Clear the chart
@@ -43,17 +43,17 @@ export class BarChart{
             bar.setAttribute('height', barHeight);
             bar.setAttribute('width', barWidth / 2);
 
-            //note: if the styles are set using CSS .bar:hover {...} will only work if marked as !important
-            //the styling should be moved to the .bar {...} instead
-            bar.style.fill = '#db4437';
-            bar.style.strokeWidth = 2;
-            bar.style.stroke = "black";
+            // Presentation attributes provide defaults that page CSS can override.
+            bar.setAttribute('fill', '#db4437');
+            bar.setAttribute('stroke-width', '2');
+            bar.setAttribute('stroke', 'black');
             this.#svg.appendChild(bar);
 
             const text = document.createElementNS(this.#svgns, 'text');
             text.textContent = label;
             text.setAttribute('x', barX + barWidth / 2);
             text.setAttribute('y', this.#svg.clientHeight - 5);
+            text.setAttribute('text-anchor', 'middle');
             this.#svg.appendChild(text);
         }
     }
